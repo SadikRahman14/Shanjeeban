@@ -8,9 +8,11 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
+
       title: 'Product App',
       theme : ThemeData(
         primarySwatch: Colors.blue,
+
       ),
       home: ProductDetailsPage(),
     );
@@ -27,11 +29,14 @@ class ProductDetailsPage extends StatelessWidget{
         title: Center(child: Text('Football Options')),
       ),
 
+
       body:
         Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           ),
+
+
         ),
     );
   }
