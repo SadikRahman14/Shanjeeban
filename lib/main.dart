@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
                 height: 100,
 
                 decoration: BoxDecoration(
-                  color: Colors.black,
+                  color: Colors.indigo[100],
                   borderRadius: BorderRadius.circular(20),
                 ),
 
@@ -172,22 +172,37 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(13.0),
-                      child: Container(
-                          child: buildImageButton('assets/profile.png', 'Help the Cause'),
+                    GestureDetector(
+                      onTap: () {
+                        print('Pathao Taped');
+
+                      },
+                      child: Image.asset(
+                        'assets/profile.png',
+                        width: 100.0,
+                        height: 100.0,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(13.0),
-                      child: Container(
-                        child: buildImageButton('assets/profile.png', 'Profile'),
+                    GestureDetector(
+                      onTap: () {
+                        print('Pathao Taped');
+
+                      },
+                      child: Image.asset(
+                        'assets/leaderboard.png',
+                        width: 100.0,
+                        height: 100.0,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(13.0),
-                      child: Container(
-                        child: buildImageButton('assets/profile.png', 'Leaderboard'),
+                    GestureDetector(
+                      onTap: () {
+                        print('Pathao Taped');
+
+                      },
+                      child: Image.asset(
+                        'assets/support.png',
+                        width: 100.0,
+                        height: 100.0,
                       ),
                     ),
                    /* Container(
@@ -252,13 +267,66 @@ class _HomePageState extends State<HomePage> {
               ),
 
               ),
-            ],
+              SizedBox(height: 30),
+              Container(
+                child: Row(
+                  children: [
+                    Text(
+                      'Claim Your Rewards...',
+                      style: TextStyle(
+                        color: Colors.amberAccent,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          print('Pathao Taped');
+
+                        },
+                        child: Image.asset(
+                          'assets/pathao.png',
+                          width: 70.0,
+                          height: 70.0,
+                        ),
+                      ),
+                      /*child: Image(
+                         image: AssetImage('assets/pathao.png'),
+                        width: 70, height: 70,
+                      ),*/
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 30),
+              Container(
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.brown[900]),
+                    fixedSize: MaterialStateProperty.all(Size(350, 20)),
+                  ),
+                onPressed: (){
+                  print('Tell them ALL!');
+                },
+                  child:  Text(
+                    'Invite a Friend and Get 100 Points!',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )
+                  ),
+                  )
+
+              )
+                ],
           ),
         ),
       ),
     );
   }
 }
+
+
 Widget buildImageButton(String imagePath, String buttonText) {
   return Column(
 
@@ -269,6 +337,7 @@ Widget buildImageButton(String imagePath, String buttonText) {
         height: 50,
         width: 50,
         decoration: BoxDecoration(
+
           color: Colors.white,
           borderRadius: BorderRadius.circular(25),
         ),
