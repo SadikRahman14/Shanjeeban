@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main(){
   runApp(MyApp());
@@ -79,7 +80,8 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
 
-              ],),
+              ],
+              ),
               SizedBox(height: 20),
               Container(
                 height: 50,
@@ -152,14 +154,142 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 ],
-              )
-              ,
-              )
+              ),
 
+              ),
+              SizedBox(height: 30),
+              // 3 Clickable Images.
+              Container(
+                height: 100,
+
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+
+                child: Row(
+
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Container(
+                          child: buildImageButton('assets/profile.png', 'Help the Cause'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Container(
+                        child: buildImageButton('assets/profile.png', 'Profile'),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: Container(
+                        child: buildImageButton('assets/profile.png', 'Leaderboard'),
+                      ),
+                    ),
+                   /* Container(
+                      height: 50, width: 50,
+                      decoration: BoxDecoration(
+
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(25)
+                      ),
+
+
+
+                      child: InkWell(
+                      onTap: () {
+                       print('Profile Button tapped!');
+                      },
+                      child: Image.network(
+                        'assets/profile.png', // Replace with your image asset path
+                        width: 100.0, // Set the width of the image
+                        height: 100.0, // Set the height of the image
+                      ),
+                    ),
+
+                    ),
+                    Container(
+                      height: 50, width: 50,
+                      decoration: BoxDecoration(
+
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25)
+                      ),
+
+
+
+                      child : buildImageButton('assets/profile.png', 'Profile'),
+
+                    ),
+
+                    Container(
+                      height: 50, width: 50,
+                      decoration: BoxDecoration(
+
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25)
+                      ),
+
+
+
+                      child: InkWell(
+                        onTap: () {
+                          print('Profile Button tapped!');
+                        },
+                        child: Image.asset(
+                          'assets/profile.png',
+                          width: 100.0,
+                          height: 100.0,
+                        ),
+                      ),
+
+                    ),*/
+                  ],
+              ),
+
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+Widget buildImageButton(String imagePath, String buttonText) {
+  return Column(
+
+    children: [
+
+      Container(
+
+        height: 50,
+        width: 50,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
+        ),
+        child: InkWell(
+          onTap: () {
+            print('$buttonText Button tapped!');
+          },
+          child: Image.asset(
+            imagePath,
+            width: 50.0,
+            height: 50.0,
+          ),
+        ),
+      ),
+      SizedBox(height: 4), // Adjust the spacing between image and text
+      Text(
+          buttonText,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+    ],
+  );
 }
