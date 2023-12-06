@@ -19,6 +19,10 @@ class ProductDetailsPage extends StatelessWidget{
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
   var handleInput = TextEditingController();
+  var gmailInput = TextEditingController();
+  var dateOfBirthInput = TextEditingController();
+  var cityInput = TextEditingController();
+  var thanaInput = TextEditingController();
 
   @override
   Widget build(BuildContext context){
@@ -55,8 +59,8 @@ class ProductDetailsPage extends StatelessWidget{
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25,),
+              ),//fullName
+              SizedBox(height: 18,),
               TextField(
                 controller: passwordInput,
                 obscureText: true,
@@ -78,13 +82,13 @@ class ProductDetailsPage extends StatelessWidget{
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25,),
+              ),//password
+              SizedBox(height: 18,),
               TextField(
                 controller: phoneNumberInput,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
-                  hintText: "phone number",
+                  hintText: "phone number ",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
@@ -100,8 +104,8 @@ class ProductDetailsPage extends StatelessWidget{
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25,),
+              ),//phone
+              SizedBox(height: 18,),
               TextField(
                 controller: handleInput,
                 decoration: InputDecoration(
@@ -121,8 +125,92 @@ class ProductDetailsPage extends StatelessWidget{
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 25,),
+              ),//handle
+              SizedBox(height: 18,),
+              TextField(
+                controller: handleInput,
+                decoration: InputDecoration(
+                  hintText: "gmail",
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),//gmail
+              SizedBox(height: 18,),
+              TextField(
+                controller: handleInput,
+                decoration: InputDecoration(
+                  hintText: "date of birth",
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),//dateOfBirth
+              SizedBox(height: 18,),
+              TextField(
+                controller: handleInput,
+                decoration: InputDecoration(
+                  hintText: "district",
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),//district
+              SizedBox(height: 18,),
+              TextField(
+                controller: handleInput,
+                decoration: InputDecoration(
+                  hintText: "thana",
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),//thana
+              SizedBox(height: 18,),
               ElevatedButton(
                 onPressed: (){
                   String userFullName = fullNameInput.text.toString();
