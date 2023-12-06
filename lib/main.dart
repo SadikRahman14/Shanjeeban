@@ -8,11 +8,7 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-
       title: 'Product App',
-      theme : ThemeData(
-        primarySwatch: Colors.blue,
-      ),
       home: ProductDetailsPage(),
     );
   }
@@ -30,26 +26,71 @@ class ProductDetailsPage extends StatelessWidget{
 
 
       body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Container(
+          width: 320,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: 320,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide(
-                        color: Colors.black,
-                        width: 1,
-                      ),
+              TextField(
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 25,),
+              TextField(
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 25,),
+              TextField(
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
                     ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
+        )
+      ),
 
       // bottomNavigationBar: BottomNavigationBar(
       //   //currentIndex: _currentIndex,
