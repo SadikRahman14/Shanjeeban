@@ -15,6 +15,11 @@ class MyApp extends StatelessWidget{
 }
 
 class ProductDetailsPage extends StatelessWidget{
+  var fullNameInput = TextEditingController();
+  var passwordInput = TextEditingController();
+  var phoneNumberInput = TextEditingController();
+  var handleInput = TextEditingController();
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -32,7 +37,9 @@ class ProductDetailsPage extends StatelessWidget{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
+                controller: fullNameInput,
                 decoration: InputDecoration(
+                  hintText: "full name",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
@@ -51,7 +58,11 @@ class ProductDetailsPage extends StatelessWidget{
               ),
               SizedBox(height: 25,),
               TextField(
+                controller: passwordInput,
+                obscureText: true,
+                obscuringCharacter: '*',
                 decoration: InputDecoration(
+                  hintText: "password",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
@@ -70,7 +81,10 @@ class ProductDetailsPage extends StatelessWidget{
               ),
               SizedBox(height: 25,),
               TextField(
+                controller: phoneNumberInput,
+                keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
+                  hintText: "phone number",
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                     borderSide: BorderSide(
@@ -86,6 +100,41 @@ class ProductDetailsPage extends StatelessWidget{
                     ),
                   ),
                 ),
+              ),
+              SizedBox(height: 25,),
+              TextField(
+                controller: handleInput,
+                decoration: InputDecoration(
+                  hintText: "handle",
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.red,
+                      width: 2.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                    borderSide: BorderSide(
+                      color: Colors.blue,
+                      width: 1,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 25,),
+              ElevatedButton(
+                onPressed: (){
+                  String userFullName = fullNameInput.text.toString();
+                  String userPassword = passwordInput.text.toString();
+                  String userPhoneNumber = phoneNumberInput.text.toString();
+                  String userHandle = handleInput.text.toString();
+
+                  print(
+                    "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber"
+                  );
+                },
+                child: Text('physical info'),
               ),
             ],
           ),
