@@ -38,6 +38,27 @@ class ProductDetailsPage extends StatelessWidget{
 
 
         ),
+      bottomNavigationBar: BottomNavigationBar(
+        //currentIndex: _currentIndex,
+        onTap: (index) {
+
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '',
+          ),
+        ],
+      ),
     );
+
   }
 }
