@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +32,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.indigo[200],
+      backgroundColor: Colors.grey,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                //Notifications
                 Container(
                   decoration: BoxDecoration(
-                    color: Colors.blue[100],
+                    color: Colors.grey[100],
                     borderRadius: BorderRadius.circular(15),
                   ),
                   padding: EdgeInsets.all(4),
@@ -87,7 +87,7 @@ class _HomePageState extends State<HomePage> {
                 height: 50,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: Colors.grey[800],
+                  color: Colors.grey[600],
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -112,12 +112,13 @@ class _HomePageState extends State<HomePage> {
                 padding: EdgeInsets.all(12),
                 height: 200, width: 400,
                 decoration: BoxDecoration(
-                  color: Colors.indigo[400],
-                  borderRadius: BorderRadius.circular(16),
+                  color: Colors.grey[600],
+                  borderRadius: BorderRadius.circular(25),
                 ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  //Donate Now
                   ElevatedButton(
                     onPressed: () {
                       // Code to execute when the first button is pressed
@@ -135,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                   ),
-                  SizedBox(height: 16), // Adding some space between buttons
+                  SizedBox(height: 16),
+                  // Request For Blood Button
                   ElevatedButton(
 
                     onPressed: () {
@@ -163,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                 height: 100,
 
                 decoration: BoxDecoration(
-                  color: Colors.indigo[100],
+                  color: Colors.grey,
                   borderRadius: BorderRadius.circular(20),
                 ),
 
