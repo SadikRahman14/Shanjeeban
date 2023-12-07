@@ -8,13 +8,18 @@ class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return MaterialApp(
-      title: 'Product App',
+      title: 'Shanjeeban',
       home: ProductDetailsPage(),
     );
   }
 }
 
-class ProductDetailsPage extends StatelessWidget{
+class ProductDetailsPage extends StatefulWidget{
+  @override
+  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+}
+
+class _ProductDetailsPageState extends State<ProductDetailsPage> {
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
