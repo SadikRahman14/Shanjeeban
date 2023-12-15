@@ -86,6 +86,12 @@ flutter:
      - family: Distorted
        fonts:
          - asset: assets/Doctor Glitch.otf
+     - family: 3D
+       fonts:
+         - asset: assets/Chomixi3D-Regular.ttf
+     - family: Profile
+       fonts:
+       - asset: assets/Cream Cake.otf
 
   #         style: italic
   #   - family: Trajan Pro

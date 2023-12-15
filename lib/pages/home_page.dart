@@ -23,10 +23,34 @@ class _HomeState extends State<Home> {
 
 
              ),
-             padding: EdgeInsets.only(top: 120),
+             padding: EdgeInsets.only(top: 50),
 
              child: Column(
                children: [
+                 Padding(
+                   padding: const EdgeInsets.only(left: 16.0),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.start,
+
+                     children: [
+                       Image.asset(
+                         'assets/pathao.png',
+                         height: 60, // Adjust the height as needed
+                       ),
+                       Text(
+                         'SadikRahman14',
+                         style: TextStyle(
+                           color: Colors.white,
+                           fontFamily: 'Profile',
+                           fontWeight: FontWeight.bold,
+                           fontSize: 20,
+
+                         ),
+                       )
+                    ],
+                   ),
+                 ),
+                 SizedBox(height: 10,),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                    crossAxisAlignment: CrossAxisAlignment.start,
@@ -404,27 +428,40 @@ class _HomeState extends State<Home> {
                 ],
              ),
            ),
-           Container(
-             height: 20,
-             decoration: BoxDecoration(
-                 color: Colors.white,
+            SizedBox(height: 20,),
+            Container(
+               height: 40, width: 280,
+               decoration: BoxDecoration(
+                 color: Colors.grey[300],
                  borderRadius: BorderRadius.only(
-                   topLeft: Radius.circular(30),
-                   topRight: Radius.circular(30),
+                   topLeft: Radius.circular(20),
+                   topRight: Radius.circular(20),
+                   bottomLeft: Radius.circular(20),
+                   bottomRight: Radius.circular(20),
                  )
-             ),
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-               children: [
-                 IconButton(
-                     onPressed: (){
-                     },
-                     icon: Icon(Icons.add)
-                 )
-               ],
+               ),
+               child: Row(
+                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                 children: [
+                   IconButton(
+                       onPressed: (){
+                       },
+                       icon: Icon(Icons.home)
+                   ),
+                   IconButton(
+                       onPressed: (){
+                       },
+                       icon: Icon(Icons.history)
+                   ),
+                   IconButton(
+                       onPressed: (){
+                       },
+                       icon: Icon(Icons.notifications)
+                   ),
+                ],
+               ),
              ),
 
-           ),
           ],
 
        ),
