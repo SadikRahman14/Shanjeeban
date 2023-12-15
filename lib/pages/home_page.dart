@@ -14,6 +14,7 @@ class _HomeState extends State<Home> {
        body: Column(
          mainAxisAlignment: MainAxisAlignment.start,
          children: [
+           // Red Container
            Container(
              height: 450, width: 500,
              decoration: BoxDecoration(
@@ -46,8 +47,27 @@ class _HomeState extends State<Home> {
                            fontSize: 20,
 
                          ),
+                       ),
+                       SizedBox(width: 135,),
+                       GestureDetector(
+                         onTap: () {
+                           // Handle the tap event here
+                         },
+                         child: CircleAvatar(
+                           radius: 18,
+                           backgroundColor: Colors.grey[100],
+                           child: ClipOval(
+                             child: Image.asset(
+                               'assets/Profile.jpg',
+                               height: 40,
+                             ),
+                           ),
+                         ),
                        )
-                    ],
+
+
+
+                     ],
                    ),
                  ),
                  SizedBox(height: 10,),
@@ -57,42 +77,95 @@ class _HomeState extends State<Home> {
 
                    children: [
 
-                     Text(
-                       'BLOOD \nTYPE',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontFamily: 'Elegant',
-                       ),
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           'BLOOD \nTYPE:',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontFamily: 'Elegant',
+                           ),
+                         ),
+                         SizedBox(height: 5,),
+                         Padding(
+                           padding: const EdgeInsets.only(left: 5),
+                           child: Text(
+                             'A+',
+                             style: TextStyle(
+                               color: Colors.amber,
+                               fontFamily: 'Elegant',
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
+                         ),
+                       ],
                      ),
                      Container(
-                       height: 40,
+                       height: 60,
                        child: const VerticalDivider(
 
                          color: Colors.yellow,
                          width: 10,
                        ),
                      ),
-                     Text(
-                       'UNIT \nDONATED',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontFamily: 'Elegant',
-                       ),
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           'UNIT \nDONATED:',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontFamily: 'Elegant',
+                           ),
+                         ),
+                         SizedBox(height: 5,),
+                         Padding(
+                           padding: const EdgeInsets.only(left: 5),
+                           child: Text(
+                             '05',
+                             style: TextStyle(
+                               color: Colors.amber,
+                               fontFamily: 'Elegant',
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
+                         ),
+                       ],
                      ),
+
+
                      Container(
-                       height: 40,
+                       height: 60,
                        child: const VerticalDivider(
 
                          color: Colors.yellow,
                          width: 10,
                        ),
                      ),
-                     Text(
-                       'NEXT \nDONATOIN',
-                       style: TextStyle(
-                         color: Colors.white,
-                         fontFamily: 'Elegant',
-                       ),
+                     Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       children: [
+                         Text(
+                           'NEXT \nDONATION:',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontFamily: 'Elegant',
+                           ),
+                         ),
+                         SizedBox(height: 5,),
+                         Padding(
+                           padding: const EdgeInsets.only(left: 5),
+                           child: Text(
+                             '26.01.2024',
+                             style: TextStyle(
+                               color: Colors.amber,
+                               fontFamily: 'Elegant',
+                               fontWeight: FontWeight.bold,
+                             ),
+                           ),
+                         ),
+                       ],
                      ),
                    ],
                  ),
@@ -110,12 +183,10 @@ class _HomeState extends State<Home> {
                            fontWeight: FontWeight.bold,
                            fontSize: 20,
                            fontFamily: 'Distorted',
-                           //textAlign: TextAlign.left, // Align text to the left
                          ),
                        ),
                      ),
-
-                   ],
+                    ],
                  ),
                  Row(
                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -169,7 +240,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
+                           'assets/ambulance.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
@@ -177,7 +248,8 @@ class _HomeState extends State<Home> {
                            'Emergency',
                            style: TextStyle(
                              fontSize: 12,
-                             color: Colors.black,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
                            ),
                          ),
                          Text(
@@ -214,19 +286,20 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
+                           'assets/donateNow.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
                          Text(
-                           'Emergency',
+                           'DONATE NOW',
                            style: TextStyle(
                              fontSize: 12,
-                             color: Colors.black,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
                            ),
                          ),
                          Text(
-                           'Your Nearby Service',
+                           'Your Help Matters',
                            style: TextStyle(
                              fontSize: 8,
                              color: Colors.black,
@@ -259,19 +332,21 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
+                           'assets/request.png', // Replace with your image asset path
                            height: 30,
+                           //width: 60,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
                          Text(
-                           'Emergency',
+                           'Request Blood',
                            style: TextStyle(
                              fontSize: 12,
-                             color: Colors.black,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
                            ),
                          ),
                          Text(
-                           'Your Nearby Service',
+                           'Donors Waiting!',
                            style: TextStyle(
                              fontSize: 8,
                              color: Colors.black,
@@ -313,19 +388,66 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
+                           'assets/PointsIcon.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
                          Text(
-                           'Emergency',
+                           '253 Points',
                            style: TextStyle(
                              fontSize: 12,
-                             color: Colors.black,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
                            ),
                          ),
                          Text(
-                           'Your Nearby Service',
+                           'Claim Your Rewards!',
+                           style: TextStyle(
+                             fontSize: 8,
+                             color: Colors.black,
+                           ),
+                         ),
+                       ],
+                     ),
+                   ),
+                 ),
+                 GestureDetector(
+                   onTap: () {
+
+                   },
+                   child: Container(
+                     decoration: BoxDecoration(
+                       color: Colors.grey[100],
+                       shape: BoxShape.rectangle,
+                       border: Border.all(
+                         color: Colors.black,
+                       ),
+                       borderRadius: BorderRadius.only(
+                         topLeft: Radius.circular(20),
+                         topRight: Radius.circular(20),
+                         bottomLeft: Radius.circular(20),
+                         bottomRight: Radius.circular(20),
+                       ),
+                     ),
+                     padding: EdgeInsets.all(8), // Padding around the button content
+                     child: Column(
+                       mainAxisAlignment: MainAxisAlignment.center,
+                       children: [
+                         Image.asset(
+                           'assets/support.png', // Replace with your image asset path
+                           height: 30,
+                         ),
+                         SizedBox(height: 8), // Add some spacing between the image and text
+                         Text(
+                           'Invite Friends',
+                           style: TextStyle(
+                             fontSize: 12,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
+                           ),
+                         ),
+                         Text(
+                           'Get 100 Points',
                            style: TextStyle(
                              fontSize: 8,
                              color: Colors.black,
@@ -363,59 +485,15 @@ class _HomeState extends State<Home> {
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
                          Text(
-                           'Emergency',
+                           'Leaderboard',
                            style: TextStyle(
                              fontSize: 12,
-                             color: Colors.black,
+                             color: Colors.red,
+                             fontWeight: FontWeight.bold,
                            ),
                          ),
                          Text(
-                           'Your Nearby Service',
-                           style: TextStyle(
-                             fontSize: 8,
-                             color: Colors.black,
-                           ),
-                         ),
-                       ],
-                     ),
-                   ),
-                 ),
-                 GestureDetector(
-                   onTap: () {
-
-                   },
-                   child: Container(
-                     decoration: BoxDecoration(
-                       color: Colors.grey[100],
-                       shape: BoxShape.rectangle,
-                       border: Border.all(
-                         color: Colors.black,
-                       ),
-                       borderRadius: BorderRadius.only(
-                         topLeft: Radius.circular(20),
-                         topRight: Radius.circular(20),
-                         bottomLeft: Radius.circular(20),
-                         bottomRight: Radius.circular(20),
-                       ),
-                     ),
-                     padding: EdgeInsets.all(8), // Padding around the button content
-                     child: Column(
-                       mainAxisAlignment: MainAxisAlignment.center,
-                       children: [
-                         Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
-                           height: 30,
-                         ),
-                         SizedBox(height: 8), // Add some spacing between the image and text
-                         Text(
-                           'Emergency',
-                           style: TextStyle(
-                             fontSize: 12,
-                             color: Colors.black,
-                           ),
-                         ),
-                         Text(
-                           'Your Nearby Service',
+                           'See the Ranking',
                            style: TextStyle(
                              fontSize: 8,
                              color: Colors.black,
