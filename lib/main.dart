@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
 }
 
 class PhysicalInformationPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,22 +29,24 @@ class PhysicalInformationPage extends StatelessWidget {
 
           children: [
             Text("Physical Information",
-              style: TextStyle(fontSize: 26, color: Colors.white),
+              style: TextStyle(fontSize: 27, color: Colors.white),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 35,),
             TextFormField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: "Age",
-                  labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10))
+                 labelText: "Age",
+                  labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
+                  border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
             ),
-            SizedBox(height: 10.0),
+            SizedBox(height: 18.0),
 
-            TextField(
+            /*TextFormField(
               decoration: InputDecoration(
                 labelText: "Blood Group",
-                labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
+                labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
 
               ),
@@ -69,24 +72,10 @@ class PhysicalInformationPage extends StatelessWidget {
               onChanged: (String? value) {
                 // Handle the blood group selection
               },
-            ),
-
-            SizedBox(height: 8.0),
-            /*TextField(
-              label: 'Blood group:',
-              child: DropdownButtonFormField<String>(
-                items: ['A', 'B', 'AB', 'O'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  // Handle the blood group selection
-                },
-              ),
             ),*/
+
             TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: "Height",
                   labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
@@ -94,8 +83,11 @@ class PhysicalInformationPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10))
               ),
             ),
-            SizedBox(height: 10.0),
+
+            SizedBox(height: 18.0),
+
             TextField(
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   labelText: "Weight",
                   labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
@@ -103,12 +95,41 @@ class PhysicalInformationPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10))
               ),
             ),
-            SizedBox(height: 10.0),
+
+            SizedBox(height: 18.0),
+
+            Text(
+              'Blood Group',
+              style: TextStyle(fontSize: 19.0),
+            ),
+            SizedBox(height: 1.0),
+            DropdownButtonFormField<String>(
+              items: [
+                'A+',
+                'A-',
+                'B',
+                'B-',
+                'AB+',
+                'AB-',
+                'O+',
+                'O-',
+                'None of These'
+              ].map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                // Handle the blood group selection
+              },
+            ),
+            SizedBox(height: 18.0),
             Text(
               'Gender:',
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 19.0),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 1.0),
             DropdownButtonFormField<String>(
               items: ['Male', 'Female'].map((String value) {
                 return DropdownMenuItem<String>(
@@ -120,23 +141,22 @@ class PhysicalInformationPage extends StatelessWidget {
                 // Handle the gender selection
               },
             ),
-            SizedBox(height: 16.0),
-            Text(
-              'Last Donation Date:',
-              style: TextStyle(fontSize: 18.0),
-            ),
-            SizedBox(height: 8.0),
-            TextFormField(
-              // You can use a date picker here
+            SizedBox(height: 20.0),
+            TextField(
               keyboardType: TextInputType.datetime,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                  labelText: "Last Donation Date",
+                  labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))
               ),
             ),
-            SizedBox(height: 5.0),
+
+            SizedBox(height: 40.0),
+
             Text(
               'Blood Test Certificate:',
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 19.0,color: Colors.amberAccent),
             ),
             SizedBox(height: 8.0),
             ElevatedButton(
@@ -150,5 +170,7 @@ class PhysicalInformationPage extends StatelessWidget {
       ),
     );
   }
+
+  void setState(Null Function() param0) {}
 }
 
