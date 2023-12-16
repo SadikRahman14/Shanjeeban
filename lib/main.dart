@@ -29,19 +29,21 @@ class PhysicalInformationPage extends StatelessWidget {
 
           children: [
             Text("Physical Information",
-              style: TextStyle(fontSize: 27, color: Colors.white),
+              style: TextStyle(fontSize: 27, color: Colors.white, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 35,),
+            SizedBox(height: 30,),
             TextFormField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                 labelText: "Age",
-                  labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
-                  border:
-                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                labelText: "Age",
+                labelStyle: TextStyle(fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'Poppins-Medium'),
+                border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
               ),
             ),
-            SizedBox(height: 18.0),
+            SizedBox(height: 16.0),
 
             /*TextFormField(
               decoration: InputDecoration(
@@ -77,37 +79,40 @@ class PhysicalInformationPage extends StatelessWidget {
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: "Height",
-                  labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
+                  labelText: "Height(in cm)",
+                  labelStyle: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontFamily: 'Poppins-Medium',),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))
               ),
             ),
 
-            SizedBox(height: 18.0),
+            SizedBox(height: 16.0),
 
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  labelText: "Weight",
-                  labelStyle: TextStyle(fontSize: 19, color: Colors.black87),
+                  labelText: "Weight(in kg)",
+                  labelStyle: TextStyle(fontSize: 18, color: Colors.black,fontFamily: 'Poppins-Medium'),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))
               ),
             ),
 
-            SizedBox(height: 18.0),
+            SizedBox(height: 16.0),
 
             Text(
               'Blood Group',
-              style: TextStyle(fontSize: 19.0),
+              style: TextStyle(fontSize: 18, color: Colors.black,fontFamily: 'Poppins-Medium'),
             ),
             SizedBox(height: 1.0),
             DropdownButtonFormField<String>(
               items: [
                 'A+',
                 'A-',
-                'B',
+                'B+',
                 'B-',
                 'AB+',
                 'AB-',
@@ -124,10 +129,10 @@ class PhysicalInformationPage extends StatelessWidget {
                 // Handle the blood group selection
               },
             ),
-            SizedBox(height: 18.0),
+            SizedBox(height: 16.0),
             Text(
               'Gender:',
-              style: TextStyle(fontSize: 19.0),
+              style: TextStyle(fontSize: 18, color: Colors.black,fontFamily: 'Poppins-Medium'),
             ),
             SizedBox(height: 1.0),
             DropdownButtonFormField<String>(
@@ -146,19 +151,23 @@ class PhysicalInformationPage extends StatelessWidget {
               keyboardType: TextInputType.datetime,
               decoration: InputDecoration(
                   labelText: "Last Donation Date",
-                  labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
+                  labelStyle: TextStyle(fontSize: 18, color: Colors.black,fontFamily: 'Poppins-Medium'),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))
               ),
             ),
 
-            SizedBox(height: 40.0),
+            SizedBox(height: 35.0),
 
             Text(
               'Blood Test Certificate:',
-              style: TextStyle(fontSize: 19.0,color: Colors.amberAccent),
+              style: TextStyle(
+                  fontSize: 19.0,
+                  color: Colors.lightGreenAccent,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Poppins-Medium'),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 10.0),
             ElevatedButton(
               onPressed: () {
                 // Handle file selection
@@ -170,7 +179,7 @@ class PhysicalInformationPage extends StatelessWidget {
       ),
     );
   }
-
-  void setState(Null Function() param0) {}
 }
+
+
 
