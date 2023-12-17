@@ -32,22 +32,35 @@ class PhysicalInformationPage extends StatelessWidget {
                   fontSize: 27,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            TextFormField(
+            )
+            ,
+            SizedBox(height: 30,),
+
+            TextField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Age",
+              decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                labelText: " Age",
                 labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.black,
+                    fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins-Medium'),
                 border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(18.0),
+                    ),
+                enabledBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                    borderRadius: BorderRadius.circular(18.0),
+              ),
+                focusedBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
               ),
             ),
+
             SizedBox(height: 16.0),
 
             /*TextFormField(
@@ -83,29 +96,58 @@ class PhysicalInformationPage extends StatelessWidget {
 
             TextField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  labelText: "Height(in cm)",
+              decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                  labelText: " Height(in cm)",
                   labelStyle: TextStyle(
                     fontSize: 18,
                     color: Colors.black,
                     fontFamily: 'Poppins-Medium',
                   ),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                border:
+                OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                enabledBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                focusedBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
             ),
+
             SizedBox(height: 16.0),
+
             TextField(
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  labelText: "Weight(in kg)",
+              decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                  labelText: " Weight(in kg)",
                   labelStyle: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                       fontFamily: 'Poppins-Medium'),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+
+                border:
+                OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                enabledBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                focusedBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
             ),
+
             SizedBox(height: 16.0),
+
             Text(
               'Blood Group',
               style: TextStyle(
@@ -135,7 +177,9 @@ class PhysicalInformationPage extends StatelessWidget {
                 // Handle the blood group selection
               },
             ),
+
             SizedBox(height: 16.0),
+
             Text(
               'Gender:',
               style: TextStyle(
@@ -155,19 +199,37 @@ class PhysicalInformationPage extends StatelessWidget {
                 // Handle the gender selection
               },
             ),
+
             SizedBox(height: 20.0),
+
+
             TextField(
               keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                  labelText: "Last Donation Date",
+              decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                  labelText: " Last Donation Date",
                   labelStyle: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
                       fontFamily: 'Poppins-Medium'),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),
+                border:
+                OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                enabledBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.white, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                focusedBorder:  OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black87, width: 2.0),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+              ),
             ),
+
             SizedBox(height: 35.0),
+
+
             Text(
               'Blood Test Certificate',
               style: TextStyle(
