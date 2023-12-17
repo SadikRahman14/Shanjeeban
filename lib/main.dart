@@ -36,6 +36,7 @@ class PhysicalInformationPage extends StatelessWidget {
             ,
             SizedBox(height: 30,),
 
+
             TextField(
               keyboardType: TextInputType.number,
               decoration: InputDecoration(filled: true, fillColor: Colors.grey,
@@ -148,6 +149,8 @@ class PhysicalInformationPage extends StatelessWidget {
 
             SizedBox(height: 16.0),
 
+
+
             Text(
               'Blood Group',
               style: TextStyle(
@@ -200,6 +203,7 @@ class PhysicalInformationPage extends StatelessWidget {
               },
             ),
 
+
             SizedBox(height: 20.0),
 
 
@@ -238,7 +242,9 @@ class PhysicalInformationPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Poppins-Medium'),
             ),
+
             SizedBox(height: 10.0),
+
             ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
