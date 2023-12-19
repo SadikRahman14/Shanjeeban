@@ -34,12 +34,13 @@ class PhysicalInformationPage extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 25,),
 
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(filled: true, fillColor: Colors.grey,
-                  labelText: " Age",
+                 contentPadding: EdgeInsets.all(28),
+                  labelText: "Age",
                   labelStyle: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -61,43 +62,14 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 16.0),
+              SizedBox(height: 13.0),
 
-              /*TextFormField(
-                decoration: InputDecoration(
-                  labelText: "Blood Group",
-                  labelStyle: TextStyle(fontSize: 18, color: Colors.black87),
-                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-
-                ),
-              ),
-             // SizedBox(height: 8.0),
-               DropdownButtonFormField<String>(
-                items: [
-                  'A+',
-                  'A-',
-                  'B',
-                  'B-',
-                  'AB+',
-                  'AB-',
-                  'O+',
-                  'O-',
-                  'None of These'
-                ].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  // Handle the blood group selection
-                },
-              ),*/
 
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(filled: true, fillColor: Colors.grey,
-                    labelText: " Height (in cm)",
+                  contentPadding: EdgeInsets.all(28),
+                  labelText: "Height (in cm)",
                     labelStyle: TextStyle(
                       fontSize: 18,
                       color: Colors.black,
@@ -120,12 +92,13 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 16.0),
+              SizedBox(height: 13.0),
 
               TextField(
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(filled: true, fillColor: Colors.grey,
-                    labelText: " Weight (in kg)",
+                  contentPadding: EdgeInsets.all(28),
+                  labelText: "Weight (in kg)",
                     labelStyle: TextStyle(
                         fontSize: 18,
                         color: Colors.black,
@@ -148,70 +121,116 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 16.0),
+              SizedBox(height: 13.0),
 
 
 
 
-              Text(
-                'Blood Group',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontFamily: 'Poppins-Medium'),
-              ),
-              SizedBox(height: 1.0),
-              DropdownButtonFormField<String>(
-                items: [
-                  'A+',
-                  'A-',
-                  'B+',
-                  'B-',
-                  'AB+',
-                  'AB-',
-                  'O+',
-                  'O-',
-                  'None of These'
-                ].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  // Handle the blood group selection
-                },
-              ),
+              Container(
+                padding: EdgeInsets.all(25.0),
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                border: Border.all(color: Colors.white,width: 2),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                child: DropdownButton<String>(
+                  hint: Text(" Blood Group",
+                      style: TextStyle(
+                      fontSize: 19,
+                      color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins-Medium'),
+                  ),
+                  dropdownColor: Colors.white,
+                  icon: Icon(Icons.add),
+                  iconSize: 26,
+                  iconEnabledColor: Colors.black,
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins-Medium'),
 
-              SizedBox(height: 16.0),
-
-              Text(
-                'Gender:',
-                style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.black,
-                    fontFamily: 'Poppins-Medium'),
-              ),
-              SizedBox(height: 1.0),
-              DropdownButtonFormField<String>(
-                items: ['Male', 'Female'].map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-                onChanged: (String? value) {
-                  // Handle the gender selection
-                },
+                  items: [
+                    'A+',
+                    'A-',
+                    'B+',
+                    'B-',
+                    'AB+',
+                    'AB-',
+                    'O+',
+                    'O-',
+                    'None of These'
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    // Handle the blood group selection
+                  },
+                ),
               ),
 
-              SizedBox(height: 20.0),
+              SizedBox(height: 13.0),
+
+              Container(
+                padding: EdgeInsets.all(25.0),
+                height: 80,
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  border: Border.all(color: Colors.white,width: 2),
+                  borderRadius: BorderRadius.circular(18.0),
+                ),
+                child: DropdownButton<String>(
+                  hint: Text(" Gender",
+                    style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Poppins-Medium'),
+                  ),
+                  dropdownColor: Colors.white,
+                  icon: Icon(Icons.add),
+                  iconSize: 25,
+                  iconEnabledColor: Colors.black,
+                  isExpanded: true,
+                  underline: SizedBox(),
+                  style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins-Medium'),
+
+                  items: [
+                    'Male',
+                    'Female',
+                    'None of These'
+                  ].map((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  onChanged: (String? value) {
+                    // Handle the blood group selection
+                  },
+                ),
+              ),
+
+              SizedBox(height: 13.0),
+
 
 
 
               TextField(
                 keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                  contentPadding: EdgeInsets.all(28),
                     labelText: " Last Donation Date",
                     labelStyle: TextStyle(
                         fontSize: 18,
@@ -234,7 +253,8 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 35.0),
+              SizedBox(height: 22.0),
+
 
 
               Text(
@@ -246,7 +266,7 @@ class PhysicalInformationPage extends StatelessWidget {
                     fontFamily: 'Poppins-Medium'),
               ),
 
-              SizedBox(height: 10.0),
+              SizedBox(height: 8.0),
 
               ElevatedButton(
                 onPressed: () {},
