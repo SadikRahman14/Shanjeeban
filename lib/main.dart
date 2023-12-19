@@ -19,7 +19,7 @@ class ProductDetailsPage extends StatefulWidget {
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
 
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
+class _ProductDetailsPageState extends State<ProductDetailsPage>{
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
@@ -28,6 +28,82 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   DateTime? selectedDate;
   var districtInput = TextEditingController();
   var thanaInput = TextEditingController();
+
+  final _formKey = GlobalKey<FormState>();
+
+  String? _validateInput(String? value, String fieldName) {
+    if (value == null || value.isEmpty) {
+      return '$fieldName is required';
+    }
+    return null;
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required String fieldName,
+    required TextInputType keyboardType,
+    bool obscureText = false,
+  }) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        decoration: InputDecoration(
+          label : Row(
+            mainAxisSize: MainAxisSize.min,
+              children: [
+                if (labelText == "Full Name")
+                  Icon(Icons.account_box, size: 24,)
+                else if (labelText == "Password")
+                  Icon(Icons.key, size: 24,)
+                else if (labelText == "Phone Number")
+                  Icon(Icons.phone, size: 24,)
+                else if (labelText == "Handle")
+                  Icon(Icons.supervisor_account, size: 24,)
+                else if (labelText == "Email")
+                  Icon(Icons.email, size: 24,)
+                else if (labelText == "District")
+                  Icon(Icons.location_on, size: 24,)
+                else if (labelText == "Thana")
+                  Icon(Icons.add_location, size: 24,),
+                Text(" $labelText"),
+              ],
+          ),
+          labelStyle: TextStyle(
+            fontSize: 24,
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(13),
+            borderSide: BorderSide(
+              color: Colors.red,
+              width: 2.5,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(13),
+            borderSide: BorderSide(
+              color: Colors.blue,
+              width: 1,
+            ),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(13),
+            borderSide: BorderSide(
+              color: Colors.red,
+              width: 2.5,
+            ),
+          ),
+          errorStyle: TextStyle(color: Colors.red),
+        ),
+        validator: (value) => _validateInput(value, fieldName),
+      ),
+    );
+  }
 
   Widget _buildDateField() {
     return GestureDetector(
@@ -57,7 +133,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   ? 'Insert Date of Birth'
                   : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -86,268 +162,89 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return '${date.day}-${date.month}-${date.year}';
   }
 
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            width: 320,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 68,),
-                TextField(
-                  controller: fullNameInput,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.account_box,size: 24,),
-                        Text(" Full Name"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: Container(
+              width: 320,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 68,),
+                  _buildTextField(
+                    controller: fullNameInput,
+                    labelText: 'Full Name',
+                    fieldName: 'Full Name',
+                    keyboardType: TextInputType.text,
                   ),
-                ),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: passwordInput,
-                  obscureText: true,
-                  obscuringCharacter: '*',
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.key,size: 24,),
-                        Text(" Password"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  _buildTextField(
+                    controller: passwordInput,
+                    labelText: 'Password',
+                    fieldName: 'Password',
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
                   ),
-                ),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: phoneNumberInput,
-                  keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.phone,size: 24,),
-                        Text(" Phone Number"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  _buildTextField(
+                    controller: phoneNumberInput,
+                    labelText: 'Phone Number',
+                    fieldName: 'Phone Number',
+                    keyboardType: TextInputType.phone,
                   ),
-                ),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: handleInput,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.supervisor_account,size: 24,),
-                        Text(" Handle"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  _buildTextField(
+                    controller: handleInput,
+                    labelText: 'Handle',
+                    fieldName: 'Handle',
+                    keyboardType: TextInputType.text,
                   ),
-                ),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: emailInput,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.email,size: 24,),
-                        Text(" Email"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  _buildTextField(
+                    controller: emailInput,
+                    labelText: 'Email',
+                    fieldName: 'Email',
+                    keyboardType: TextInputType.emailAddress,
                   ),
-                ),
-                SizedBox(height: 18,),
-                _buildDateField(),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: districtInput,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.location_on,size: 24,),
-                        Text(" District"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  SizedBox(height: 8,),
+                  _buildDateField(),
+                  SizedBox(height: 8,),
+                  _buildTextField(
+                    controller: districtInput,
+                    labelText: 'District',
+                    fieldName: 'District',
+                    keyboardType: TextInputType.text,
                   ),
-                ),
-                SizedBox(height: 18,),
-                TextField(
-                  controller: thanaInput,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.add_location,size: 24,),
-                        Text(" Thana"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
+                  _buildTextField(
+                    controller: thanaInput,
+                    labelText: 'Thana',
+                    fieldName: 'Thana',
+                    keyboardType: TextInputType.text,
                   ),
-                ),
-                SizedBox(height: 18,),
-                ElevatedButton(
-                  onPressed: () {
-                    String userFullName = fullNameInput.text.toString();
-                    String userPassword = passwordInput.text.toString();
-                    String userPhoneNumber = phoneNumberInput.text.toString();
-                    String userHandle = handleInput.text.toString();
-                    String userEmail = emailInput.text.toString();
-                    String userDateOfBirth =
-                    selectedDate != null ? formatDate(selectedDate!) : '';
-                    String userDistrict = districtInput.text.toString();
-                    String userThana = thanaInput.text.toString();
+                  SizedBox(height: 18,),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        String userFullName = fullNameInput.text.toString();
+                        String userPassword = passwordInput.text.toString();
+                        String userPhoneNumber = phoneNumberInput.text.toString();
+                        String userHandle = handleInput.text.toString();
+                        String userEmail = emailInput.text.toString();
+                        String userDateOfBirth =
+                        selectedDate != null ? formatDate(selectedDate!) : '';
+                        String userDistrict = districtInput.text.toString();
+                        String userThana = thanaInput.text.toString();
 
-                    print(
-                        "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber, dateOfBirth: $userDateOfBirth, district: $userDistrict, thana: $userThana");
-                  },
-                  child: Text('Proceed to Physical Info'),
-                ),
-              ],
+                        print(
+                            "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber, dateOfBirth: $userDateOfBirth, district: $userDistrict, thana: $userThana");
+                      }
+                    },
+                    child: Text('Proceed to Physical Info'),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
