@@ -41,7 +41,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
   String? _validateName(value){
     if (value!.isEmpty)
       return 'enter proper name';
-    RegExp nameReg = RegExp(r'^[a-z A-Z]');
+    RegExp nameReg = RegExp(r'^[a-zA-Z ]+$');
     if(!nameReg.hasMatch(value)){
       return 'enter proper name';
     }
@@ -140,8 +140,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
               onPressed: _proceed,
               child: Text('Proceed to Physical Info'),
           )
-
-
         ],
       ),
     );
