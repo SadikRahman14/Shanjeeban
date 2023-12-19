@@ -37,11 +37,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
       String userPassword = passwordInput.text.toString();
       String userPhoneNumber = phoneNumberInput.text.toString();
       String userEmail = emailInput.text.toString();
+      String userHandle = handleInput.text.toString();
 
       print("userName: $userFullName");
       print("pass: $userPassword");
       print("phone: $userPhoneNumber");
       print("email: $userEmail");
+      print("handle: $userHandle");
     }
   }
   String? _validateName(value){
@@ -80,169 +82,213 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
       return 'password must be 8 characters or longer';
     return null;
   }
+  String? _validateHandle(value){
+    if (value!.isEmpty)
+      return 'cant be empty';
+    return null;
+  }
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(height: 65,),
-                  TextFormField(
-                    controller: fullNameInput,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.account_box),
-                      labelText: 'Full Name',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 2.5,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(height: 65,),
+                    TextFormField(
+                      controller: fullNameInput,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_box),
+                        labelText: 'Full Name',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.blue.shade700,
-                          width: 1,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 2.5,
+                          ),
                         ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.5,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.blue.shade700,
+                            width: 1,
+                          ),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 2.5,
+                          ),
+                        ),
+                        errorStyle: TextStyle(color: Colors.red),
                       ),
-                      errorStyle: TextStyle(color: Colors.red),
+                      validator: _validateName,
                     ),
-                    validator: _validateName,
-                  ),
-                  SizedBox(height: 15,),
-                  TextFormField(
-                    controller: passwordInput,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    obscureText: true,
-                    obscuringCharacter: '*',
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.account_box),
-                      labelText: 'Password',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 2.5,
+                    SizedBox(height: 15,),
+
+                    SizedBox(height: 15,),
+                    TextFormField(
+                      controller: passwordInput,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      obscureText: true,
+                      obscuringCharacter: '*',
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_box),
+                        labelText: 'Password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.blue.shade700,
-                          width: 1,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 2.5,
+                          ),
                         ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.5,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.blue.shade700,
+                            width: 1,
+                          ),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 2.5,
+                          ),
+                        ),
+                        errorStyle: TextStyle(color: Colors.red),
                       ),
-                      errorStyle: TextStyle(color: Colors.red),
+                      validator: _validatePassword,
                     ),
-                    validator: _validatePassword,
-                  ),
-                  SizedBox(height: 15,),
-                  TextFormField(
-                    controller: phoneNumberInput,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.account_box),
-                      labelText: 'Phone Number',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 2.5,
+                    SizedBox(height: 15,),
+                    TextFormField(
+                      controller: handleInput,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_box),
+                        labelText: 'Handle',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.blue.shade700,
-                          width: 1,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 2.5,
+                          ),
                         ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.5,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.blue.shade700,
+                            width: 1,
+                          ),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 2.5,
+                          ),
+                        ),
+                        errorStyle: TextStyle(color: Colors.red),
                       ),
-                      errorStyle: TextStyle(color: Colors.red),
+                      validator: _validateHandle,
                     ),
-                    validator: _validatePhone,
-                  ),
-                  SizedBox(height: 15,),
-                  TextFormField(
-                    controller: emailInput,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.account_box),
-                      labelText: 'Email',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.green,
-                          width: 2.5,
+                    SizedBox(height: 15,),
+                    TextFormField(
+                      controller: phoneNumberInput,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_box),
+                        labelText: 'Phone Number',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.blue.shade700,
-                          width: 1,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 2.5,
+                          ),
                         ),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(13),
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                          width: 2.5,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.blue.shade700,
+                            width: 1,
+                          ),
                         ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 2.5,
+                          ),
+                        ),
+                        errorStyle: TextStyle(color: Colors.red),
                       ),
-                      errorStyle: TextStyle(color: Colors.blueGrey),
+                      validator: _validatePhone,
                     ),
-                    validator: _validateEmail,
-                  ),
-                ],
+                    SizedBox(height: 15,),
+                    TextFormField(
+                      controller: emailInput,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.account_box),
+                        labelText: 'Email',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.green,
+                            width: 2.5,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.blue.shade700,
+                            width: 1,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(13),
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                            width: 2.5,
+                          ),
+                        ),
+                        errorStyle: TextStyle(color: Colors.blueGrey),
+                      ),
+                      validator: _validateEmail,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: _proceed,
-            child: Text('Proceed to Physical Info'),
-          )
-        ],
+            ElevatedButton(
+              onPressed: _proceed,
+              child: Text('Proceed to Physical Info'),
+            )
+          ],
+        ),
       ),
     );
   }
