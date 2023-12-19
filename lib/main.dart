@@ -24,9 +24,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
   var handleInput = TextEditingController();
-  var gmailInput = TextEditingController();
+  var emailInput = TextEditingController();
   var dateOfBirthInput = TextEditingController();
-  var cityInput = TextEditingController();
+  var districtInput = TextEditingController();
   var thanaInput = TextEditingController();
 
   @override
@@ -46,20 +46,32 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                SizedBox(height: 62,),
+                SizedBox(height: 68,),
                 TextField(
                   controller: fullNameInput,
                   decoration: InputDecoration(
-                    hintText: "full name",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.account_box,size: 24,),
+                        Text(" Full Name"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -73,16 +85,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   obscureText: true,
                   obscuringCharacter: '*',
                   decoration: InputDecoration(
-                    hintText: "password",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.key,size: 24,),
+                        Text(" Password"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -95,16 +119,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                   controller: phoneNumberInput,
                   keyboardType: TextInputType.phone,
                   decoration: InputDecoration(
-                    hintText: "phone number ",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.phone,size: 24,),
+                        Text(" Phone Number"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -116,16 +152,28 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 TextField(
                   controller: handleInput,
                   decoration: InputDecoration(
-                    hintText: "handle",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.supervisor_account,size: 24,),
+                        Text(" Handle"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -135,18 +183,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),//handle
                 SizedBox(height: 18,),
                 TextField(
-                  controller: handleInput,
+                  controller: emailInput,
                   decoration: InputDecoration(
-                    hintText: "gmail",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.email,size: 24,),
+                        Text(" Email"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -156,18 +216,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),//gmail
                 SizedBox(height: 18,),
                 TextField(
-                  controller: handleInput,
+                  controller: dateOfBirthInput,
                   decoration: InputDecoration(
-                    hintText: "date of birth",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.date_range_sharp,size: 24,),
+                        Text(" Date of Birth"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                        fontSize: 18,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -177,18 +249,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),//dateOfBirth
                 SizedBox(height: 18,),
                 TextField(
-                  controller: handleInput,
+                  controller: districtInput,
                   decoration: InputDecoration(
-                    hintText: "district",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.location_on,size: 24,),
+                        Text(" District"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -198,18 +282,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                 ),//district
                 SizedBox(height: 18,),
                 TextField(
-                  controller: handleInput,
+                  controller: thanaInput,
                   decoration: InputDecoration(
-                    hintText: "thana",
+                    label : Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.add_location,size: 24,),
+                        Text(" Thana"),
+                      ],
+                    ),
+                    labelStyle: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      // fontFamily: 'Poppins-Medium',
+                    ),
                     focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.red,
                         width: 2.5,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
+                      borderRadius: BorderRadius.circular(13),
                       borderSide: BorderSide(
                         color: Colors.blue,
                         width: 1,
@@ -224,12 +320,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     String userPassword = passwordInput.text.toString();
                     String userPhoneNumber = phoneNumberInput.text.toString();
                     String userHandle = handleInput.text.toString();
+                    String userEmail = emailInput.text.toString();
+                    String userDateofBirth = dateOfBirthInput.text.toString();
+                    String userDistrict = districtInput.text.toString();
+                    String userThana = thanaInput.text.toString();
         
                     print(
                       "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber"
                     );
                   },
-                  child: Text('physical info'),
+                  child: Text('Proceed to Physical Info'),
                 ),
               ],
             ),
