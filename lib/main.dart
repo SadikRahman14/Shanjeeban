@@ -34,7 +34,7 @@ class PhysicalInformationPage extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 25,),
+              SizedBox(height: 22,),
 
               TextField(
                 keyboardType: TextInputType.number,
@@ -253,7 +253,7 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 22.0),
+              SizedBox(height: 20.0),
 
 
 
@@ -266,22 +266,47 @@ class PhysicalInformationPage extends StatelessWidget {
                     fontFamily: 'Poppins-Medium'),
               ),
 
-              SizedBox(height: 8.0),
+              SizedBox(height: 6.0),
 
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white70,
-                  // minimumSize: Size(30, 30),
+                   minimumSize: Size(30, 30),
                 ),
                 child: Text(
                   'Choose File',
                   style: TextStyle(
                       fontSize: 14.0,
                       color: Colors.black87,
+                      fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
                 ),
               ),
+
+             // SizedBox(height: 6.0),
+
+              ElevatedButton(
+
+            onPressed: () {
+              //Navigator.push(
+              //context,
+              // MaterialPageRoute(builder: (context) => HomePage()),
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white70,
+              minimumSize: Size(40, 30),
+            ),
+            child: Text('Submit',
+                style: TextStyle(
+                fontSize: 14.0,
+                color: Colors.black87,
+                    fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins-Medium'),
+            ),
+          ),
+
+
             ],
           ),
         ),
