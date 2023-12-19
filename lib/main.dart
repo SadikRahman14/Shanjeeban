@@ -34,7 +34,8 @@ class PhysicalInformationPage extends StatelessWidget {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 22,),
+
+              SizedBox(height: 30,),
 
               TextField(
                 keyboardType: TextInputType.number,
@@ -257,16 +258,27 @@ class PhysicalInformationPage extends StatelessWidget {
 
 
 
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
               Text(
                 'Blood Test Certificate',
                 style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: Colors.lightGreenAccent,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Poppins-Medium'),
               ),
 
-              SizedBox(height: 6.0),
+              SizedBox(width: 13.0),
+
 
               ElevatedButton(
                 onPressed: () {},
@@ -284,18 +296,20 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-             // SizedBox(height: 6.0),
+           ],
+          ),
+
+              SizedBox(height:10.0),
 
               ElevatedButton(
-
-            onPressed: () {
+                onPressed: () {
               //Navigator.push(
               //context,
               // MaterialPageRoute(builder: (context) => HomePage()),
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white70,
-              minimumSize: Size(40, 30),
+              minimumSize: Size(40, 40),
             ),
             child: Text('Submit',
                 style: TextStyle(
@@ -304,6 +318,8 @@ class PhysicalInformationPage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins-Medium'),
             ),
+          ),
+              ],
           ),
 
 
