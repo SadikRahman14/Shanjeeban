@@ -5,6 +5,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,225 +31,118 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
   var districtInput = TextEditingController();
   var thanaInput = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>() ;
 
-  String? _validateInput(String? value, String fieldName) {
-    if (value == null || value.isEmpty) {
-      return '$fieldName is required';
+  void _proceed(){
+    if(_formKey.currentState!.validate()){
+
+    }
+  }
+  String? _validateName(value){
+    if (value!.isEmpty)
+      return 'enter proper name';
+    RegExp nameReg = RegExp(r'^[a-z A-Z]');
+    if(!nameReg.hasMatch(value)){
+      return 'enter proper name';
     }
     return null;
   }
-
-  Widget _buildTextField({
-    required TextEditingController controller,
-    required String labelText,
-    required String fieldName,
-    required TextInputType keyboardType,
-    bool obscureText = false,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          label : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (labelText == "Full Name")
-                Icon(Icons.account_box, size: 24,)
-              else if (labelText == "Password")
-                Icon(Icons.key, size: 24,)
-              else if (labelText == "Phone Number")
-                Icon(Icons.phone, size: 24,)
-              else if (labelText == "Handle")
-                Icon(Icons.supervisor_account, size: 24,)
-              else if (labelText == "Email")
-                Icon(Icons.email, size: 24,)
-              else if (labelText == "District")
-                Icon(Icons.location_on, size: 24,)
-              else if (labelText == "Thana")
-                Icon(Icons.add_location, size: 24,),
-              Text(" $labelText"),
-            ],
-          ),
-          labelStyle: TextStyle(
-            fontSize: 24,
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(13),
-            borderSide: BorderSide(
-              color: Colors.red,
-              width: 2.5,
-            ),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(13),
-            borderSide: BorderSide(
-              color: Colors.blue,
-              width: 1,
-            ),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(13),
-            borderSide: BorderSide(
-              color: Colors.red,
-              width: 2.5,
-            ),
-          ),
-          errorStyle: TextStyle(color: Colors.red),
-        ),
-        validator: (value) => _validateInput(value, fieldName),
-      ),
-    );
-  }
-
-  Widget _buildDateField() {
-    return GestureDetector(
-      onTap: () {
-        _selectDate(context);
-      },
-      child: Container(
-        padding: EdgeInsets.all(11.6),
-        height: 65,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(13),
-          border: Border.all(
-            color: Colors.blue,
-            width: 1,
-          ),
-        ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.calendar_today,
-              size: 24,
-              color: Colors.black,
-            ),
-            SizedBox(width: 8),
-            Text(
-              selectedDate == null
-                  ? 'Insert Date of Birth'
-                  : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
-    );
-
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
+  String? _validateEmail(value){
+    if (value!.isEmpty)
+      return 'enter proper email';
+    RegExp emailReg = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
+    if(!emailReg.hasMatch(value)){
+      return 'enter proper email';
     }
+    return null;
   }
-
-  String formatDate(DateTime date) {
-    return '${date.day}-${date.month}-${date.year}';
+  String? _validatePhone(value){
+    if (value!.isEmpty)
+      return 'enter proper number';
+    RegExp phoneReg = RegExp(r'^[0-9]');
+    if(!phoneReg.hasMatch(value)){
+      return 'enter proper email';
+    }
+    if(value.length != 11)
+      return 'enter proper number';
+    return null;
+  }
+  String? _validatePassword(value){
+    if (value!.isEmpty)
+      return 'password must be 8 characters or longer';
+    if(value.length <= 7)
+      return 'password must be 8 characters or longer';
+    return null;
   }
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Center(
-            child: Container(
-              width: 320,
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Form(
+              key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  SizedBox(height: 68,),
-                  _buildTextField(
-                    controller: fullNameInput,
-                    labelText: 'Full Name',
-                    fieldName: 'Full Name',
-                    keyboardType: TextInputType.text,
+                  SizedBox(height: 65,),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: 'Full Name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    validator: _validateName,
                   ),
-                  _buildTextField(
-                    controller: passwordInput,
-                    labelText: 'Password',
-                    fieldName: 'Password',
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
+                  SizedBox(height: 15,),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    validator: _validatePassword,
                   ),
-                  _buildTextField(
-                    controller: phoneNumberInput,
-                    labelText: 'Phone Number',
-                    fieldName: 'Phone Number',
-                    keyboardType: TextInputType.phone,
+                  SizedBox(height: 15,),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: 'Phone Number',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    validator: _validatePhone,
                   ),
-                  _buildTextField(
-                    controller: handleInput,
-                    labelText: 'Handle',
-                    fieldName: 'Handle',
-                    keyboardType: TextInputType.text,
-                  ),
-                  _buildTextField(
-                    controller: emailInput,
-                    labelText: 'Email',
-                    fieldName: 'Email',
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  SizedBox(height: 8,),
-                  _buildDateField(),
-                  SizedBox(height: 8,),
-                  _buildTextField(
-                    controller: districtInput,
-                    labelText: 'District',
-                    fieldName: 'District',
-                    keyboardType: TextInputType.text,
-                  ),
-                  _buildTextField(
-                    controller: thanaInput,
-                    labelText: 'Thana',
-                    fieldName: 'Thana',
-                    keyboardType: TextInputType.text,
-                  ),
-                  SizedBox(height: 18,),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        String userFullName = fullNameInput.text.toString();
-                        String userPassword = passwordInput.text.toString();
-                        String userPhoneNumber = phoneNumberInput.text.toString();
-                        String userHandle = handleInput.text.toString();
-                        String userEmail = emailInput.text.toString();
-                        String userDateOfBirth =
-                        selectedDate != null ? formatDate(selectedDate!) : '';
-                        String userDistrict = districtInput.text.toString();
-                        String userThana = thanaInput.text.toString();
-
-                        print(
-                            "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber, dateOfBirth: $userDateOfBirth, district: $userDistrict, thana: $userThana");
-                      }
-                    },
-                    child: Text('Proceed to Physical Info'),
+                  SizedBox(height: 15,),
+                  TextFormField(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    validator: _validateEmail,
                   ),
                 ],
               ),
             ),
           ),
-        ),
+
+
+          ElevatedButton(
+              onPressed: _proceed,
+              child: Text('Proceed to Physical Info'),
+          )
+
+
+        ],
       ),
     );
   }
