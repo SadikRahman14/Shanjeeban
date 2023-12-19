@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-void main(){
+void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shanjeeban',
       home: ProductDetailsPage(),
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget{
   }
 }
 
-class ProductDetailsPage extends StatefulWidget{
+class ProductDetailsPage extends StatefulWidget {
   @override
   State<ProductDetailsPage> createState() => _ProductDetailsPageState();
 }
@@ -25,19 +25,72 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   var phoneNumberInput = TextEditingController();
   var handleInput = TextEditingController();
   var emailInput = TextEditingController();
-  var dateOfBirthInput = TextEditingController();
+  DateTime? selectedDate;
   var districtInput = TextEditingController();
   var thanaInput = TextEditingController();
 
-  @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      backgroundColor: Colors.white, //deepPurple[900]
-      // appBar: AppBar(
-      //   backgroundColor: Colors.amberAccent,
-      //   title: Center(child: Text('GG')),
-      // ),
+  Widget _buildDateField() {
+    return GestureDetector(
+      onTap: () {
+        _selectDate(context);
+      },
+      child: Container(
+        padding: EdgeInsets.all(11.6),
+        height: 65,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(13),
+          border: Border.all(
+            color: Colors.blue,
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              Icons.calendar_today,
+              size: 24,
+              color: Colors.black,
+            ),
+            SizedBox(width: 8),
+            Text(
+              selectedDate == null
+                  ? 'Insert Date of Birth'
+                  : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  String formatDate(DateTime date) {
+    return '${date.day}-${date.month}-${date.year}';
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Container(
@@ -61,7 +114,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -78,7 +130,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//fullName
+                ),
                 SizedBox(height: 18,),
                 TextField(
                   controller: passwordInput,
@@ -96,7 +148,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -113,7 +164,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//password
+                ),
                 SizedBox(height: 18,),
                 TextField(
                   controller: phoneNumberInput,
@@ -130,7 +181,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -147,7 +197,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//phone
+                ),
                 SizedBox(height: 18,),
                 TextField(
                   controller: handleInput,
@@ -163,7 +213,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -180,10 +229,11 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//handle
+                ),
                 SizedBox(height: 18,),
                 TextField(
                   controller: emailInput,
+                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     label : Row(
                       mainAxisSize: MainAxisSize.min,
@@ -196,7 +246,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -213,40 +262,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//gmail
+                ),
                 SizedBox(height: 18,),
-                TextField(
-                  controller: dateOfBirthInput,
-                  decoration: InputDecoration(
-                    label : Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.date_range_sharp,size: 24,),
-                        Text(" Date of Birth"),
-                      ],
-                    ),
-                    labelStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        // fontFamily: 'Poppins-Medium',
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.red,
-                        width: 2.5,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(13),
-                      borderSide: BorderSide(
-                        color: Colors.blue,
-                        width: 1,
-                      ),
-                    ),
-                  ),
-                ),//dateOfBirth
+                _buildDateField(),
                 SizedBox(height: 18,),
                 TextField(
                   controller: districtInput,
@@ -262,7 +280,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -279,7 +296,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//district
+                ),
                 SizedBox(height: 18,),
                 TextField(
                   controller: thanaInput,
@@ -295,7 +312,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      // fontFamily: 'Poppins-Medium',
                     ),
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(13),
@@ -312,49 +328,30 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       ),
                     ),
                   ),
-                ),//thana
+                ),
                 SizedBox(height: 18,),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     String userFullName = fullNameInput.text.toString();
                     String userPassword = passwordInput.text.toString();
                     String userPhoneNumber = phoneNumberInput.text.toString();
                     String userHandle = handleInput.text.toString();
                     String userEmail = emailInput.text.toString();
-                    String userDateofBirth = dateOfBirthInput.text.toString();
+                    String userDateOfBirth =
+                    selectedDate != null ? formatDate(selectedDate!) : '';
                     String userDistrict = districtInput.text.toString();
                     String userThana = thanaInput.text.toString();
-        
+
                     print(
-                      "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber"
-                    );
+                        "userName: $userFullName, password: $userPassword, handle: $userHandle, phone: $userPhoneNumber, dateOfBirth: $userDateOfBirth, district: $userDistrict, thana: $userThana");
                   },
                   child: Text('Proceed to Physical Info'),
                 ),
               ],
             ),
-          )
+          ),
         ),
       ),
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //   //currentIndex: _currentIndex,
-      //   onTap: (index) {},
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.home),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.search),
-      //       label: 'Search',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.person),
-      //       label: '',
-      //     ),
-      //   ],
-      // ),
     );
   }
 }
