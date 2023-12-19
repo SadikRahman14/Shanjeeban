@@ -46,7 +46,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
     bool obscureText = false,
   }) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+      margin: EdgeInsets.symmetric(vertical: 2),
+      height: 75,
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -54,23 +56,23 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
         decoration: InputDecoration(
           label : Row(
             mainAxisSize: MainAxisSize.min,
-              children: [
-                if (labelText == "Full Name")
-                  Icon(Icons.account_box, size: 24,)
-                else if (labelText == "Password")
-                  Icon(Icons.key, size: 24,)
-                else if (labelText == "Phone Number")
-                  Icon(Icons.phone, size: 24,)
-                else if (labelText == "Handle")
-                  Icon(Icons.supervisor_account, size: 24,)
-                else if (labelText == "Email")
-                  Icon(Icons.email, size: 24,)
-                else if (labelText == "District")
-                  Icon(Icons.location_on, size: 24,)
-                else if (labelText == "Thana")
-                  Icon(Icons.add_location, size: 24,),
-                Text(" $labelText"),
-              ],
+            children: [
+              if (labelText == "Full Name")
+                Icon(Icons.account_box, size: 24,)
+              else if (labelText == "Password")
+                Icon(Icons.key, size: 24,)
+              else if (labelText == "Phone Number")
+                Icon(Icons.phone, size: 24,)
+              else if (labelText == "Handle")
+                Icon(Icons.supervisor_account, size: 24,)
+              else if (labelText == "Email")
+                Icon(Icons.email, size: 24,)
+              else if (labelText == "District")
+                Icon(Icons.location_on, size: 24,)
+              else if (labelText == "Thana")
+                Icon(Icons.add_location, size: 24,),
+              Text(" $labelText"),
+            ],
           ),
           labelStyle: TextStyle(
             fontSize: 24,
@@ -81,14 +83,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
             borderRadius: BorderRadius.circular(13),
             borderSide: BorderSide(
               color: Colors.red,
-              width: 2.5,
+              width: 4,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(13),
             borderSide: BorderSide(
               color: Colors.blue,
-              width: 1,
+              width: 2.9,
             ),
           ),
           errorBorder: OutlineInputBorder(
@@ -111,13 +113,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
         _selectDate(context);
       },
       child: Container(
+        margin: EdgeInsets.symmetric(vertical: 8),
         padding: EdgeInsets.all(11.6),
-        height: 65,
+        height: 60,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13),
           border: Border.all(
             color: Colors.blue,
-            width: 1,
+            width: 2.9,
           ),
         ),
         child: Row(
@@ -130,7 +133,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
             SizedBox(width: 8),
             Text(
               selectedDate == null
-                  ? 'Insert Date of Birth'
+                  ? 'Date of Birth'
                   : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
               style: TextStyle(
                 fontSize: 24,
@@ -208,9 +211,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                     fieldName: 'Email',
                     keyboardType: TextInputType.emailAddress,
                   ),
-                  SizedBox(height: 8,),
                   _buildDateField(),
-                  SizedBox(height: 8,),
                   _buildTextField(
                     controller: districtInput,
                     labelText: 'District',
@@ -232,8 +233,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                         String userPhoneNumber = phoneNumberInput.text.toString();
                         String userHandle = handleInput.text.toString();
                         String userEmail = emailInput.text.toString();
-                        String userDateOfBirth =
-                        selectedDate != null ? formatDate(selectedDate!) : '';
+                        String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!) : '';
                         String userDistrict = districtInput.text.toString();
                         String userThana = thanaInput.text.toString();
 
@@ -243,6 +243,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                     },
                     child: Text('Proceed to Physical Info'),
                   ),
+                  SizedBox(height: 30,),
                 ],
               ),
             ),
