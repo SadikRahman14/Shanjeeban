@@ -46,9 +46,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
     bool obscureText = false,
   }) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
-      margin: EdgeInsets.symmetric(vertical: 2),
-      height: 75,
+      margin: EdgeInsets.symmetric(vertical: 8),
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType,
@@ -83,14 +81,14 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
             borderRadius: BorderRadius.circular(13),
             borderSide: BorderSide(
               color: Colors.red,
-              width: 4,
+              width: 2.5,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(13),
             borderSide: BorderSide(
               color: Colors.blue,
-              width: 2.9,
+              width: 1,
             ),
           ),
           errorBorder: OutlineInputBorder(
@@ -113,14 +111,13 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
         _selectDate(context);
       },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
         padding: EdgeInsets.all(11.6),
-        height: 60,
+        height: 65,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13),
           border: Border.all(
             color: Colors.blue,
-            width: 2.9,
+            width: 1,
           ),
         ),
         child: Row(
@@ -133,7 +130,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
             SizedBox(width: 8),
             Text(
               selectedDate == null
-                  ? 'Date of Birth'
+                  ? 'Insert Date of Birth'
                   : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
               style: TextStyle(
                 fontSize: 24,
@@ -211,7 +208,9 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                     fieldName: 'Email',
                     keyboardType: TextInputType.emailAddress,
                   ),
+                  SizedBox(height: 8,),
                   _buildDateField(),
+                  SizedBox(height: 8,),
                   _buildTextField(
                     controller: districtInput,
                     labelText: 'District',
@@ -233,7 +232,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                         String userPhoneNumber = phoneNumberInput.text.toString();
                         String userHandle = handleInput.text.toString();
                         String userEmail = emailInput.text.toString();
-                        String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!) : '';
+                        String userDateOfBirth =
+                        selectedDate != null ? formatDate(selectedDate!) : '';
                         String userDistrict = districtInput.text.toString();
                         String userThana = thanaInput.text.toString();
 
@@ -243,7 +243,6 @@ class _ProductDetailsPageState extends State<ProductDetailsPage>{
                     },
                     child: Text('Proceed to Physical Info'),
                   ),
-                  SizedBox(height: 30,),
                 ],
               ),
             ),
