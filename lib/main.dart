@@ -37,8 +37,45 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
     return date;
   }
 
+  void snackBarMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+
   void _proceed() {
-    if (_formKey.currentState!.validate() && (districtInput != null && districtInput.isNotEmpty) && dateDise()!=""){
+    if (_formKey.currentState!.validate()) {
+      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
+        snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
+        return;
+      }
+      if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
+        snackBarMessage('Please input District and Thana.');
+        return;
+      }
+      if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
+        snackBarMessage('Please input Date of Birth and Thana.');
+        return;
+      }
+      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
+        snackBarMessage('Please input Date of Birth and District.');
+        return;
+      }
+      if (districtInput == null || districtInput.isEmpty) {
+        snackBarMessage('who will provide the district??');
+        return;
+      }
+      if (thanaInput == null || thanaInput.isEmpty) {
+        snackBarMessage('who will provide the thana??');
+        return;
+      }
+      if (dateDise().isEmpty) {
+        snackBarMessage('jonmo kobe vai??');
+        return;
+      }
+
       String userFullName = fullNameInput.text.toString();
       String userPassword = passwordInput.text.toString();
       String userPhoneNumber = phoneNumberInput.text.toString();
@@ -56,6 +93,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
       print("thana: $thanaInput");
     }
   }
+
 
   String? _validateName(value) {
     if (value!.isEmpty) return 'Enter proper name';
@@ -340,33 +378,36 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     _buildDateField(),
                     SizedBox(height: 15,),
                     Container(
-                      padding: EdgeInsets.all(25.0),
-                      height: 80,
+                      padding: EdgeInsets.all(15.0), // Adjusted padding
+                      height: 62,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.white,width: 2),
+                        color: Colors.white70,
+                        border: Border.all(
+                          color: Colors.blue.shade700,
+                          width: 2,
+                        ),
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       child: DropdownButton<String>(
                         hint: Text(
                           "District",
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 19, // Adjusted font size
                             color: Colors.black,
                           ),
                         ),
                         value: districtInput,
                         dropdownColor: Colors.white,
-                        icon: Icon(Icons.add),
-                        iconSize: 26,
+                        icon: Icon(Icons.arrow_drop_down_circle),
+                        iconSize: 22, // Adjusted icon size
                         iconEnabledColor: Colors.black,
                         isExpanded: true,
                         focusColor: Colors.red,
                         underline: SizedBox(),
                         style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
+                          fontSize: 19, // Adjusted font size
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
                         ),
                         items: [
                           'Dhaka',
@@ -385,31 +426,34 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     ),
                     SizedBox(height: 15,),
                     Container(
-                      padding: EdgeInsets.all(25.0),
-                      height: 80,
+                      padding: EdgeInsets.all(15.0), // Adjusted padding
+                      height: 62,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        border: Border.all(color: Colors.white,width: 2),
+                        color: Colors.white70,
+                        border: Border.all(
+                          color: Colors.blue.shade700,
+                          width: 2,
+                        ),
                         borderRadius: BorderRadius.circular(18.0),
                       ),
                       child: DropdownButton<String>(
                         hint: Text(
                           "Thana",
                           style: TextStyle(
-                            fontSize: 19,
+                            fontSize: 19, // Adjusted font size
                             color: Colors.black,
                           ),
                         ),
                         value: thanaInput,
                         dropdownColor: Colors.white,
-                        icon: Icon(Icons.add),
-                        iconSize: 26,
+                        icon: Icon(Icons.arrow_drop_down_circle),
+                        iconSize: 22, // Adjusted icon size
                         iconEnabledColor: Colors.black,
                         isExpanded: true,
                         focusColor: Colors.red,
                         underline: SizedBox(),
                         style: TextStyle(
-                          fontSize: 17,
+                          fontSize: 19, // Adjusted font size
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                         ),
@@ -476,7 +520,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
             ElevatedButton(
               onPressed: _proceed,
               child: Text('Proceed to Physical Info'),
-            )
+            ),
+            SizedBox(height: 40,),
           ],
         ),
       ),
