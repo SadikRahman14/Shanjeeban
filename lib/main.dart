@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 import 'Smj/Physical_Informtion.dart';
 
 void main() {
@@ -26,6 +24,7 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
+
 
 
 
