@@ -4,7 +4,12 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,20 +18,109 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class PhysicalInformationPage extends StatelessWidget {
+class PhysicalInformationPage extends StatefulWidget {
+
+  @override
+  State<PhysicalInformationPage> createState() => _PhysicalInformationPageState();
+}
+
+class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
+
+  var   BloodInput ;
+  var   GenderInput;
+
+  var   AgeInput = TextEditingController();
+  var   HeightInput = TextEditingController();
+  var   WeightInput = TextEditingController();
+
+
+  DateTime? selectedDate;
+
+
+
+  Widget  LastDonationDate() {
+    return GestureDetector(
+      onTap: () {
+        _selectDate(context);
+      },
+      child: Container(
+        padding: EdgeInsets.all(25),
+        height: 80,
+        decoration: BoxDecoration(
+          color: Color(0xFFFFF4E3),
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(
+            color: Colors.white,
+            width: 2,
+          ),
+        ),
+        child: Row(
+          children: [
+            Text(
+            selectedDate == null
+                ? ' Last Donation Date'
+                : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins-Medium',
+            ),
+          ),
+
+            SizedBox(width: 83),
+
+            Icon(
+              Icons.calendar_today,
+              size: 21,
+              color: Colors.black,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+  Future<void> _selectDate(BuildContext context) async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+  String formatDate(DateTime date) {
+    return '${date.day}-${date.month}-${date.year}';
+  }
+  String dateDise(){
+    String date = "";
+    date = selectedDate != null ? formatDate(selectedDate!) : '';
+    return date;
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shanjeeban'),
-      ),
+      //appBar: AppBar(
+       // title: Text('Shanjeeban'),
+     // ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.blue,
+          color: Color(0xFF000040),
           padding: EdgeInsets.all(25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              SizedBox(height: 30,),
+
               Text(
                 "Physical Information",
                 style: TextStyle(
@@ -35,11 +129,12 @@ class PhysicalInformationPage extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
 
-              SizedBox(height: 30,),
+              SizedBox(height: 43,),
 
-              TextField(
+              TextFormField(
+                controller: AgeInput,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                decoration: InputDecoration(filled: true, fillColor: Color(0xFFFFF4E3),
                  contentPadding: EdgeInsets.all(28),
                   labelText: "Age",
                   labelStyle: TextStyle(
@@ -63,12 +158,13 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 13.0),
+              SizedBox(height: 17.0),
 
 
               TextField(
+                controller: HeightInput,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                decoration: InputDecoration(filled: true, fillColor: Color(0xFFFFF4E3),
                   contentPadding: EdgeInsets.all(28),
                   labelText: "Height (in cm)",
                     labelStyle: TextStyle(
@@ -93,11 +189,13 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 13.0),
+              SizedBox(height: 17.0),
+
 
               TextField(
+                controller: WeightInput,
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(filled: true, fillColor: Colors.grey,
+                decoration: InputDecoration(filled: true, fillColor: Color(0xFFFFF4E3),
                   contentPadding: EdgeInsets.all(28),
                   labelText: "Weight (in kg)",
                     labelStyle: TextStyle(
@@ -122,7 +220,7 @@ class PhysicalInformationPage extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(height: 13.0),
+              SizedBox(height: 17.0),
 
 
 
@@ -131,18 +229,19 @@ class PhysicalInformationPage extends StatelessWidget {
                 padding: EdgeInsets.all(25.0),
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Color(0xFFFFF4E3),
                 border: Border.all(color: Colors.white,width: 2),
                   borderRadius: BorderRadius.circular(18.0),
                 ),
                 child: DropdownButton<String>(
                   hint: Text(" Blood Group",
                       style: TextStyle(
-                      fontSize: 19,
+                      fontSize:19 ,
                       color: Colors.black,
                           fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
                   ),
+                  value:  BloodInput ,
                   dropdownColor: Colors.white,
                   icon: Icon(Icons.add),
                   iconSize: 26,
@@ -172,18 +271,20 @@ class PhysicalInformationPage extends StatelessWidget {
                     );
                   }).toList(),
                   onChanged: (String? value) {
-                    // Handle the blood group selection
+                    setState(() {
+                      BloodInput = value;
+                    }); // Handle the blood group selection
                   },
                 ),
               ),
 
-              SizedBox(height: 13.0),
+              SizedBox(height: 17.0),
 
               Container(
                 padding: EdgeInsets.all(25.0),
                 height: 80,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
+                  color: Color(0xFFFFF4E3),
                   border: Border.all(color: Colors.white,width: 2),
                   borderRadius: BorderRadius.circular(18.0),
                 ),
@@ -195,6 +296,7 @@ class PhysicalInformationPage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
                   ),
+                  value:GenderInput ,
                   dropdownColor: Colors.white,
                   icon: Icon(Icons.add),
                   iconSize: 25,
@@ -218,52 +320,32 @@ class PhysicalInformationPage extends StatelessWidget {
                     );
                   }).toList(),
                   onChanged: (String? value) {
-                    // Handle the blood group selection
+                    setState(() {
+                      GenderInput = value;
+                    }); // Handle the blood group sele // Handle the blood group selection
                   },
                 ),
               ),
 
-              SizedBox(height: 13.0),
+              SizedBox(height: 17.0),
+
+
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+
+
+              LastDonationDate (),
+
+
+
+              SizedBox(height: 43.0),
 
 
 
 
-              TextField(
-                keyboardType: TextInputType.datetime,
-                decoration: InputDecoration(filled: true, fillColor: Colors.grey,
-                  contentPadding: EdgeInsets.all(28),
-                    labelText: " Last Donation Date",
-                    labelStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Medium'),
-                  border:
-                  OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  enabledBorder:  OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white, width: 2.0),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                  focusedBorder:  OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black87, width: 2.0),
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
-              ),
-
-              SizedBox(height: 20.0),
-
-
-
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-          Row(
+        /*  Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -297,9 +379,9 @@ class PhysicalInformationPage extends StatelessWidget {
               ),
 
            ],
-          ),
+          ),*/
 
-              SizedBox(height:10.0),
+
 
               ElevatedButton(
                 onPressed: () {
@@ -308,7 +390,7 @@ class PhysicalInformationPage extends StatelessWidget {
               // MaterialPageRoute(builder: (context) => HomePage()),
             },
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white70,
+              backgroundColor: Colors.white,
               minimumSize: Size(40, 40),
             ),
             child: Text('Submit',
