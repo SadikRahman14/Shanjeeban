@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class ProductDetailsPage extends StatefulWidget {
+class signUpInfo extends StatefulWidget {
   @override
-  State<ProductDetailsPage> createState() => _ProductDetailsPageState();
+  State<signUpInfo> createState() => _signUpInfo();
 }
 
-class _ProductDetailsPageState extends State<ProductDetailsPage> {
+class _signUpInfo extends State<signUpInfo> {
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
