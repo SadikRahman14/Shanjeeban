@@ -192,7 +192,7 @@ class Loginheader extends StatelessWidget {
                       style: TextStyle(
                         fontSize: 30,
                         color: Colors.white,
-                        fontFamily: 'oldschool',
+                        fontFamily: 'oldschool ',
 
                       ),
                     ),
