@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+
   Widget build(BuildContext context) {
      return Scaffold(
        body: Column(
@@ -16,11 +17,15 @@ class _HomeState extends State<Home> {
          children: [
            // Red Container
            Container(
+
              height: 450, width: 500,
              decoration: BoxDecoration(
 
-               color: Colors.red[800],
-               borderRadius: BorderRadius.circular(25),
+               color: Color(0xFF900000),
+               borderRadius: BorderRadius.only(
+                 bottomLeft: Radius.circular(26),
+                 bottomRight: Radius.circular(26),
+               ),
 
 
              ),
@@ -29,45 +34,44 @@ class _HomeState extends State<Home> {
              child: Column(
                children: [
                  Padding(
-                   padding: const EdgeInsets.only(left: 16.0),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.start,
+                   padding: EdgeInsets.fromLTRB(16,0, 16,0),
+                   child: Container(
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                     children: [
-                       Image.asset(
-                         'assets/pathao.png',
-                         height: 60, // Adjust the height as needed
-                       ),
-                       Text(
-                         'SadikRahman14',
-                         style: TextStyle(
-                           color: Colors.white,
-                           fontFamily: 'Profile',
-                           fontWeight: FontWeight.bold,
-                           fontSize: 20,
-
+                       children: [
+                         Image.asset(
+                           'assetsSadik/logo.png',
+                           height: 40,
                          ),
-                       ),
-                       SizedBox(width: 135,),
-                       GestureDetector(
-                         onTap: () {
-                           // Handle the tap event here
-                         },
-                         child: CircleAvatar(
-                           radius: 18,
-                           backgroundColor: Colors.grey[100],
-                           child: ClipOval(
-                             child: Image.asset(
-                               'assets/Profile.jpg',
-                               height: 40,
-                             ),
+                         Text(
+                           'SadikRahman14',
+                           style: TextStyle(
+                             color: Colors.white,
+                             fontFamily: 'Profile',
+                             fontWeight: FontWeight.bold,
+                             fontSize: 20,
+
                            ),
                          ),
-                       )
+                         SizedBox(width: 135,),
+                         GestureDetector(
+                           onTap: () {
 
-
-
-                     ],
+                           },
+                           child: CircleAvatar(
+                             radius: 18,
+                             backgroundColor: Colors.grey[100],
+                             child: ClipOval(
+                               child: Image.asset(
+                                 'assetsSadik/Profile.jpg',
+                                 height: 40,
+                               ),
+                             ),
+                           ),
+                         )
+                       ],
+                     ),
                    ),
                  ),
                  SizedBox(height: 10,),
@@ -240,7 +244,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/ambulance.png', // Replace with your image asset path
+                           'assetsSadik/ambulance.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
@@ -286,7 +290,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/donateNow.png', // Replace with your image asset path
+                           'assetsSadik/donateNow.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
@@ -327,12 +331,12 @@ class _HomeState extends State<Home> {
                          bottomRight: Radius.circular(20),
                        ),
                      ),
-                     padding: EdgeInsets.all(8), // Padding around the button content
+                     padding: EdgeInsets.all(8),
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/request.png', // Replace with your image asset path
+                           'assetsSadik/request.png',
                            height: 30,
                            //width: 60,
                          ),
@@ -388,7 +392,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/PointsIcon.png', // Replace with your image asset path
+                           'assetsSadik/PointsIcon.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
@@ -434,7 +438,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/support.png', // Replace with your image asset path
+                           'assetsSadik/support.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text
@@ -480,7 +484,7 @@ class _HomeState extends State<Home> {
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
                          Image.asset(
-                           'assets/leaderboard.png', // Replace with your image asset path
+                           'assetsSadik/leaderboard.png', // Replace with your image asset path
                            height: 30,
                          ),
                          SizedBox(height: 8), // Add some spacing between the image and text

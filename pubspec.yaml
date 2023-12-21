@@ -61,14 +61,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-      - assets/pathao.png
-      - assets/leaderboard.png
-      - assets/Profile.jpg
-      - assets/ambulance.png
-      - assets/donateNow.png
-      - assets/PointsIcon.png
-      - assets/request.png
-      - assets/support.png
+      - assetsSadik/pathao.png
+      - assetsSadik/leaderboard.png
+      - assetsSadik/Profile.jpg
+      - assetsSadik/ambulance.png
+      - assetsSadik/donateNow.png
+      - assetsSadik/PointsIcon.png
+      - assetsSadik/request.png
+      - assetsSadik/support.png
+      - assetsSadik/logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -85,16 +86,16 @@ flutter:
   fonts:
      - family: Elegant
        fonts:
-         - asset: assets/Rosela.ttf
+         - asset: assetsSadik/Rosela.ttf
      - family: Distorted
        fonts:
-         - asset: assets/Doctor Glitch.otf
+         - asset: assetsSadik/Doctor Glitch.otf
      - family: 3D
        fonts:
-         - asset: assets/Chomixi3D-Regular.ttf
+         - asset: assetsSadik/Chomixi3D-Regular.ttf
      - family: Profile
        fonts:
-       - asset: assets/Cream Cake.otf
+       - asset: assetsSadik/Cream Cake.otf
 
   #         style: italic
   #   - family: Trajan Pro
