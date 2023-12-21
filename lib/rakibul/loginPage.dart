@@ -46,12 +46,12 @@ class LoginPage extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Color(0xff000050),
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(60),
-                    topRight: Radius.circular(60),
+                    topLeft: Radius.circular(100),
+                    topRight: Radius.circular(100),
                   ),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.all(2),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -63,9 +63,11 @@ class LoginPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(color: Colors.grey[200]!),
@@ -77,7 +79,7 @@ class LoginPage extends StatelessWidget {
                                     Icons.email, // Choose the icon you want (e.g., Icons.email for email)
                                     color: Colors.black,
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 5),
                                   Expanded(
                                     child: TextField(
                                       controller: fullNameInput,
@@ -93,19 +95,20 @@ class LoginPage extends StatelessWidget {
                             ),
 
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: EdgeInsets.all(5),
                               decoration: BoxDecoration(
                                 border: Border(
                                   bottom: BorderSide(color: Colors.grey[200]!),
                                 ),
                               ),
                               child: Row(
+
                                 children: [
                                   Icon(
                                     Icons.lock, // Choose the icon you want (e.g., Icons.lock for password)
                                     color: Colors.black,
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 5),
                                   Expanded(
                                     child: TextField(
                                       controller: passwordInput,
@@ -174,38 +177,43 @@ class Loginheader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(5.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
             children: [
-              Column(
-                children: [
-                  Text(
-                    "Sign Up and Get",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.white,
-                      fontFamily: 'oldschool',
+              Padding(
+                padding: const EdgeInsets.only(left:10.0),
+                child: Column(
 
+                  children: [
+                    Text(
+                      "Sign Up and Get",
+                      style: TextStyle(
+                        fontSize: 30,
+                        color: Colors.white,
+                        fontFamily: 'oldschool',
+
+                      ),
                     ),
-                  ),
-                  Text(
-                    "100 Points",
-                    style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.red,
-                      fontWeight: FontWeight.w400,
-                      fontFamily: 'oldschool',
+                    Text(
+                      "100 Points",
+                      style: TextStyle(
+                        fontSize: 40,
+                        color: Colors.red,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'oldschool',
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-              SizedBox(
-                width: 20,
-              ),
-              Image.asset("assets/images/bg.png",
-               width: 150, height:150 ,
+
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset("assets/images/bg.png",
+                 width: 120, height:120 ,
+                ),
               ),
             ],
           ),
@@ -223,26 +231,27 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       child: Padding(
-        padding: const EdgeInsets.only(left: 100.0),
+        padding: const EdgeInsets.only(left: 2.0),
         child: Container(
-          height: 50,
+          height: 60,
           width: 200,
-          margin: EdgeInsets.symmetric(horizontal: 18),
+
+          margin: EdgeInsets.symmetric(horizontal: 125),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(150),
+            borderRadius: BorderRadius.circular(100),
           ),
           child: ElevatedButton(
             child: Text(
               'Login',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 18),
             ),
             onPressed: onPressed,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.redAccent,
-              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
               textStyle: TextStyle(
                 color: Colors.white,
                 fontSize: 30,
