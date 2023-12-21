@@ -75,8 +75,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: oldschool
-       fonts:
+
+    - family: Poppins-Medium
+      fonts:
+        - asset: fonts/Poppins-Medium.ttf
+    - family: oldschool
+      fonts:
          - asset: assets/fonts/collegeb.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
@@ -85,6 +89,7 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
