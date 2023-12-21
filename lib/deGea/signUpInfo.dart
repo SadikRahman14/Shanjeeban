@@ -20,7 +20,8 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
 
   ////////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////////
   String? _validateName(value) {
-    if (value!.isEmpty) return 'Enter proper name';
+    if (value!.isEmpty)
+      return 'Enter proper name';
     RegExp nameReg = RegExp(r'^[a-zA-Z ]+$');
     if (!nameReg.hasMatch(value)) {
       return 'Enter proper name';
@@ -182,7 +183,7 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF000080),
+      backgroundColor: Color(0xFF000000),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -196,11 +197,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     TextFormField(
                       controller: fullNameInput,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_box),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: Colors.white,
+                        ),
                         labelText: 'Full Name',
+                        labelStyle: TextStyle(
+                          color: Colors.white, // Set your desired color here
+                        ),
                         filled: true,
-                        fillColor: Color(0xFFFFF4E3),
+                        fillColor: Color(0xff525151),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -208,21 +216,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
                             color: Colors.green,
-                            width: 2.5,
+                            width: 4,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.blue.shade700,
-                            width: 1,
+                            color: Color(0xffab9784),
+                            width: 4,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
+                            color: Color(0xffc22333),
+                            width: 4,
                           ),
                         ),
                         errorStyle: TextStyle(color: Colors.red),
@@ -235,11 +243,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       obscureText: true,
                       obscuringCharacter: '*',
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_box),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: Colors.white,
+                        ),
                         labelText: 'Password',
+                        labelStyle: TextStyle(
+                          color: Colors.white, // Set your desired color here
+                        ),
                         filled: true,
-                        fillColor: Color(0xFFFFF4E3),
+                        fillColor: Color(0xff525151),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -247,21 +262,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
                             color: Colors.green,
-                            width: 2.5,
+                            width: 4,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.blue.shade700,
-                            width: 1,
+                            color: Color(0xffab9784),
+                            width: 4,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
+                            color: Color(0xffc22333),
+                            width: 4,
                           ),
                         ),
                         errorStyle: TextStyle(color: Colors.red),
@@ -272,11 +287,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     TextFormField(
                       controller: handleInput,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_box),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: Colors.white,
+                        ),
                         labelText: 'Handle',
+                        labelStyle: TextStyle(
+                          color: Colors.white, // Set your desired color here
+                        ),
                         filled: true,
-                        fillColor: Color(0xFFFFF4E3),
+                        fillColor: Color(0xff525151),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -284,21 +306,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
                             color: Colors.green,
-                            width: 2.5,
+                            width: 4,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.blue.shade700,
-                            width: 1,
+                            color: Color(0xffab9784),
+                            width: 4,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
+                            color: Color(0xffc22333),
+                            width: 4,
                           ),
                         ),
                         errorStyle: TextStyle(color: Colors.red),
@@ -309,11 +331,19 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     TextFormField(
                       controller: phoneNumberInput,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      style: TextStyle(color: Colors.white),
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_box),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: Colors.white,
+                        ),
                         labelText: 'Phone Number',
+                        labelStyle: TextStyle(
+                          color: Colors.white, // Set your desired color here
+                        ),
                         filled: true,
-                        fillColor: Color(0xFFFFF4E3),
+                        fillColor: Color(0xff525151),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -321,21 +351,21 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
                             color: Colors.green,
-                            width: 2.5,
+                            width: 4,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.blue.shade700,
-                            width: 1,
+                            color: Color(0xffab9784),
+                            width: 4,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
+                            color: Color(0xffc22333),
+                            width: 4,
                           ),
                         ),
                         errorStyle: TextStyle(color: Colors.red),
@@ -346,11 +376,18 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                     TextFormField(
                       controller: emailInput,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_box),
+                        prefixIcon: Icon(
+                          Icons.account_box,
+                          color: Colors.white,
+                        ),
                         labelText: 'Email',
+                        labelStyle: TextStyle(
+                          color: Colors.white, // Set your desired color here
+                        ),
                         filled: true,
-                        fillColor: Color(0xFFFFF4E3),
+                        fillColor: Color(0xff525151),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -358,24 +395,24 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
                             color: Colors.green,
-                            width: 2.5,
+                            width: 4,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.blue.shade700,
-                            width: 1,
+                            color: Color(0xffab9784),
+                            width: 4,
                           ),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(13),
                           borderSide: BorderSide(
-                            color: Colors.red,
-                            width: 2.5,
+                            color: Color(0xffc22333),
+                            width: 4,
                           ),
                         ),
-                        errorStyle: TextStyle(color: Colors.blueGrey),
+                        errorStyle: TextStyle(color: Colors.red),
                       ),
                       validator: _validateEmail,
                     ),
@@ -386,10 +423,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       padding: EdgeInsets.all(15.0),
                       height: 62,
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFF4E3),
+                        color: Color(0xff525151),
                         border: Border.all(
-                          color: Colors.blue.shade700,
-                          width: 2,
+                          color: Color(0xffab9784),
+                          width: 4,
                         ),
                         borderRadius: BorderRadius.circular(18.0),
                       ),
@@ -398,12 +435,15 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           "District",
                           style: TextStyle(
                             fontSize: 19,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                         value: districtInput,
                         dropdownColor: Colors.white,
-                        icon: Icon(Icons.arrow_drop_down_circle),
+                        icon: Icon(
+                            Icons.arrow_drop_down_circle,
+                            color: Colors.white,
+                        ),
                         iconSize: 22, // Adjusted icon size
                         iconEnabledColor: Colors.black,
                         isExpanded: true,
@@ -434,10 +474,10 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                       padding: EdgeInsets.all(15.0), // Adjusted padding
                       height: 62,
                       decoration: BoxDecoration(
-                        color: Color(0xFFFFF4E3),
+                        color: Color(0xff525151),
                         border: Border.all(
-                          color: Colors.blue.shade700,
-                          width: 2,
+                          color: Color(0xffab9784),
+                          width: 4,
                         ),
                         borderRadius: BorderRadius.circular(18.0),
                       ),
@@ -446,13 +486,16 @@ class _ProductDetailsPageState extends State<ProductDetailsPage> {
                           "Thana",
                           style: TextStyle(
                             fontSize: 19,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                         value: thanaInput,
                         dropdownColor: Colors.white,
-                        icon: Icon(Icons.arrow_drop_down_circle),
-                        iconSize: 22,
+                        icon: Icon(
+                          Icons.arrow_drop_down_circle,
+                          color: Colors.white,
+                        ),
+                        iconSize: 22, // Adjusted icon size
                         iconEnabledColor: Colors.black,
                         isExpanded: true,
                         focusColor: Colors.red,
