@@ -71,15 +71,27 @@ class LoginPage extends StatelessWidget {
                                   bottom: BorderSide(color: Colors.grey[200]!),
                                 ),
                               ),
-                              child: TextField(
-                                controller: fullNameInput,
-                                decoration: InputDecoration(
-                                  hintText: "Enter Your Email or Handle",
-                                  hintStyle: TextStyle(color: Colors.black),
-                                  border: InputBorder.none,
-                                ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.email, // Choose the icon you want (e.g., Icons.email for email)
+                                    color: Colors.black,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: fullNameInput,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter Your Email or Handle",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -87,16 +99,28 @@ class LoginPage extends StatelessWidget {
                                   bottom: BorderSide(color: Colors.grey[200]!),
                                 ),
                               ),
-                              child: TextField(
-                                controller: passwordInput,
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: "Enter your Password",
-                                  hintStyle: TextStyle(color: Colors.black),
-                                  border: InputBorder.none,
-                                ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.lock, // Choose the icon you want (e.g., Icons.lock for password)
+                                    color: Colors.black,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Expanded(
+                                    child: TextField(
+                                      controller: passwordInput,
+                                      obscureText: true,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter your Password",
+                                        hintStyle: TextStyle(color: Colors.black),
+                                        border: InputBorder.none,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
+
                           ],
                         ),
                       ),
@@ -146,7 +170,7 @@ class Loginheader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
