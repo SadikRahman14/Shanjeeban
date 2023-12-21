@@ -35,7 +35,7 @@ class LoginPage extends StatelessWidget {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          color: Color(0xff000080),
+          color: Color(0xff000050),
         ),
         child: Column(
           children: <Widget>[
@@ -44,7 +44,7 @@ class LoginPage extends StatelessWidget {
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff000080),
+                  color: Color(0xff000050),
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(60),
                     topRight: Radius.circular(60),
@@ -150,15 +150,21 @@ class Loginheader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
             children: [
               Column(
                 children: [
                   Text(
                     "Sign Up and Get",
-                    style: TextStyle(fontSize: 30, color: Colors.white),
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white,
+                      fontFamily: 'oldschool',
+
+                    ),
                   ),
                   Text(
                     "100 Points",
@@ -166,6 +172,7 @@ class Loginheader extends StatelessWidget {
                       fontSize: 50,
                       color: Colors.red,
                       fontWeight: FontWeight.w400,
+                      fontFamily: 'oldschool',
                     ),
                   ),
                 ],
@@ -173,7 +180,9 @@ class Loginheader extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              Image.asset("Assets/images/bg.png"),
+              Image.asset("assets/images/bg.png",
+               width: 150, height:150 ,
+              ),
             ],
           ),
         ),
