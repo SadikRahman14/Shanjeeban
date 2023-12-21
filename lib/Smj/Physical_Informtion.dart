@@ -52,11 +52,11 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         height: 80,
         decoration: BoxDecoration(
           color: Color(0xff525151),
-          borderRadius: BorderRadius.circular(18),
+          borderRadius: BorderRadius.circular(20.0),
           border: Border.all(
-            color: Colors.red ,
+            color: Color(0xffab9784) ,
             width: 3,
-          ),
+          )
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,20 +120,44 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         snackBarMessage('Please input all informations');
         return;
       }
+      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty ) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
+      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty &&  LastDonationInput == null || LastDonationInput.isEmpty) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
+      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty  && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
+      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty  && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
+      if (HeightInput.text.isEmpty  && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
+      if ( WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
+        snackBarMessage('Please input all informations');
+        return;
+      }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty) {
-        snackBarMessage('Height,Weight and Age is mandatory.');
+        snackBarMessage('Please input all informations');
         return;
       }
       if (HeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
-        snackBarMessage('Height and Age is mandatory.');
+        snackBarMessage('Please input all informations');
         return;
       }
       if (HeightInput.text.isEmpty &&  WeightInput.text.isEmpty) {
-        snackBarMessage('Height and Weight is mandatory.');
+        snackBarMessage('Please input all informations');
         return;
       }
       if (WeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
-        snackBarMessage('Weight and Age is mandatory.');
+        snackBarMessage('Please input all informations');
         return;
       }
       if (WeightInput.text.isEmpty) {
@@ -217,6 +241,11 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
               TextFormField(
                 controller: AgeInput,
                 keyboardType: TextInputType.number,
+                 style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins-Medium'),
                 decoration: InputDecoration(filled: true, fillColor: Color(0xff525151),
                   contentPadding: EdgeInsets.all(28),
                   labelText: "Age",
@@ -228,15 +257,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   border:
                   OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784)),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784), width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   focusedBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green, width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
                 validator: (value){
@@ -251,6 +280,11 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
               TextFormField(
                 controller: HeightInput,
                 keyboardType: TextInputType.number,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins-Medium'),
                 decoration: InputDecoration(filled: true, fillColor: Color(0xff525151),
                   contentPadding: EdgeInsets.all(28),
                   labelText: "Height (in cm)",
@@ -263,15 +297,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   border:
                   OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784)),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784), width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   focusedBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green, width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
               ),
@@ -282,6 +316,11 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
               TextFormField(
                 controller: WeightInput,
                 keyboardType: TextInputType.number,
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Poppins-Medium'),
                 decoration: InputDecoration(filled: true, fillColor: Color(0xff525151),
                   contentPadding: EdgeInsets.all(28),
                   labelText: "Weight (in kg)",
@@ -294,15 +333,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   border:
                   OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784)),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   enabledBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xffab9784), width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                   focusedBorder:  OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.green, width: 4.0),
-                    borderRadius: BorderRadius.circular(18.0),
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
               ),
@@ -315,21 +354,22 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
               Container(
                 padding: EdgeInsets.all(25.0),
                 height: 80,
+
                 decoration: BoxDecoration(
                   color: Color(0xff525151),
-                  border: Border.all(color: Colors.white,width: 2),
-                  borderRadius: BorderRadius.circular(18.0),
+                  border: Border.all(color: Color(0xffab9784),width: 4),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: DropdownButton<String>(
                   hint: Text(" Blood Group",
                     style: TextStyle(
-                        fontSize:19 ,
+                        fontSize:18 ,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
                   ),
                   value:  BloodInput ,
-                  dropdownColor: Colors.white,
+                  dropdownColor: Colors.brown,
                   icon: Icon(Icons.add),
                   iconSize: 26,
                   iconEnabledColor: Colors.black,
@@ -337,7 +377,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
 
@@ -372,19 +412,19 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                 height: 80,
                 decoration: BoxDecoration(
                   color: Color(0xff525151),
-                  border: Border.all(color: Colors.white,width: 2),
-                  borderRadius: BorderRadius.circular(18.0),
+                  border: Border.all(color: Color(0xffab9784),width: 4),
+                  borderRadius: BorderRadius.circular(20.0),
                 ),
                 child: DropdownButton<String>(
                   hint: Text(" Gender",
                     style: TextStyle(
-                        fontSize: 19,
+                        fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
                   ),
                   value:GenderInput ,
-                  dropdownColor: Colors.white,
+                  dropdownColor: Colors.brown,
                   icon: Icon(Icons.add),
                   iconSize: 25,
                   iconEnabledColor: Colors.black,
@@ -392,7 +432,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   underline: SizedBox(),
                   style: TextStyle(
                       fontSize: 17,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
 
@@ -471,13 +511,13 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   ElevatedButton(
                     onPressed: proceed,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      minimumSize: Size(40, 40),
+                      backgroundColor: Colors.red,
+                      minimumSize: Size(36, 36),
                     ),
                     child: Text('Submit',
                       style: TextStyle(
                           fontSize: 14.0,
-                          color: Colors.black87,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins-Medium'),
                     ),
