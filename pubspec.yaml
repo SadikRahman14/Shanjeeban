@@ -103,12 +103,12 @@ flutter:
 
 
 
-    - family: Poppins-Medium
-      fonts:
+     - family: Poppins-Medium
+       fonts:
         - asset: fonts/Poppins-Medium.ttf
-    - family: oldschool
-      fonts:
-         - asset: assets/fonts/collegeb.ttf
+     - family: oldschool
+       fonts:
+       - asset: assets/fonts/collegeb.ttf
   #       - asset: fonts/Schyler-Italic.ttf
 
   #         style: italic
