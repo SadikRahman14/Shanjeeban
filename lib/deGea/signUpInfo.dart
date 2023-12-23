@@ -130,35 +130,35 @@ class _signUpInfo extends State<signUpInfo> {
       ),
     );
   }
-  void _proceed() {
+  int _proceed() {
     if (_formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
-        return;
+        return 11;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
-        return;
+        return 11;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
-        return;
+        return 11;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
-        return;
+        return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
         snackBarMessage('who will provide the district??');
-        return;
+        return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('who will provide the thana??');
-        return;
+        return 11;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('jonmo kobe vai??');
-        return;
+        return 11;
       }
 
       String userFullName = fullNameInput.text.toString();
@@ -180,31 +180,31 @@ class _signUpInfo extends State<signUpInfo> {
     else if(!_formKey.currentState!.validate()){
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
-        return;
+        return 11;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
-        return;
+        return 11;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
-        return;
+        return 11;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
-        return;
+        return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
         snackBarMessage('who will provide the district??');
-        return;
+        return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('who will provide the thana??');
-        return;
+        return 11;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('jonmo kobe vai??');
-        return;
+        return 11;
       }
 
       String userFullName = fullNameInput.text.toString();
@@ -223,6 +223,9 @@ class _signUpInfo extends State<signUpInfo> {
       print("district: $districtInput");
       print("thana: $thanaInput");
     }
+
+    return 69;
+
   }
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
@@ -682,7 +685,11 @@ class _signUpInfo extends State<signUpInfo> {
                 ),
               ),
               ElevatedButton(
-                onPressed: _proceed,
+                onPressed: (){
+                  if(_proceed() == 69){
+                    Navigator.pushNamed(context, '/physical');
+                  }
+                },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
