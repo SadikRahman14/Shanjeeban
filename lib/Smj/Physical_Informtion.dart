@@ -1,21 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
-class MyApp extends StatefulWidget {
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: PhysicalInformationPage(),
-    );
-  }
-}
-
 class PhysicalInformationPage extends StatefulWidget {
 
   @override
@@ -39,7 +23,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
 
   DateTime? selectedDate;
-
 
 
   Widget  LastDonationDate() {
@@ -107,6 +90,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     date = selectedDate != null ? formatDate(selectedDate!) : '';
     return date;
   }
+
+
   void snackBarMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -114,99 +99,98 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       ),
     );
   }
-  void proceed() {
+  int proceed() {
     if (formKey.currentState!.validate()) {
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty ) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty &&  LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty  && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty  && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty  && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if ( WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty &&  WeightInput.text.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (WeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
         snackBarMessage('Please input all informations');
-        return;
+        return 11;
       }
       if (WeightInput.text.isEmpty) {
         snackBarMessage('Please input Weight');
-        return;
+        return 11;
       }
       if (HeightInput.text.isEmpty) {
         snackBarMessage('Please input Height');
-        return;
+        return 11;
       }
       if (AgeInput.text.isEmpty) {
         snackBarMessage('Please input Age');
-        return;
+        return 11;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input other informations');
-        return;
+        return 11;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty ) {
         snackBarMessage('Please input other informations');
-        return;
+        return 11;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty ) {
         snackBarMessage('Please input other informations');
-        return;
+        return 11;
       }
       if (GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty ) {
         snackBarMessage('Please input other informations');
-        return;
+        return 11;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Please input Blood Group');
-        return;
+        return 11;
       }
 
       if (GenderInput == null || GenderInput.isEmpty) {
         snackBarMessage('Please input Gender');
-        return;
+        return 11;
       }
       if (LastDonationInput == null || LastDonationInput.isEmpty) {
         snackBarMessage('Please input Last Donation Date');
-        return;
+        return 11;
       }
     }
+
+    return 69;
+
   }
-
-
-
-
 
 
   @override
@@ -461,55 +445,13 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
-
                   LastDonationDate (),
-
-
-
                   SizedBox(height: 43.0),
-
-
-
-
-                  /*  Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              Text(
-                'Blood Test Certificate',
-                style: TextStyle(
-                    fontSize: 18.0,
-                    color: Colors.lightGreenAccent,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Poppins-Medium'),
-              ),
-
-              SizedBox(width: 13.0),
-
-
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white70,
-                   minimumSize: Size(30, 30),
-                ),
-                child: Text(
-                  'Choose File',
-                  style: TextStyle(
-                      fontSize: 14.0,
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins-Medium'),
-                ),
-              ),
-
-           ],
-          ),*/
-
                   ElevatedButton(
-                    onPressed: proceed,
+                    onPressed: (){
+                      if(proceed() == 69)
+                        Navigator.pushNamed(context, '/loginPage');
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       minimumSize: Size(36, 36),
@@ -524,8 +466,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   ),
                 ],
               ),
-
-
             ],
           ),
         ),
