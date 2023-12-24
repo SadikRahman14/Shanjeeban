@@ -12,9 +12,6 @@ void main() async{
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-void main() {
-
   runApp(MyApp());
 }
 
@@ -39,15 +36,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
-
-
-      routes: {
-        '/loginPage':(context) => LoginPage(),
-        '/signUpPage':(context) => signUpInfo(),
-        '/homePage':(context) => Home(),
-        '/physical':(context) => PhysicalInformationPage(),
-      },
 
 
 
