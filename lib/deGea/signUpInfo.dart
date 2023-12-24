@@ -149,15 +149,15 @@ class _signUpInfo extends State<signUpInfo> {
         return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
-        snackBarMessage('who will provide the district??');
+        snackBarMessage('Provide your district info');
         return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
-        snackBarMessage('who will provide the thana??');
+        snackBarMessage('Provide your thana info');
         return 11;
       }
       if (dateDise().isEmpty) {
-        snackBarMessage('jonmo kobe vai??');
+        snackBarMessage('Provide Date of Birth');
         return 11;
       }
 
@@ -199,7 +199,7 @@ class _signUpInfo extends State<signUpInfo> {
         return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
-        snackBarMessage('who will provide the thana??');
+        snackBarMessage('Provide your thana info');
         return 11;
       }
       if (dateDise().isEmpty) {

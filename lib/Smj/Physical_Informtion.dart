@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:login/rakibul/loginPage.dart';
-
 
 class PhysicalInformationPage extends StatefulWidget {
 
@@ -24,7 +22,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
 
   DateTime? selectedDate;
-
 
 
   String? _validateAge(value) {
@@ -128,7 +125,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
   }
   int proceed() {
 
-
     if (formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Date of Birth, Blood Group and Gender fields are mandatory.');
@@ -179,87 +175,9 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Blood Group field is empty');
-
-    if (formKey.currentState!.validate()) {
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty ) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty &&  LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty  && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty  && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty  && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if ( WeightInput.text.isEmpty && AgeInput.text.isEmpty && BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty && WeightInput.text.isEmpty && AgeInput.text.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty &&  WeightInput.text.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (WeightInput.text.isEmpty &&  AgeInput.text.isEmpty) {
-        snackBarMessage('Please input all informations');
-        return 11;
-      }
-      if (WeightInput.text.isEmpty) {
-        snackBarMessage('Please input Weight');
-        return 11;
-      }
-      if (HeightInput.text.isEmpty) {
-        snackBarMessage('Please input Height');
-        return 11;
-      }
-      if (AgeInput.text.isEmpty) {
-        snackBarMessage('Please input Age');
-        return 11;
-      }
-      if (BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input other informations');
-        return 11;
-      }
-      if (BloodGroupInput == null || BloodGroupInput.isEmpty && GenderInput == null || GenderInput.isEmpty ) {
-        snackBarMessage('Please input other informations');
-        return 11;
-      }
-      if (BloodGroupInput == null || BloodGroupInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty ) {
-        snackBarMessage('Please input other informations');
-        return 11;
-      }
-      if (GenderInput == null || GenderInput.isEmpty && LastDonationInput == null || LastDonationInput.isEmpty ) {
-        snackBarMessage('Please input other informations');
-        return 11;
-      }
-      if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
-        snackBarMessage('Please input Blood Group');
-
         return 11;
       }
       if (GenderInput == null || GenderInput.isEmpty) {
-
         snackBarMessage('Gender field is empty');
         return 11;
       }
@@ -270,19 +188,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     }
 
     return 69;
-
-        snackBarMessage('Please input Gender');
-        return 11;
-      }
-      if (LastDonationInput == null || LastDonationInput.isEmpty) {
-        snackBarMessage('Please input Last Donation Date');
-        return 11;
-      }
-    }
-
-    return 69;
-
-
   }
 
 
@@ -316,36 +221,36 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                 SizedBox(height: 43,),
 
                 TextFormField(
-                    controller: AgeInput,
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(
+                  controller: AgeInput,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Poppins-Medium'),
+                  decoration: InputDecoration(filled: true, fillColor: Color(0xff525151),
+                    contentPadding: EdgeInsets.all(28),
+                    labelText: "Age",
+                    labelStyle: TextStyle(
                         fontSize: 18,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
-                    decoration: InputDecoration(filled: true, fillColor: Color(0xff525151),
-                      contentPadding: EdgeInsets.all(28),
-                      labelText: "Age",
-                      labelStyle: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins-Medium'),
-                      border:
-                      OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffab9784)),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      enabledBorder:  OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xffab9784), width: 4.0),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
-                      focusedBorder:  OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 4.0),
-                        borderRadius: BorderRadius.circular(20.0),
-                      ),
+                    border:
+                    OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffab9784)),
+                      borderRadius: BorderRadius.circular(20.0),
                     ),
-                    validator: _validateAge,
+                    enabledBorder:  OutlineInputBorder(
+                      borderSide: BorderSide(color: Color(0xffab9784), width: 4.0),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder:  OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.green, width: 4.0),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  validator: _validateAge,
                 ),
 
                 SizedBox(height: 17.0),
@@ -422,7 +327,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   validator: _validateWeight,
                 ),
 
-
                 SizedBox(height: 17.0),
 
 
@@ -494,36 +398,12 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   ),
                   child: DropdownButton<String>(
                     hint: Text(" Gender",
-
-              ),
-
-              SizedBox(height: 17.0),
-
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  LastDonationDate (),
-                  SizedBox(height: 43.0),
-                  ElevatedButton(
-                    onPressed: (){
-                      if(proceed() == 69)
-                        Navigator.pushNamed(context, '/loginPage');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      minimumSize: Size(36, 36),
-                    ),
-                    child: Text('Submit',
-
                       style: TextStyle(
                           fontSize: 18,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'Poppins-Medium'),
                     ),
-
                     value:GenderInput ,
                     dropdownColor: Colors.brown,
                     icon: Icon(Icons.add),
@@ -589,12 +469,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                 ),
               ],
             ),
-
-                  ),
-                ],
-              ),
-            ],
-
           ),
         ),
       ),
