@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "314165892127",
+    "project_id": "shanjeeban-bea7f",
+    "storage_bucket": "shanjeeban-bea7f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314165892127:android:8a40f4237d13f6308eb12a",
+        "android_client_info": {
+          "package_name": "com.example.shanjeeban000"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqONPMnrQCcQ-9vKD_VJs4jtFryaFtis4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

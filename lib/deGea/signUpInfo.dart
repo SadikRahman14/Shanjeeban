@@ -538,10 +538,10 @@ class _signUpInfo extends State<signUpInfo> {
                             ],
                           ),
                           value: districtInput,
-                          dropdownColor: Colors.white,
+                          dropdownColor: Color(0xffbfb59b),
                           icon: Icon(
-                              Icons.arrow_drop_down_circle,
-                              color: Colors.white,
+                            Icons.arrow_drop_down_circle,
+                            color: Colors.white,
                           ),
                           iconSize: 22, // Adjusted icon size
                           iconEnabledColor: Colors.black,
@@ -561,7 +561,7 @@ class _signUpInfo extends State<signUpInfo> {
                               child: Text(
                                 value,
                                 style: TextStyle(
-                                  color: districtInput == value ? Color(0xffcfcccc) : Colors.black,
+                                  color: districtInput == value ? Colors.white : Colors.black,
                                 ),
                               ),
                             );
@@ -602,7 +602,7 @@ class _signUpInfo extends State<signUpInfo> {
                             ],
                           ),
                           value: thanaInput,
-                          dropdownColor: Colors.white,
+                          dropdownColor: Color(0xffbfb59b),
                           icon: Icon(
                             Icons.arrow_drop_down_circle,
                             color: Colors.white,
@@ -667,7 +667,7 @@ class _signUpInfo extends State<signUpInfo> {
                                 value,
                                 style: TextStyle(
                                   fontSize: 17,
-                                  color: thanaInput == value ? Color(0xffcfcccc) : Colors.black,
+                                  color: thanaInput == value ? Colors.white : Colors.black,
                                 ),
                               ),
                             );
@@ -699,10 +699,10 @@ class _signUpInfo extends State<signUpInfo> {
                   ),
                 ),
                 child: Text(
-                    'Proceed to Physical Info',
-                    style: TextStyle(
-                      fontSize: 17,
-                    ),
+                  'Proceed to Physical Info',
+                  style: TextStyle(
+                    fontSize: 17,
+                  ),
                 ),
               ),
               SizedBox(height: 40,),

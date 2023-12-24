@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '';
+
+
 
 class LoginPage extends StatelessWidget {
   var fullNameInput = TextEditingController();
@@ -13,17 +14,19 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  void _proceed(BuildContext context) {
+  int _proceed(BuildContext context) {
     if (fullNameInput.text.isEmpty ) {
       snackBarMessage(context, 'Enter your Email or handle');
-      return;
+      return 21;
 
     }
     if (passwordInput.text.isEmpty) {
       snackBarMessage(context, 'Input Password');
-      return;
+      return 12;
 
     }
+
+    return 66;
 
     String userFullName = fullNameInput.text;
     String userPassword = passwordInput.text;
@@ -216,7 +219,7 @@ class Loginheader extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset("assets/images/bg.png",
-                 width: 120, height:120 ,
+                  width: 120, height:120 ,
                 ),
               ),
             ],
