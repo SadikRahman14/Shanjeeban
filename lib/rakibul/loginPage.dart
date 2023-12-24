@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '';
+
 class LoginPage extends StatelessWidget {
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
@@ -133,7 +135,9 @@ class LoginPage extends StatelessWidget {
                       }),
                       SizedBox(height: 5),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/signUpPage');
+                        },
                         child: Text(
                           'New to Shanjeeban?    SIGN UP',
                           style: TextStyle(
@@ -212,7 +216,7 @@ class Loginheader extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset("assets/images/bg.png",
-                 width: 120, height:120 ,
+                  width: 120, height:120 ,
                 ),
               ),
             ],
@@ -248,7 +252,10 @@ class Button extends StatelessWidget {
               'Login',
               style: TextStyle(fontSize: 18),
             ),
-            onPressed: onPressed,
+            onPressed: (){
+              if(true)    // eikhane pore database theke info khujbo.
+                Navigator.pushNamed(context, '/homePage');
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.redAccent,
               padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
