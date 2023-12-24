@@ -109,10 +109,17 @@ flutter:
 
      - family: Poppins-Medium
        fonts:
+
          - asset: fonts/Poppins-Medium.ttf
      - family: oldschool
        fonts:
         - asset: assets/fonts/collegeb.ttf
+
+        - asset: fonts/Poppins-Medium.ttf
+     - family: oldschool
+       fonts:
+       - asset: assets/fonts/collegeb.ttf
+
   #       - asset: fonts/Schyler-Italic.ttf
 
   #         style: italic
