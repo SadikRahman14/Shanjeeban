@@ -31,7 +31,6 @@ class _MyAppState extends State<MyApp> {
         '/homePage':(context) => Home(),
         '/physical':(context) => PhysicalInformationPage(),
       },
-
     );
   }
 }

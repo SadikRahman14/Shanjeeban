@@ -21,7 +21,6 @@ class LoginPage extends StatelessWidget {
     if (passwordInput.text.isEmpty) {
       snackBarMessage(context, 'Input Password');
       return 12;
-
     }
 
     return 66;
