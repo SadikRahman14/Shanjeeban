@@ -161,6 +161,7 @@ class _signUpInfo extends State<signUpInfo> {
     } on FirebaseAuthException catch (ex) {
       print(ex.code.toString());
       print("2nd call failed: $flagCreateAcc");
+      snackBarMessage('This email is already in use.');
       setState(() {
         flagCreateAcc = 0;
       });
@@ -170,27 +171,34 @@ class _signUpInfo extends State<signUpInfo> {
   }
 
   void _proceed() {
-    if (_formKey.currentState!.validate()) {  // form er 5ta thik ase
+    if (_formKey.currentState!.validate()) { // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
+        return;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
+        return;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
+        return;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
+        return;
       }
       if (districtInput == null || districtInput.isEmpty) {
         snackBarMessage('Provide your district info');
+        return;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('Provide your thana info');
+        return;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('Provide Date of Birth');
+        return;
       }
 
       setState(() {
@@ -199,27 +207,34 @@ class _signUpInfo extends State<signUpInfo> {
       print("1st call: $flagCreateAcc");
       createNewAccount();
     }
-    else if(!_formKey.currentState!.validate()){   //form validate hoy nai
+    else if (!_formKey.currentState!.validate()) { //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
+        return;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
+        return;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
+        return;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
+        return;
       }
       if (districtInput == null || districtInput.isEmpty) {
-        snackBarMessage('Provide your district info.');
+        snackBarMessage('Provide your district info');
+        return;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('Provide your thana info');
+        return;
       }
       if (dateDise().isEmpty) {
-        snackBarMessage('Provide your date of birth.');
+        snackBarMessage('Provide Date of Birth');
+        return;
       }
     }
   }

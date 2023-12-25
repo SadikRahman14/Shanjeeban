@@ -34,6 +34,8 @@ class LoginPage extends StatelessWidget {
     print("pass: $userPassword");
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -234,6 +236,10 @@ class Button extends StatelessWidget {
 
   const Button({Key? key, required this.onPressed}) : super(key: key);
 
+  void proceed(){
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -255,8 +261,7 @@ class Button extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
             onPressed: (){
-              if(true)    // eikhane pore database theke info khujbo.
-                Navigator.pushNamed(context, '/homePage');
+              proceed();
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.redAccent,
