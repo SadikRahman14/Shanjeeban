@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class signUpInfo extends StatefulWidget {
   @override
@@ -15,14 +16,9 @@ class _signUpInfo extends State<signUpInfo> {
   var districtInput;
   var thanaInput;
 
+  int flagCreateAcc = 1;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-
-  void createAccount() async {
-
-  }
-
-
 
   ////////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////////
   String? _validateName(value) {
@@ -136,88 +132,96 @@ class _signUpInfo extends State<signUpInfo> {
       ),
     );
   }
-  int _proceed() {
+
+  void createNewAccount () async {
+    String userFullName = fullNameInput.text.toString().trim();
+    String userPassword = passwordInput.text.toString().trim();
+    String userPhoneNumber = phoneNumberInput.text.toString().trim();
+    String userEmail = emailInput.text.toString().trim();
+    String userHandle = handleInput.text.toString().trim();
+    String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+
+    print("userName: $userFullName");
+    print("pass: $userPassword");
+    print("phone: $userPhoneNumber");
+    print("email: $userEmail");
+    print("handle: $userHandle");
+    print("date of birth: $userDateOfBirth");
+    print("district: $districtInput");
+    print("thana: $thanaInput");
+
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
+      print("user created successfully.");
+      setState(() {
+        flagCreateAcc = 1;
+      });
+      print("2nd call success: $flagCreateAcc");
+      Navigator.pushNamed(context, '/physical');
+    } on FirebaseAuthException catch (ex) {
+      print(ex.code.toString());
+      print("2nd call failed: $flagCreateAcc");
+      setState(() {
+        flagCreateAcc = 0;
+      });
+
+      // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
+    }
+  }
+
+  void _proceed() {
     if (_formKey.currentState!.validate()) {  // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
-        return 11;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
-        return 11;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
-        return 11;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
-        return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
         snackBarMessage('Provide your district info');
-        return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('Provide your thana info');
-        return 11;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('Provide Date of Birth');
-        return 11;
       }
 
-      String userFullName = fullNameInput.text.toString();
-      String userPassword = passwordInput.text.toString();
-      String userPhoneNumber = phoneNumberInput.text.toString();
-      String userEmail = emailInput.text.toString();
-      String userHandle = handleInput.text.toString();
-      String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!) : '';
-
-      print("userName: $userFullName");
-      print("pass: $userPassword");
-      print("phone: $userPhoneNumber");
-      print("email: $userEmail");
-      print("handle: $userHandle");
-      print("date of birth: $userDateOfBirth");
-      print("district: $districtInput");
-      print("thana: $thanaInput");
-
-      return 69;
+      setState(() {
+        flagCreateAcc = 0;
+      });
+      print("1st call: $flagCreateAcc");
+      createNewAccount();
     }
     else if(!_formKey.currentState!.validate()){   //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
-        return 11;
       }
       if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input District and Thana.');
-        return 11;
       }
       if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Thana.');
-        return 11;
       }
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and District.');
-        return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
         snackBarMessage('Provide your district info.');
-        return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
         snackBarMessage('Provide your thana info');
-        return 11;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('Provide your date of birth.');
-        return 11;
       }
-      return 11;
     }
-
-    return 1;
   }
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
@@ -678,9 +682,7 @@ class _signUpInfo extends State<signUpInfo> {
               ),
               ElevatedButton(
                 onPressed: (){
-                  if(_proceed() == 69){
-                    Navigator.pushNamed(context, '/physical');
-                  }
+                  _proceed();
                 },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
