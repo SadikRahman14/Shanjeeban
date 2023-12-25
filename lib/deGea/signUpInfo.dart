@@ -18,6 +18,12 @@ class _signUpInfo extends State<signUpInfo> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 
+  void createAccount() async {
+
+  }
+
+
+
   ////////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////////
   String? _validateName(value) {
     if (value!.isEmpty)
@@ -131,7 +137,7 @@ class _signUpInfo extends State<signUpInfo> {
     );
   }
   int _proceed() {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {  // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
         return 11;
@@ -176,8 +182,10 @@ class _signUpInfo extends State<signUpInfo> {
       print("date of birth: $userDateOfBirth");
       print("district: $districtInput");
       print("thana: $thanaInput");
+
+      return 69;
     }
-    else if(!_formKey.currentState!.validate()){
+    else if(!_formKey.currentState!.validate()){   //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
         return 11;
@@ -195,7 +203,7 @@ class _signUpInfo extends State<signUpInfo> {
         return 11;
       }
       if (districtInput == null || districtInput.isEmpty) {
-        snackBarMessage('who will provide the district??');
+        snackBarMessage('Provide your district info.');
         return 11;
       }
       if (thanaInput == null || thanaInput.isEmpty) {
@@ -203,29 +211,13 @@ class _signUpInfo extends State<signUpInfo> {
         return 11;
       }
       if (dateDise().isEmpty) {
-        snackBarMessage('jonmo kobe vai??');
+        snackBarMessage('Provide your date of birth.');
         return 11;
       }
-
-      String userFullName = fullNameInput.text.toString();
-      String userPassword = passwordInput.text.toString();
-      String userPhoneNumber = phoneNumberInput.text.toString();
-      String userEmail = emailInput.text.toString();
-      String userHandle = handleInput.text.toString();
-      String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!) : '';
-
-      print("userName: $userFullName");
-      print("pass: $userPassword");
-      print("phone: $userPhoneNumber");
-      print("email: $userEmail");
-      print("handle: $userHandle");
-      print("date of birth: $userDateOfBirth");
-      print("district: $districtInput");
-      print("thana: $thanaInput");
+      return 11;
     }
 
-    return 69;
-
+    return 1;
   }
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 

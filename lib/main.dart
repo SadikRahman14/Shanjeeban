@@ -26,7 +26,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: LoginPage(),
 
-
       routes: {
         '/loginPage':(context) => LoginPage(),
         '/signUpPage':(context) => signUpInfo(),
