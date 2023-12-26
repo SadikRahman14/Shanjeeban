@@ -20,7 +20,7 @@ class _signUpInfo extends State<signUpInfo> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  ////////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////////
+  /////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////
   String? _validateName(value) {
     if (value!.isEmpty)
       return 'Enter a valid name';
@@ -132,7 +132,6 @@ class _signUpInfo extends State<signUpInfo> {
       ),
     );
   }
-
   void createNewAccount () async {
     String userFullName = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
@@ -169,7 +168,6 @@ class _signUpInfo extends State<signUpInfo> {
       // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
     }
   }
-
   void _proceed() {
     if (_formKey.currentState!.validate()) { // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
