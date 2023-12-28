@@ -151,12 +151,14 @@ class _signUpInfo extends State<signUpInfo> {
 
     try {
       UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
-      print("user created successfully.");
-      setState(() {
-        flagCreateAcc = 1;
-      });
-      print("2nd call success: $flagCreateAcc");
-      Navigator.pushNamed(context, '/physical');
+      if(userCredential.user != null){
+        print("user created successfully.");
+        setState(() {
+          flagCreateAcc = 1;
+        });
+        print("2nd call success: $flagCreateAcc");
+        Navigator.pushNamed(context, '/physical');
+      }
     } on FirebaseAuthException catch (ex) {
       print(ex.code.toString());
       print("2nd call failed: $flagCreateAcc");
@@ -267,6 +269,7 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: fullNameInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Colors.white,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -319,6 +322,7 @@ class _signUpInfo extends State<signUpInfo> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         obscureText: true,
                         obscuringCharacter: '*',
+                        cursorColor: Colors.white,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -369,6 +373,7 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: handleInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Colors.white,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -419,6 +424,7 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: phoneNumberInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Colors.white,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -470,6 +476,7 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: emailInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
+                        cursorColor: Colors.white,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

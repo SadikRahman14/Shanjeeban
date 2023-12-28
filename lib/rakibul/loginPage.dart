@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+
   int _proceed(BuildContext context) {
     if (fullNameInput.text.isEmpty) {
       snackBarMessage(context, 'Enter your Email or handle');
