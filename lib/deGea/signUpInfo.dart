@@ -70,9 +70,9 @@ class _signUpInfo extends State<signUpInfo> {
         height: 62,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13),
-          color: Color(0xff525151),
+          color: Colors.white,
           border: Border.all(
-            color: Color(0xffab9784),
+            color: Colors.amber,
             width: 4,
           ),
         ),
@@ -81,7 +81,7 @@ class _signUpInfo extends State<signUpInfo> {
             Icon(
               Icons.calendar_today,
               size: 20,
-              color: Colors.white,
+              color: Colors.black,
             ),
             SizedBox(width: 8),
             Text(
@@ -89,7 +89,7 @@ class _signUpInfo extends State<signUpInfo> {
                   ? ' Insert Date of Birth'
                   : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
@@ -247,14 +247,20 @@ class _signUpInfo extends State<signUpInfo> {
       appBar: AppBar(
         backgroundColor: Color(0xff2a2a2b),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          color: Colors.red,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         title: Text(
           'Sign Up Info',
           style: TextStyle(
+            fontSize: 22,
             color: Colors.white,
           ),
         ),
       ),
-      backgroundColor: Color(0xFF000000),
+      backgroundColor: Colors.blueGrey,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -265,29 +271,29 @@ class _signUpInfo extends State<signUpInfo> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      SizedBox(height: 2,),
+                      SizedBox(height: 22,),
                       TextFormField(
                         controller: fullNameInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.account_box,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           labelText: 'Full Name',
                           labelStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Color(0xff525151),
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -301,7 +307,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Color(0xffab9784),
+                              color: Colors.amber,
                               width: 4,
                             ),
                           ),
@@ -322,25 +328,25 @@ class _signUpInfo extends State<signUpInfo> {
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         obscureText: true,
                         obscuringCharacter: '*',
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.key,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           labelText: 'Password',
                           labelStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Color(0xff525151),
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -354,7 +360,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Color(0xffab9784),
+                              color: Colors.amber,
                               width: 4,
                             ),
                           ),
@@ -373,25 +379,25 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: handleInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.supervisor_account,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           labelText: 'Handle',
                           labelStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Color(0xff525151),
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -405,7 +411,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Color(0xffab9784),
+                              color: Colors.amber,
                               width: 4,
                             ),
                           ),
@@ -424,9 +430,9 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: phoneNumberInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
@@ -434,16 +440,16 @@ class _signUpInfo extends State<signUpInfo> {
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.phone,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           labelText: 'Phone Number',
                           labelStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Color(0xff525151),
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -457,7 +463,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Color(0xffab9784),
+                              color: Colors.amber,
                               width: 4,
                             ),
                           ),
@@ -476,25 +482,25 @@ class _signUpInfo extends State<signUpInfo> {
                       TextFormField(
                         controller: emailInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
                         decoration: InputDecoration(
                           prefixIcon: Icon(
                             Icons.email,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           labelText: 'Email',
                           labelStyle: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 17,
                             fontWeight: FontWeight.bold,
                           ),
                           filled: true,
-                          fillColor: Color(0xff525151),
+                          fillColor: Colors.white,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -508,7 +514,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Color(0xffab9784),
+                              color: Colors.amber,
                               width: 4,
                             ),
                           ),
@@ -530,9 +536,9 @@ class _signUpInfo extends State<signUpInfo> {
                         padding: EdgeInsets.all(15.0),
                         height: 62,
                         decoration: BoxDecoration(
-                          color: Color(0xff525151),
+                          color: Colors.white,
                           border: Border.all(
-                            color: Color(0xffab9784),
+                            color: Colors.amber,
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -542,22 +548,22 @@ class _signUpInfo extends State<signUpInfo> {
                             children: [
                               Icon(
                                 Icons.location_on,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               Text(
                                 " District",
                                 style: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
                           ),
                           value: districtInput,
-                          dropdownColor: Color(0xffbfb59b),
+                          dropdownColor: Colors.white,
                           icon: Icon(
                             Icons.arrow_drop_down_circle,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           iconSize: 22, // Adjusted icon size
                           iconEnabledColor: Colors.black,
@@ -577,7 +583,7 @@ class _signUpInfo extends State<signUpInfo> {
                               child: Text(
                                 value,
                                 style: TextStyle(
-                                  color: districtInput == value ? Colors.white : Colors.black,
+                                  color: districtInput == value ? Colors.black : Colors.black,
                                 ),
                               ),
                             );
@@ -594,9 +600,9 @@ class _signUpInfo extends State<signUpInfo> {
                         padding: EdgeInsets.all(15.0),
                         height: 62,
                         decoration: BoxDecoration(
-                          color: Color(0xff525151),
+                          color: Colors.white,
                           border: Border.all(
-                            color: Color(0xffab9784),
+                            color: Colors.amber,
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -606,22 +612,22 @@ class _signUpInfo extends State<signUpInfo> {
                             children: [
                               Icon(
                                 Icons.add_location,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                               Text(
                                 " Thana",
                                 style: TextStyle(
                                   fontSize: 17,
-                                  color: Colors.white,
+                                  color: Colors.black,
                                 ),
                               ),
                             ],
                           ),
                           value: thanaInput,
-                          dropdownColor: Color(0xffbfb59b),
+                          dropdownColor: Colors.white,
                           icon: Icon(
                             Icons.arrow_drop_down_circle,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                           iconSize: 22,
                           iconEnabledColor: Colors.black,
@@ -683,7 +689,7 @@ class _signUpInfo extends State<signUpInfo> {
                                 value,
                                 style: TextStyle(
                                   fontSize: 17,
-                                  color: thanaInput == value ? Colors.white : Colors.black,
+                                  color: thanaInput == value ? Colors.black : Colors.black,
                                 ),
                               ),
                             );
@@ -700,9 +706,12 @@ class _signUpInfo extends State<signUpInfo> {
                   ),
                 ),
               ),
+
+              SizedBox(height: 20,),
               ElevatedButton(
                 onPressed: (){
-                  _proceed();
+                 // _proceed();
+                  Navigator.pushNamed(context, '/physical');
                 },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
@@ -719,7 +728,7 @@ class _signUpInfo extends State<signUpInfo> {
                   ),
                 ),
               ),
-              SizedBox(height: 40,),
+              //SizedBox(height: 30,),
             ],
           ),
         ),
