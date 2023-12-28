@@ -449,7 +449,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                         if (proceed() == 69) {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
+                            MaterialPageRoute(builder: (context) => loginPage()),
                           );
                         }
                       },
@@ -474,4 +474,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       ),
     );
   }
+
+
 }
