@@ -5,6 +5,7 @@ import 'Smj/Physical_Informtion.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
 import 'pages/home_page.dart';
+import 'pages/profilePage.dart';
 
 
 void main() async{
@@ -24,7 +25,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: Profile(),
 
 
       routes: {

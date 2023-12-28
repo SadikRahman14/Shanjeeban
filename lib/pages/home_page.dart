@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -528,17 +530,17 @@ class _HomeState extends State<Home> {
                   IconButton(
                       onPressed: (){
                       },
-                      icon: Icon(Icons.home)
+                      icon: Icon(LineAwesomeIcons.home)
                   ),
                   IconButton(
                       onPressed: (){
                       },
-                      icon: Icon(Icons.history)
+                      icon: FaIcon(FontAwesomeIcons.clockRotateLeft),
                   ),
                   IconButton(
                       onPressed: (){
                       },
-                      icon: Icon(Icons.notifications)
+                      icon: FaIcon(FontAwesomeIcons.bell),
                   ),
                 ],
               ),
