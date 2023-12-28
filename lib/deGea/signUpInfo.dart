@@ -707,11 +707,11 @@ class _signUpInfo extends State<signUpInfo> {
                 ),
               ),
 
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: (){
-                 // _proceed();
-                  Navigator.pushNamed(context, '/physical');
+                  _proceed();
+
                 },
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
