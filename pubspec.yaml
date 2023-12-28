@@ -110,7 +110,9 @@ flutter:
      - family: Classy
        fonts:
        - asset: assetsSadik/Oswald-VariableFont_wght.ttf
-
+     - family: Headline
+       fonts:
+         - asset: assetsSadik/HoltwoodOneSC-Regular.ttf
 
 
      - family: Poppins-Medium

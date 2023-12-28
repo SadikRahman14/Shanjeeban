@@ -1,6 +1,13 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:login/deGea/signUpInfo.dart';
+import 'package:login/rakibul/loginPage.dart';
+import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
+import 'package:login/pages/fromNavigationBar/historyPage.dart';
+
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,6 +18,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
+  int _currentIndex = 0;
+  final List<Widget> screens = [
+    Home(),
+    NotificatoinPage(),
+    HostoryPage()
+  ];
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,17 +36,17 @@ class _HomeState extends State<Home> {
             Container(
               height: 450, width: 500,
               decoration: BoxDecoration(
-        
+
                 color: Color(0xFF900000),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(26),
                   bottomRight: Radius.circular(26),
                 ),
-        
-        
+
+
               ),
               padding: EdgeInsets.only(top: 50),
-        
+
               child: Column(
                 children: [
                   Padding(
@@ -40,7 +54,7 @@ class _HomeState extends State<Home> {
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        
+
                         children: [
                           Image.asset(
                             'assetsSadik/logo.png',
@@ -53,13 +67,13 @@ class _HomeState extends State<Home> {
                               fontFamily: 'Profile',
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-        
+
                             ),
                           ),
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
-        
+
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -80,9 +94,9 @@ class _HomeState extends State<Home> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
-        
+
                     children: [
-        
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -110,7 +124,7 @@ class _HomeState extends State<Home> {
                       Container(
                         height: 60,
                         child: const VerticalDivider(
-        
+
                           color: Colors.yellow,
                           width: 10,
                         ),
@@ -139,12 +153,12 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-        
-        
+
+
                       Container(
                         height: 60,
                         child: const VerticalDivider(
-        
+
                           color: Colors.yellow,
                           width: 10,
                         ),
@@ -180,7 +194,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-        
+
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'Every  Blood  Donor',
@@ -206,16 +220,16 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             fontFamily: 'Distorted',
-        
+
                           ),
                         ),
                       ),
                     ],
                   ),
                 ],
-        
+
               ),
-        
+
             ),
             SizedBox(height: 30,),
             Padding(
@@ -225,7 +239,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -271,7 +285,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -317,7 +331,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -373,7 +387,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -419,7 +433,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -465,7 +479,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -513,44 +527,51 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 20,),
-            Container(
-              height: 40, width: 280,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  )
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: Icon(LineAwesomeIcons.home)
-                  ),
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: FaIcon(FontAwesomeIcons.clockRotateLeft),
-                  ),
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: FaIcon(FontAwesomeIcons.bell),
-                  ),
-                ],
-              ),
-            ),
-        
           ],
-        
         ),
       ),
 
-    );
+      bottomNavigationBar: CurvedNavigationBar(
+
+
+        backgroundColor: Colors.white,
+        color: Color(0xFF900000),
+        animationDuration: const Duration(milliseconds: 800),
+        height: 50,
+        items: [
+          FaIcon(
+
+              Icons.house,
+              color: Colors.white,
+          ),
+          FaIcon(
+              Icons.search,
+              color: Colors.white,
+          ),
+          Icon(
+            LineAwesomeIcons.medal,
+            color: Colors.white,
+          ),
+        ],
+        onTap: (index) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => screens[_currentIndex]),
+          );
+
+          setState(() {
+            _currentIndex = index;
+          });
+
+          // Perform action based on the selected index
+
+        },
+
+      ),
+
+      );
+
+
+
   }
 }

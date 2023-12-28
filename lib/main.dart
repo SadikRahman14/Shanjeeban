@@ -6,6 +6,7 @@ import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
 import 'pages/home_page.dart';
 import 'pages/profilePage.dart';
+import 'package:login/pages/donateNow.dart';
 
 
 void main() async{
@@ -25,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Profile(),
+      home: DonateNow(),
 
 
       routes: {
