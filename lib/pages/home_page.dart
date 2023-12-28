@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -8,8 +9,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  @override
 
+  void logout() async{
+    await FirebaseAuth.instance.signOut();
+    print(" ");print(" ");print(" ");
+    print("going to sadik's page");
+    print(" ");print(" ");print(" ");
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushNamed(context, '/loginPage');
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -209,6 +219,15 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 35,),
+                  IconButton(
+                    onPressed: (){
+                      logout();
+                    },
+                    icon: Icon(Icons.logout_outlined),
+                    iconSize: 60,
+                    color: Colors.white,
                   ),
                 ],
         
