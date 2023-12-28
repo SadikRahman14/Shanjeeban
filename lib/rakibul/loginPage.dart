@@ -1,13 +1,23 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
+void main() => runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: loginPage(),
+    )
+);
+
+class loginPage extends StatefulWidget {
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<loginPage> createState() => _loginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _loginPageState extends State<loginPage> {
   var fullNameInput = TextEditingController();
+
   var passwordInput = TextEditingController();
 
   void snackBarMessage(BuildContext context, String message) {
@@ -17,7 +27,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
   void login() async {
     String userFullName = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
@@ -68,221 +77,203 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xff000050),
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                colors: [
+                  Colors.red.shade900,
+                  Colors.red.shade800,
+                  Colors.red.shade400
+                ]
+            )
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 100),
-            _buildLoginHeader(),
+            SizedBox(height: 50,),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      FadeInUp(duration: Duration(milliseconds: 1000), child: Text("SignUp & get", style: TextStyle(color: Colors.white, fontSize: 18, fontFamily: 'oldschool'),)),
+                      SizedBox(height: 10,),
+                      FadeInUp(duration: Duration(milliseconds: 1300), child: Text("100 Points", style: TextStyle(color: Colors.white, fontSize: 40, fontFamily: 'oldschool',fontWeight: FontWeight.w400),)),
+                    ],
+                  ),
+                  Image.asset("assets/images/bg.png", height: 120 , width:120 ,),
+                ],
+
+              ),
+            ),
+            SizedBox(height: 5),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
-                  color: Color(0xff000050),
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(100),
-                    topRight: Radius.circular(100),
-                  ),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.fromLTRB(20,5,20,5),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox(height: 5),
-                      _buildLoginForm(context),
-                      SizedBox(height: 5),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/signUpPage');
-                        },
-                        child: Text(
-                          'New to Shanjeeban?    SIGN UP',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                      SizedBox(height: 60,),
+                      FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+                        decoration: BoxDecoration(
                             color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [BoxShadow(
+                                color: Color.fromRGBO(225, 95, 27, .3),
+                                blurRadius: 20,
+                                offset: Offset(0, 10)
+                            )]
+                        ),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    border: Border(bottom: BorderSide(color: Colors.grey.shade200))
+                                ),
+                                child: TextField(
+                                  controller: fullNameInput,
+                                  decoration: InputDecoration(
+                                    hintText: "Email or Phone number",
+                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.email), // Use Icons.phone for a phone icon
+                                  ),
+                                )
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border(bottom: BorderSide(color: Colors.grey.shade200))
+                              ),
+                              child: TextField(
+                                controller: passwordInput,
+                                obscureText: true,
+                                obscuringCharacter: '*',
+                                decoration: InputDecoration(
+                                    hintText: "Password",
+                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
+                                    border: InputBorder.none,
+                                    prefixIcon: Icon(Icons.lock)
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+
+
+
+
+                      SizedBox(height: 40,),
+                      FadeInUp(duration: Duration(milliseconds: 1600), child: Container(
+                        width: 120,
+                        child: MaterialButton(
+                          onPressed: () {
+                            login();
+
+                          },
+
+                          height: 50,
+                          // margin: EdgeInsets.symmetric(horizontal: 50),
+                          color: Colors.red[900],
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+
+                          ),
+                          // decoration: BoxDecoration(
+                          // ),
+                          child: Center(
+                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'oldschool',),),
                           ),
                         ),
+                      )),
+                      SizedBox(height: 20,),
+                      FadeInUp(duration: Duration(milliseconds: 1500),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/signUpPage');
+                          },
+                          child: Text(
+                            'New to Shanjeeban?    SIGN UP',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF900000),
+                              fontFamily: 'oldschool',
+                            ),
+                          ),
+                        ),
+
                       ),
                       SizedBox(height: 20),
-                      TextButton(
-                        onPressed: () {
-                          // Add your forgot password logic here
-                        },
-                        child: Text(
-                          'Forgot Password? ',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.blue,
+                      FadeInUp(duration: Duration(milliseconds: 1500),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/signUpPage');
+                          },
+                          child: Text(
+                            'Forgot Password?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF900000),
+                              fontFamily: 'oldschool',
+                            ),
                           ),
                         ),
+
                       ),
+                      SizedBox(height: 10,),
+                      FadeInUp(duration: Duration(milliseconds: 1700), child: Text("Continue with social media", style: TextStyle(color: Colors.grey,fontFamily: 'oldschool',),)),
+                      SizedBox(height: 30,),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: FadeInUp(duration: Duration(milliseconds: 1800), child: MaterialButton(
+                              onPressed: (){},
+                              height: 30,
+                              color: Colors.blue,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
+                              child: Center(
+                                child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                              ),
+                            )),
+                          ),
+                          SizedBox(width: 30,),
+                          Expanded(
+                            child: FadeInUp(duration: Duration(milliseconds: 1900), child: MaterialButton(
+                              onPressed: () {},
+                              height: 30,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+
+                              ),
+                              color: Colors.black,
+                              child: Center(
+                                child: Text("Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                              ),
+                            )),
+                          )
+                        ],
+                      )
                     ],
                   ),
                 ),
               ),
-            ),
+            )
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoginHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(5.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Column(
-                  children: [
-                    Text(
-                      "Sign Up and Get",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.white,
-                        fontFamily: 'oldschool ',
-                      ),
-                    ),
-                    Text(
-                      "100 Points",
-                      style: TextStyle(
-                        fontSize: 40,
-                        color: Colors.red,
-                        fontWeight: FontWeight.w400,
-                        fontFamily: 'oldschool',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  "assets/images/bg.png",
-                  width: 120,
-                  height: 120,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLoginForm(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey[200]!),
-              ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.email,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: TextField(
-                    controller: fullNameInput,
-                    decoration: InputDecoration(
-                      hintText: "Enter Your Email or Handle",
-                      hintStyle: TextStyle(color: Colors.black),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(color: Colors.grey[200]!),
-              ),
-            ),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.lock,
-                  color: Colors.black,
-                ),
-                SizedBox(width: 5),
-                Expanded(
-                  child: TextField(
-                    controller: passwordInput,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Enter your Password",
-                      hintStyle: TextStyle(color: Colors.black),
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 5),
-          _buildButton(context),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 2.0),
-        child: Container(
-          height: 60,
-          width: 200,
-          margin: EdgeInsets.symmetric(horizontal: 125),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: ElevatedButton(
-            child: Text(
-              'Login',
-              style: TextStyle(fontSize: 18),
-            ),
-            onPressed: () {
-              login();
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.redAccent,
-              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-              textStyle: TextStyle(
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
         ),
       ),
     );
