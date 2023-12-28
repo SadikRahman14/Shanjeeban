@@ -22,7 +22,9 @@ class _DonateNowState extends State<DonateNow> {
       appBar: AppBar(
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
-          onPressed: (){},
+          onPressed: (){
+
+          },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
         centerTitle: true,
@@ -148,7 +150,7 @@ class _DonateNowListState extends State<DonateNowList> {
           height: 30,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(100),
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.white.withOpacity(0.3),
           ),
           child: Icon(
             LineAwesomeIcons.angle_right,
