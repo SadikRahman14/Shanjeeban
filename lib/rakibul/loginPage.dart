@@ -161,7 +161,7 @@ class _loginPageState extends State<loginPage> {
                                 obscuringCharacter: '*',
                                 decoration: InputDecoration(
                                     hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
+                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool',),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(Icons.lock)
                                 ),
