@@ -191,8 +191,8 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Icon(
-                                  Icons.local_hospital_outlined,
-                                  size: 15,
+                                  Icons.location_on,
+                                  size: 20,
                                   color: Colors.red[900],
                                 ),
                                 SizedBox(width: 4), // Add spacing between the icon and text
@@ -256,12 +256,12 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 25,),
+                            SizedBox(height: 35,),
                             Center(
                               child: ElevatedButton(
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF7D0B0B)), // Set the background color
-                                  elevation: MaterialStateProperty.all<double>(10.0), // Set the elevation
+                                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF900000)),
+                                  elevation: MaterialStateProperty.all<double>(10.0),
                                   shape: MaterialStateProperty.all<OutlinedBorder>(
                                     RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(25.0),
@@ -273,6 +273,8 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                                       'DONATE NOW',
                                     style: TextStyle(
                                       color: Colors.white,
+                                      fontFamily: 'Classy',
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
