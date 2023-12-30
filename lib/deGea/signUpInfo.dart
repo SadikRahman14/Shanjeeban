@@ -1,6 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 class signUpInfo extends StatefulWidget {
   @override
   State<signUpInfo> createState() => _signUpInfo();
@@ -125,14 +125,7 @@ class _signUpInfo extends State<signUpInfo> {
 
 
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
-  void snackBarMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(message),
-      ),
-    );
-  }
-  void createNewAccount () async {
+  void saveUserInfo() {
     String userFullName = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
     String userPhoneNumber = phoneNumberInput.text.toString().trim();
@@ -140,37 +133,90 @@ class _signUpInfo extends State<signUpInfo> {
     String userHandle = handleInput.text.toString().trim();
     String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
 
-    print("userName: $userFullName");
-    print("pass: $userPassword");
-    print("phone: $userPhoneNumber");
-    print("email: $userEmail");
-    print("handle: $userHandle");
-    print("date of birth: $userDateOfBirth");
-    print("district: $districtInput");
-    print("thana: $thanaInput");
+    int etaki244 = int.parse(userPhoneNumber);
 
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
-      if(userCredential.user != null){
-        print("user created successfully.");
-        setState(() {
-          flagCreateAcc = 1;
-        });
-        print("2nd call success: $flagCreateAcc");
-        Navigator.pushNamed(context, '/physical');
-      }
-    } on FirebaseAuthException catch (ex) {
-      print(ex.code.toString());
-      print("2nd call failed: $flagCreateAcc");
-      snackBarMessage('This email is already in use.');
-      setState(() {
-        flagCreateAcc = 0;
-      });
+    Map <String, dynamic> userData = {
+      "number" : etaki244,
+      "email" : userEmail,
+    };
 
-      // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
-    }
+    FirebaseFirestore.instance.collection("experiment").add(userData);
   }
-  void _proceed() {
+  void snackBarMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+  // void choleJabo(){
+  //   String cha = "chaKhabo";
+  //   String userFullName = fullNameInput.text.toString().trim();
+  //   String userPassword = passwordInput.text.toString().trim();
+  //   String userPhoneNumber = phoneNumberInput.text.toString().trim();
+  //   String userEmail = emailInput.text.toString().trim();
+  //   String userHandle = handleInput.text.toString().trim();
+  //   String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+  //   // String userFullName = "1chaKhabo";
+  //   // String userPassword = "2chaKhabo";
+  //   // String userPhoneNumber = "3chaKhabo";
+  //   // String userEmail = "4";
+  //   // String userHandle = "5chaKhabo";
+  //   // String userDateOfBirth = "6chaKhabo";
+  //   Navigator.pushNamed(
+  //     context, '/physical',
+  //     arguments: {
+  //       'cha': cha,
+  //       'name': userFullName,
+  //       'pass': userPassword,
+  //       'number': userPhoneNumber,
+  //       'email': userEmail,
+  //       'handle': userHandle,
+  //       'dateOfBirth': userDateOfBirth,
+  //     },
+  //   );
+  // }
+
+  // void createNewAccount () async {
+  //   String userFullName = fullNameInput.text.toString().trim();
+  //   String userPassword = passwordInput.text.toString().trim();
+  //   String userPhoneNumber = phoneNumberInput.text.toString().trim();
+  //   String userEmail = emailInput.text.toString().trim();
+  //   String userHandle = handleInput.text.toString().trim();
+  //   String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+  //
+  //   print("userName: $userFullName");
+  //   print("pass: $userPassword");
+  //   print("phone: $userPhoneNumber");
+  //   print("email: $userEmail");
+  //   print("handle: $userHandle");
+  //   print("date of birth: $userDateOfBirth");
+  //   print("district: $districtInput");
+  //   print("thana: $thanaInput");
+  //
+  //   try {
+  //     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
+  //     if(userCredential.user != null){
+  //       print("user created successfully.");
+  //       setState(() {
+  //         flagCreateAcc = 1;
+  //       });
+  //       print("2nd call success: $flagCreateAcc");
+  //       saveUserInfo();                                 //database e deGea'r page shob data input jaitese
+  //       Navigator.pushNamed(context, '/physical');
+  //     }
+  //   } on FirebaseAuthException catch (ex) {
+  //     print(ex.code.toString());
+  //     print("2nd call failed: $flagCreateAcc");
+  //     snackBarMessage('This email is already in use.');
+  //     setState(() {
+  //       flagCreateAcc = 0;
+  //     });
+  //
+  //     // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
+  //   }
+  // }
+  void _proceed() async {
     if (_formKey.currentState!.validate()) { // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
@@ -201,11 +247,61 @@ class _signUpInfo extends State<signUpInfo> {
         return;
       }
 
+
+      String userEmail = emailInput.text.toString().trim();
+      String userPassword = passwordInput.text.toString().trim();
+
+      // try {
+      //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      //     email: userEmail,
+      //     password: userPassword,
+      //   );
+      // } on FirebaseAuthException catch (signUpError) {
+      //   if (signUpError.code == 'email-already-in-use') {
+      //     // Email is already registered.
+      //     print('Email is already in use.');
+      //     snackBarMessage('Email is already in use.');
+      //     return;
+      //   } else if (signUpError.code == 'weak-password') {
+      //     // The password provided is too weak.
+      //     print('Weak password');
+      //   } else {
+      //     // Handle other errors.
+      //     print('Error: ${signUpError.message}');
+      //   }
+      // } catch (error) {
+      //   // Handle other errors.
+      //   print('Error: $error');
+      // }
+
       setState(() {
         flagCreateAcc = 0;
       });
       print("1st call: $flagCreateAcc");
-      createNewAccount();
+
+      String cha = "chaKhabo";
+      String userFullName = fullNameInput.text.toString().trim();
+      String userPhoneNumber = phoneNumberInput.text.toString().trim();
+      String userHandle = handleInput.text.toString().trim();
+      String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+      String district = districtInput;
+      String thana = thanaInput;
+
+
+      Navigator.pushNamed(
+        context, '/physical',
+        arguments: {
+          'cha': cha,
+          'name': userFullName,
+          'pass': userPassword,
+          'number': userPhoneNumber,
+          'email': userEmail,
+          'handle': userHandle,
+          'dateOfBirth': userDateOfBirth,
+          'district' : district,
+          'thana' : thana,
+        },
+      );
     }
     else if (!_formKey.currentState!.validate()) { //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {

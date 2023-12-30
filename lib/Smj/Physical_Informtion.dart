@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login/rakibul/loginPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class PhysicalInformationPage extends StatefulWidget {
 
@@ -8,21 +10,14 @@ class PhysicalInformationPage extends StatefulWidget {
 }
 
 class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
-
   final formKey = GlobalKey<FormState>();
-
-  var   BloodInput ;
   var   GenderInput;
   var   AgeInput = TextEditingController();
   var   HeightInput = TextEditingController();
   var   WeightInput = TextEditingController();
   var   BloodGroupInput ;
-  var   GenderSelectionInput ;
   var   LastDonationInput ;
-
-
   DateTime? selectedDate;
-
 
   String? _validateAge(value) {
     if (value!.isEmpty) return 'This field is mandatory';
@@ -115,7 +110,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     return date;
   }
 
-
   void snackBarMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -123,76 +117,149 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       ),
     );
   }
-  int proceed() {
-
+  void proceed ({required String cha, required String name, required String pass, required String number, required String email, required String handle, required String dateOfBirth, required String district, required String thana}) async {
     if (formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Date of Birth, Blood Group and Gender fields are mandatory.');
-        return 11;
+        return;
       }
       if ((BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Blood Group and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Blood Group.');
-        return 11;
+        return ;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Blood Group field is empty');
-        return 11;
+        return ;
       }
       if (GenderInput == null || GenderInput.isEmpty) {
         snackBarMessage('Gender field is empty');
-        return 11;
+        return ;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('Please input your date of birth');
-        return 11;
+        return ;
       }
+
+      String age = AgeInput.text.toString().trim();
+      String height = HeightInput.text.toString().trim();
+      String weight = WeightInput.text.toString().trim();
+      String gender = GenderInput.toString().trim();
+      String lastDonation = dateDise();
+      String bloodGroup = BloodGroupInput.toString().trim();
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
+        if(userCredential.user != null){
+          print("user created successfully.");
+
+          int etaki244 = int.parse(number);
+          int boyosh = int.parse(age);
+          int ucchota = int.parse(height);
+          int vor = int.parse(weight);
+
+          Map <String, dynamic> userData = {
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "name" : name,
+            "email" : email,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
+          };
+
+          FirebaseFirestore.instance.collection("userCredentials").add(userData);
+          Navigator.pushNamed(context, '/physical');
+        }
+      } on FirebaseAuthException catch (ex) {
+        print(ex.code.toString());
+        snackBarMessage('error occured.');
+        // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
+      }
+
+      print("form filled up");
+      print("to login");
+      print(cha);
+      print(name);
+      print(pass);
+      print(number);
+      print(handle);
+      print(dateOfBirth);
+      print(email);
+      print(age);
+      print(height);
+      print(weight);
+      print(gender);
+      print(lastDonation);
+      print(bloodGroup);
+      print(cha);
+      print("storing info in database");
+
+      Navigator.pushNamed(context, '/loginPage');
     }
 
     else if (!formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Date of Birth, Blood Group and Gender fields are mandatory.');
-        return 11;
+        return ;
       }
       if ((BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Blood Group and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty)) {
         snackBarMessage('Please input Date of Birth and Blood Group.');
-        return 11;
+        return ;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Blood Group field is empty');
-        return 11;
+        return ;
       }
       if (GenderInput == null || GenderInput.isEmpty) {
         snackBarMessage('Gender field is empty');
-        return 11;
+        return ;
       }
       if (dateDise().isEmpty) {
         snackBarMessage('Please input your date of birth');
-        return 11;
+        return ;
       }
     }
-
-    return 69;
   }
 
 
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    String line = formData['cha'];
+    String name = formData['name'];
+    String pass = formData['pass'];
+    String number = formData['number'];
+    String email = formData['email'];
+    String handle = formData['handle'];
+    String dateOfBirth = formData['dateOfBirth'];
+    String district = formData['district'];
+    String thana = formData['thana'];
 
     return Scaffold(
       //appBar: AppBar(
@@ -446,18 +513,23 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     SizedBox(height: 43.0),
                     ElevatedButton(
                       onPressed: () {
-                        if (proceed() == 69) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => loginPage()),
-                          );
-                        }
+                         proceed(
+                          cha: line,
+                          name: name,
+                          pass: pass,
+                          number: number,
+                          email: email,
+                          handle: handle,
+                          dateOfBirth: dateOfBirth,
+                          district: district,
+                          thana: thana,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         minimumSize: Size(36, 36),
                       ),
-                      child: Text('Submit',
+                      child: Text(line,
                         style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,
