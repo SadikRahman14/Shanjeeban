@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: (FirebaseAuth.instance.currentUser != null) ? Home() : noDonor(),
+      home: (FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
       routes: {
         '/loginPage':(context) => loginPage(),
         '/signUpPage':(context) => signUpInfo(),
