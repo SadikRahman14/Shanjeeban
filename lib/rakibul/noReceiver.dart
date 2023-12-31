@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
-void main() => runApp(
-    MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: noDonor(),
-    )
-);
+
 class noDonor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
