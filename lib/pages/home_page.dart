@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,6 @@ import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
 import 'package:login/pages/fromNavigationBar/historyPage.dart';
 
-
-
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -19,6 +18,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
+  String ?docID  = "gg";
+  String ?name;
+
   @override
   int _currentIndex = 0;
   final List<Widget> screens = [
@@ -27,17 +29,52 @@ class _HomeState extends State<Home> {
     HostoryPage()
   ];
 
-  void logout() async{
-    await FirebaseAuth.instance.signOut();
-    print(" ");print(" ");print(" ");
-    print("going to sadik's page");
-    print(" ");print(" ");print(" ");
-    Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushNamed(context, '/loginPage');
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        int age = userSnapshot['age'];
+        String district = userSnapshot['district'];
+        String thana = userSnapshot['thana'];
+        int phone = userSnapshot['number'];
+
+        setState(() {
+          name = userName;
+        });
+
+        // print('User Name: $userName');
+        // print('age: $age');
+        // print('User district: $district');
+        // print('User thana: $thana');
+        // print('User phone: $phone');
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (args != null && args.containsKey('docID')) {
+      docID = args['docID'];
+      //print(" ");print(" ");print(" ");
+      //print(docID);
+      //print(" ");print(" ");print(" ");
+      getUserData();
+    }
+    else{
+      // print(" ");print(" ");print(" ");
+      // print(docID);
+      getUserData();
+      // print(" ");print(" ");print(" ");
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -72,7 +109,7 @@ class _HomeState extends State<Home> {
                             height: 40,
                           ),
                           Text(
-                            'SadikRahman14',
+                            '$name' ?? 'Loading...',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Profile',
@@ -84,7 +121,12 @@ class _HomeState extends State<Home> {
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
-
+                              Navigator.pushNamed(
+                                  context, '/userProfile',
+                                  arguments: {
+                                    'docID' : docID,
+                                  }
+                              );
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -238,14 +280,9 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 35,),
-                  IconButton(
-                    onPressed: (){
-                      logout();
-                    },
-                    icon: Icon(Icons.logout_outlined),
-                    iconSize: 60,
-                    color: Colors.white,
-                  ),
+
+
+
                 ],
 
               ),
@@ -305,7 +342,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-
+                      Navigator.pushNamed(context, '/recieversList');
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -351,7 +388,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-
+                      Navigator.pushNamed(context, '/donatorsList');
                     },
                     child: Container(
                       decoration: BoxDecoration(
