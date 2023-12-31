@@ -40,6 +40,9 @@ dependencies:
   firebase_auth: ^4.15.3
   cloud_firestore: ^4.13.6
   provider: ^6.1.1
+  font_awesome_flutter: ^10.6.0
+  line_awesome_flutter: ^2.0.0
+  curved_navigation_bar: ^1.0.3
 
 
 dev_dependencies:
@@ -105,7 +108,12 @@ flutter:
      - family: Profile
        fonts:
        - asset: assetsSadik/Cream Cake.otf
-
+     - family: Classy
+       fonts:
+       - asset: assetsSadik/Oswald-VariableFont_wght.ttf
+     - family: Headline
+       fonts:
+         - asset: assetsSadik/HoltwoodOneSC-Regular.ttf
 
 
      - family: Poppins-Medium
