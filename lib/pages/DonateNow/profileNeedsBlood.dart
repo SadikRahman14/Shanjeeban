@@ -7,14 +7,14 @@ import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
 import 'package:login/pages/fromNavigationBar/historyPage.dart';
 
-class DonatorsProfile extends StatefulWidget {
-  const DonatorsProfile({super.key});
+class RequestedProfile extends StatefulWidget {
+  const RequestedProfile({super.key});
 
   @override
-  State<DonatorsProfile> createState() => _DonatorsProfileState();
+  State<RequestedProfile> createState() => _RequestedProfileState();
 }
 
-class _DonatorsProfileState extends State<DonatorsProfile> {
+class _RequestedProfileState extends State<RequestedProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

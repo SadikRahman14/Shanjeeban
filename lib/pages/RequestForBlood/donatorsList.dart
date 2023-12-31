@@ -7,19 +7,19 @@ import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
 import 'package:login/pages/fromNavigationBar/historyPage.dart';
 
-class DonateNow extends StatefulWidget {
-  const DonateNow({super.key});
+class DonatorsListPage extends StatefulWidget {
+  const DonatorsListPage({super.key});
 
   @override
-  State<DonateNow> createState() => _DonateNowState();
+  State<DonatorsListPage> createState() => _DonatorsListPageState();
 }
-
-class _DonateNowState extends State<DonateNow> {
+                                           // AFTER FILLING THE REQUEST FOR BLOOD FORM
+class _DonatorsListPageState extends State<DonatorsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFD4E3E1),
-      appBar: AppBar(
+      appBar:  AppBar(
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
           onPressed: (){
@@ -29,7 +29,7 @@ class _DonateNowState extends State<DonateNow> {
         ),
         centerTitle: true,
         title: Text(
-          'Donate Now',
+          'Donators List',
         ),
       ),
       body: SingleChildScrollView(
@@ -49,7 +49,7 @@ class _DonateNowState extends State<DonateNow> {
                   SizedBox(height: 40,),
                   Center(
                     child: Text(
-                      'DONATE NOW!',
+                      'DONATORS AVAILABLE!',
                       style: TextStyle(
                         color: Color(0xFF900000),
                         fontSize: 25,
@@ -60,21 +60,21 @@ class _DonateNowState extends State<DonateNow> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Abdul Jabbar', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Abdul Jabbar', subtitle: '353/17 Hatirjheel Link Road, Wireless, Mogbazar', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Rafiq Islam', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Rafiq Islam', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
                   SizedBox(height: 20,),
                 ],
               ),
@@ -82,27 +82,26 @@ class _DonateNowState extends State<DonateNow> {
           ),
         ),
       ),
-
     );
   }
 }
 
-class DonateNowList extends StatefulWidget {
-  const DonateNowList({
+
+class DonatorsList extends StatefulWidget {
+  const DonatorsList({
     Key? key,
-    required this.title, required this.onPress, required this.subtitle, required this.sub_subtitle,
+    required this.title, required this.onPress, required this.subtitle,
   }) : super(key: key);
 
   final String title;
   final String subtitle;
-  final String sub_subtitle;
   final VoidCallback onPress;
 
   @override
-  State<DonateNowList> createState() => _DonateNowListState();
+  State<DonatorsList> createState() => _DonatorsListState();
 }
 
-class _DonateNowListState extends State<DonateNowList> {
+class _DonatorsListState extends State<DonatorsList> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -113,7 +112,9 @@ class _DonateNowListState extends State<DonateNowList> {
         border: Border.all(
           color: Color(0xFF900000),
           width: 2.0,
+
         ),
+
       ),
       child: ListTile(
 
@@ -128,45 +129,29 @@ class _DonateNowListState extends State<DonateNowList> {
           ),
           child: ClipOval(
             child: Image(
-              height: 50, width: 50,
+              height: 40,
               image: AssetImage(
-                  'assetsSadik/Profile.jpg',
+                'assetsSadik/Profile.jpg',
+
               ),
             ),
           ),
         ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-          Text(
-            widget.title,
-            style: TextStyle(
-              color: Colors.black,
-              fontFamily: 'Classy',
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
+        title: Text(
+          widget.title,
+          style: TextStyle(
+            color: Colors.black,
+            fontFamily: 'Classy',
+            fontWeight: FontWeight.bold,
           ),
         ),
-        Text(
+        subtitle: Text(
           widget.subtitle,
           style: TextStyle(
             color: Colors.black.withOpacity(0.5),
             fontFamily: 'Classy',
-            fontSize: 10,
           ),
         ),
-        Text(
-          widget.sub_subtitle,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontFamily: 'Classy',
-            fontSize: 10,
-          ),
-        ),
-        ]
-      ),
-
-
         trailing: Container(
           width: 30,
           height: 30,
