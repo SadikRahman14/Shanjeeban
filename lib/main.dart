@@ -22,17 +22,6 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  //
-  // Map <String, dynamic> newUser = {
-  //   "age": 23,
-  //   "email" : "a@b.com"
-  // };
-  // await _fireStore.collection("userInfo").add(newUser);
-  // print(" ");
-  // print("user info added.");
-  // print(" ");
-
   runApp(MyApp());
 }
 

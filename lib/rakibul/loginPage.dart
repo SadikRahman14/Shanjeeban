@@ -22,7 +22,7 @@ class _loginPageState extends State<loginPage> {
       ),
     );
   }
-  void login() async {
+  void login({required String docID}) async {
     String userFullName = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
 
@@ -40,7 +40,12 @@ class _loginPageState extends State<loginPage> {
           print(" ");print(" ");print(" ");
           print("going to sadik's page");
           print(" ");print(" ");print(" ");
-          Navigator.pushNamed(context, '/homePage');
+          Navigator.pushNamed(
+              context, '/homePage',
+              arguments: {
+                'docID' : docID,
+              }
+          );
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
@@ -68,8 +73,16 @@ class _loginPageState extends State<loginPage> {
     return 66;
   }
 
+  String docID = "gg";
+
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (args != null && args.containsKey('docID')) {
+      docID = args['docID']!;
+    }
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -174,8 +187,7 @@ class _loginPageState extends State<loginPage> {
                         width: 120,
                         child: MaterialButton(
                           onPressed: () {
-                            login();
-
+                            login(docID: docID);
                           },
 
                           height: 50,

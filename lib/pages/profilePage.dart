@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -10,13 +12,74 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  String docID = "ggh";
+  String ?name;
+  String ?handle;
+  String ?bloodGroup;
+  String ?thana;
+  String ?district;
+
+  void logout() async{
+    await FirebaseAuth.instance.signOut();
+    print(" ");print(" ");print(" ");
+    print("going to sadik's page");
+    print(" ");print(" ");print(" ");
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushNamed(context, '/loginPage');
+  }
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        String userhandle = userSnapshot['handle'];
+        String userbloodGroup = userSnapshot['bloodGroup'];
+        String userdistrict = userSnapshot['district'];
+        String userthana = userSnapshot['thana'];
+
+
+        setState(() {
+          name = userName;
+          handle = userhandle;
+          bloodGroup = userbloodGroup;
+          district = userdistrict;
+          thana = userthana;
+        });
+
+        // print('User Name: $userName');
+        // print('age: $age');
+        // print('User district: $district');
+        // print('User thana: $thana');
+        // print('User phone: $phone');
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    docID = args['docID'];
+    getUserData();
+
     return Scaffold(
       backgroundColor: Colors.blueGrey,
         appBar: AppBar(
           leading: IconButton(
-            onPressed: (){},
+            onPressed: (){
+              Navigator.pushNamed(
+                  context, '/homePage',
+                  arguments: {
+                    'docID' : docID,
+                  }
+              );
+            },
             icon: Icon(LineAwesomeIcons.angle_left),
           ),
           centerTitle: true,
@@ -70,7 +133,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(height: 10,),
                   Text(
-                    'Khairul Islam',
+                    '$name' ?? 'Loading...',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -80,7 +143,7 @@ class _ProfileState extends State<Profile> {
                   ),
                   SizedBox(height: 5,),
                   Text(
-                    'khairul_17',
+                    '$handle' ?? 'Loading...',
                     style: TextStyle(
                       color: Colors.grey[500],
                       fontSize: 10,
@@ -99,7 +162,7 @@ class _ProfileState extends State<Profile> {
                   SizedBox(height: 3,),
                   SizedBox(height: 10,),
                   Text(
-                    'Blood Group: A+',
+                    'Blood Group: ' '$bloodGroup' ?? '',
                     style: TextStyle(
                       fontSize: 15,
                       color: Color(0xFF900000),
@@ -121,7 +184,7 @@ class _ProfileState extends State<Profile> {
                         size: 15,
                       ),
                       Text(
-                        '353/17 Hatirjheel Link Road, Wireless, Mogbazar',
+                        '$thana, ' ' $district',
                         style: TextStyle(
                           fontSize: 10,
                           color: Color(0xFF900090),
@@ -131,9 +194,6 @@ class _ProfileState extends State<Profile> {
                       ),
                     ],
                   ),
-
-
-
                 ],
               ),
             ),
@@ -156,7 +216,8 @@ class _ProfileState extends State<Profile> {
             ),
             SizedBox(height: 20,),
             ProfileTiles(
-                title: "Log Out", icon: LineAwesomeIcons.power_off, onPress: (){},
+                title: "Log Out", icon: LineAwesomeIcons.power_off, onPress: (){ logout();
+            },
               endIcon: true, textColor: Colors.white, containerColor: Colors.red, leadingIconColor: Colors.white,
             ),
             SizedBox(height: 20,),

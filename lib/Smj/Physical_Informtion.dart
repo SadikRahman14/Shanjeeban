@@ -154,11 +154,16 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       String gender = GenderInput.toString().trim();
       String lastDonation = dateDise();
       String bloodGroup = BloodGroupInput.toString().trim();
+      String ID = "";
+      String docID = "";
 
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
         if(userCredential.user != null){
           print("user created successfully.");
+
+          ID = userCredential.user!.uid;
+          print(ID);
 
           int etaki244 = int.parse(number);
           int boyosh = int.parse(age);
@@ -169,7 +174,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             "name" : name,
             "pass" : pass,
             "number" : etaki244,
-            "name" : name,
             "email" : email,
             "handle" : handle,
             "dateOfBirth" : dateOfBirth,
@@ -183,14 +187,21 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             "lastDonation" : lastDonation,
           };
 
-          FirebaseFirestore.instance.collection("userCredentials").add(userData);
-          Navigator.pushNamed(context, '/physical');
+          CollectionReference usersCollection = FirebaseFirestore.instance.collection("userCredentials");
+          DocumentReference documentReference = await usersCollection.add(userData);
+          docID = documentReference.id;
+          print("Document ID: $docID");
+
+          // Navigator.pushNamed(context, '/physical');
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
         snackBarMessage('error occured.');
         // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
       }
+
+      print(ID);
+      print(docID);
 
       print("form filled up");
       print("to login");
@@ -210,8 +221,14 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       print(cha);
       print("storing info in database");
 
-      Navigator.pushNamed(context, '/loginPage');
+      Navigator.pushNamed(
+          context, '/loginPage',
+          arguments: {
+            'docID' : docID,
+          }
+      );
     }
+
 
     else if (!formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
@@ -529,7 +546,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                         backgroundColor: Colors.red,
                         minimumSize: Size(36, 36),
                       ),
-                      child: Text(line,
+                      child: Text('Submit',
                         style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,
