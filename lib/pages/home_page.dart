@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -17,6 +18,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   @override
   int _currentIndex = 0;
   final List<Widget> screens = [
@@ -25,7 +27,16 @@ class _HomeState extends State<Home> {
     HostoryPage()
   ];
 
+  void logout() async{
+    await FirebaseAuth.instance.signOut();
+    print(" ");print(" ");print(" ");
+    print("going to sadik's page");
+    print(" ");print(" ");print(" ");
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushNamed(context, '/loginPage');
+  }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -225,6 +236,15 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(height: 35,),
+                  IconButton(
+                    onPressed: (){
+                      logout();
+                    },
+                    icon: Icon(Icons.logout_outlined),
+                    iconSize: 60,
+                    color: Colors.white,
                   ),
                 ],
 
