@@ -588,43 +588,7 @@ class _HomeState extends State<Home> {
         ),
       ),
 
-      bottomNavigationBar: CurvedNavigationBar(
 
-
-        backgroundColor: Colors.white,
-        color: Color(0xFF900000),
-        animationDuration: const Duration(milliseconds: 800),
-        height: 50,
-        items: [
-          FaIcon(
-
-              Icons.house,
-              color: Colors.white,
-          ),
-          FaIcon(
-              Icons.search,
-              color: Colors.white,
-          ),
-          Icon(
-            LineAwesomeIcons.medal,
-            color: Colors.white,
-          ),
-        ],
-        onTap: (index) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => screens[_currentIndex]),
-          );
-
-          setState(() {
-            _currentIndex = index;
-          });
-
-          // Perform action based on the selected index
-
-        },
-
-      ),
 
       );
 
