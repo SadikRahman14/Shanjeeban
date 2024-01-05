@@ -258,26 +258,7 @@ class _RequestedProfileState extends State<RequestedProfile> {
                             ),
                             SizedBox(height: 35,),
                             Center(
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF900000)),
-                                  elevation: MaterialStateProperty.all<double>(10.0),
-                                  shape: MaterialStateProperty.all<OutlinedBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(25.0),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: (){},
-                                  child: Text(
-                                      'DONATE NOW',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Classy',
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
+                              child: CustomElevated(),
                             )
                           ],
                         ),
@@ -291,5 +272,35 @@ class _RequestedProfileState extends State<RequestedProfile> {
         ),
       ),
     );
+  }
+}
+
+class CustomElevated extends StatelessWidget {
+  const CustomElevated({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF900000)),
+        elevation: MaterialStateProperty.all<double>(10.0),
+        shape: MaterialStateProperty.all<OutlinedBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.0),
+          ),
+        ),
+      ),
+      onPressed: (){},
+        child: Text(
+            'DONATE NOW',
+          style: TextStyle(
+            color: Colors.white,
+            fontFamily: 'Classy',
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
   }
 }

@@ -15,6 +15,7 @@ import 'pages/profilePage.dart';
 import 'package:login/pages/DonateNow/donateNow.dart';
 import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
+import 'package:login/pages/DonateNow/climaxPage.dart';
 
 
 void main() async{
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: Climax(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/loginPage':(context) => loginPage(),

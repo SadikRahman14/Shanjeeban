@@ -31,6 +31,7 @@ class _MainPageState extends State<MainPage> {
     HostoryPage(),
     FriendsPage(),
   ];
+
   Widget build(BuildContext context) {
     return Scaffold(
       body: screens[_currentIndex],
@@ -67,7 +68,6 @@ class _MainPageState extends State<MainPage> {
         },
 
       ),
-
     );
   }
 }

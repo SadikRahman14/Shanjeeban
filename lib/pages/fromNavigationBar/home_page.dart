@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
           children: [
             // Red Container
             Container(
-              height: 450, width: 500,
+              height: 400, width: 500,
               decoration: BoxDecoration(
 
                 color: Color(0xFF900000),
