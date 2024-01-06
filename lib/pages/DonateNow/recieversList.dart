@@ -23,7 +23,7 @@ class _DonateNowState extends State<DonateNow> {
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
           onPressed: (){
-
+              Navigator.pushNamed(context, '/mainPage');
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
@@ -60,21 +60,25 @@ class _DonateNowState extends State<DonateNow> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Abdul Jabbar', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Abdul Jabbar', subtitle: '2 Bags Needed',
+                      sub_subtitle: 'Address',
+                      onPress: (){
+                          Navigator.pushNamed(context, '/requestedProfile');
+                      }),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Rafiq Islam', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Rafiq Islam', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){}),
+                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
                   SizedBox(height: 20,),
                 ],
               ),
