@@ -92,7 +92,7 @@ class _loginPageState extends State<loginPage> {
                 colors: [
                   Colors.red.shade900,
                   Colors.red.shade800,
-                  Colors.red.shade400
+                  Colors.red.shade400,
                 ]
             )
         ),
