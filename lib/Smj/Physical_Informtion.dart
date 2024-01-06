@@ -187,46 +187,63 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             "lastDonation" : lastDonation,
           };
 
-          CollectionReference usersCollection = FirebaseFirestore.instance.collection("userCredentials");
-          DocumentReference documentReference = await usersCollection.add(userData);
-          docID = documentReference.id;
-          print("Document ID: $docID");
+          DocumentReference documentReference1 = await FirebaseFirestore.instance.collection("userCredentials").doc(email);
+          await documentReference1.set(userData)
+              .then((value) {
+            print("Document added successfully!");
+            docID = email;
+            print("Document ID: $docID");
+          })
+              .catchError((error) {
+            print("Error adding document: $error");
+          });
 
-          // Navigator.pushNamed(context, '/physical');
+          Map<String, dynamic> loginData = {
+            "email": email,
+          };
+
+          DocumentReference documentReference2 = await FirebaseFirestore.instance.collection("loginData").doc(email);
+          await documentReference2.set(loginData)
+              .then((value) {
+            print("Document added successfully! ");
+          })
+              .catchError((error) {
+            print("Error adding document: $error");
+          });
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
         snackBarMessage('error occured.');
         // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
+      } finally {
+        print(ID);
+        print(docID);
+
+        print("form filled up");
+        print("to login");
+        print(cha);
+        print(name);
+        print(pass);
+        print(number);
+        print(handle);
+        print(dateOfBirth);
+        print(email);
+        print(age);
+        print(height);
+        print(weight);
+        print(gender);
+        print(lastDonation);
+        print(bloodGroup);
+        print(cha);
+        print("storing info in database");
+
+        Navigator.pushNamed(
+            context, '/loginPage',
+            arguments: {
+              'docID' : docID,
+            }
+        );
       }
-
-      print(ID);
-      print(docID);
-
-      print("form filled up");
-      print("to login");
-      print(cha);
-      print(name);
-      print(pass);
-      print(number);
-      print(handle);
-      print(dateOfBirth);
-      print(email);
-      print(age);
-      print(height);
-      print(weight);
-      print(gender);
-      print(lastDonation);
-      print(bloodGroup);
-      print(cha);
-      print("storing info in database");
-
-      Navigator.pushNamed(
-          context, '/loginPage',
-          arguments: {
-            'docID' : docID,
-          }
-      );
     }
 
 
@@ -282,6 +299,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       //appBar: AppBar(
       // title: Text('Shanjeeban'),
       // ),
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Container(
           color: Color(0xFFFF4E4E),

@@ -63,16 +63,10 @@ class _HomeState extends State<Home> {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null && args.containsKey('docID')) {
       docID = args['docID'];
-      //print(" ");print(" ");print(" ");
-      //print(docID);
-      //print(" ");print(" ");print(" ");
       getUserData();
     }
     else{
-      // print(" ");print(" ");print(" ");
-      // print(docID);
       getUserData();
-      // print(" ");print(" ");print(" ");
     }
 
     return Scaffold(
@@ -591,8 +585,5 @@ class _HomeState extends State<Home> {
 
 
       );
-
-
-
   }
 }
