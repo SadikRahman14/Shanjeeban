@@ -44,11 +44,7 @@ class _HomeState extends State<Home> {
           name = userName;
         });
 
-        // print('User Name: $userName');
-        // print('age: $age');
-        // print('User district: $district');
-        // print('User thana: $thana');
-        // print('User phone: $phone');
+
       } else {
         print('User does not exist');
       }
@@ -63,16 +59,12 @@ class _HomeState extends State<Home> {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null && args.containsKey('docID')) {
       docID = args['docID'];
-      //print(" ");print(" ");print(" ");
-      //print(docID);
-      //print(" ");print(" ");print(" ");
+
       getUserData();
     }
     else{
-      // print(" ");print(" ");print(" ");
-      // print(docID);
+
       getUserData();
-      // print(" ");print(" ");print(" ");
     }
 
     return Scaffold(
