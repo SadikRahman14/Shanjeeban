@@ -10,6 +10,7 @@ import 'package:login/pages/fromNavigationBar/historyPage.dart';
 import 'package:login/Usable%20Clasees.dart';
 import 'package:flutter/services.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:login/pages/base.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,56 +19,59 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin{
+class _SplashScreenState extends State<SplashScreen>{
 
-  @override
-  void initState(){
 
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual);
-    Future.delayed(Duration(seconds: 2),(){
-        Navigator.pushNamed(context, '/mainPage');
-    });
-  }
-
-  @override
-  void dispose(){
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      backgroundColor: Color(0x71C4FFF3),
-      splash: SingleChildScrollView(
-        child: Center(
+      backgroundColor: Color(0xFF40274D),
+      splash: Center(
+        child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Image.asset(
-                  'assetsSadik/logo.png',
-                height: 200,
+                'assetsSadik/base002.png',
+                height: 300,
               ),
-              SizedBox(height: 10,),
-              Text(
-                'Give the Gift of Life',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Classy',
-                  fontSize: 24,
-                ),
+              SizedBox(height: 30,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CustomElevated(backgroundColor: Colors.black,
+                      borderRadius: 0,
+                      onPress: (){},
+                      title: 'SIGN UP',
+                      textColor: Colors.white,
+                      fontFamily: 'Classy',
+                      fontWeight: FontWeight.bold,
+                      elevation: 2
+                  ),
+                  SizedBox(width: 20,),
+                  CustomElevated(backgroundColor: Colors.amber.shade800,
+                      borderRadius: 0,
+                      onPress: (){},
+                      title: 'LOG IN',
+                      textColor: Colors.white,
+                      fontFamily: 'Classy',
+                      fontWeight: FontWeight.bold,
+                      elevation: 2
+                  ),
+                ],
               ),
+
             ],
           ),
         ),
       ),
-      nextScreen: MainPage(),
-      splashIconSize: 250,
+      nextScreen: BaseScreen(),
+      splashIconSize: 700,
       duration: 6000,
-      splashTransition: SplashTransition.slideTransition,
+      splashTransition: SplashTransition.fadeTransition,
     );
   }
 }
