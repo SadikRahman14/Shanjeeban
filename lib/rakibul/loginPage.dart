@@ -61,8 +61,10 @@ class _loginPageState extends State<loginPage> {
           print("going to sadik's page");
           print (" ");print("3) clicked on login button: $docID");print (" ");
           print(" ");print(" ");print(" ");
-          Navigator.pushNamed(
-              context, '/homePage',
+          Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/mainPage',
+                  (route) => false,
               arguments: {
                 'docID' : docID,
               }
