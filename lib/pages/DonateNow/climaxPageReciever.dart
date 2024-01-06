@@ -171,7 +171,7 @@ class _ClimaxState extends State<Climax> {
                                           print('Reason of Failure: $_selectedReason');
                                           print('LessGo Home Page');
                                         }
-                                        Navigator.pushNamed(context, '/homePage');
+                                        Navigator.pushNamed(context, '/mainPage');
                                       },
                                       title: 'SUBMIT',
                                       textColor: Colors.white,

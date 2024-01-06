@@ -20,7 +20,17 @@ class _RequestedProfileState extends State<RequestedProfile> {
     return Scaffold(
       backgroundColor: Color(0xFFD4E3E1),
       appBar: AppBar(
-
+        backgroundColor: Color(0xFFADD1CD),
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          icon: Icon(LineAwesomeIcons.angle_left),
+        ),
+        centerTitle: true,
+        title: Text(
+          'Donate Now',
+        ),
       ),
       body: SafeArea(
 

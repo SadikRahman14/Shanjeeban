@@ -23,7 +23,7 @@ class _DonatorsListPageState extends State<DonatorsListPage> {
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
           onPressed: (){
-
+              Navigator.pop(context);
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
@@ -60,21 +60,24 @@ class _DonatorsListPageState extends State<DonatorsListPage> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Abdul Jabbar', subtitle: '353/17 Hatirjheel Link Road, Wireless, Mogbazar', onPress: (){}),
+                  DonatorsList(title: 'Abdul Jabbar', subtitle: '353/17 Hatirjheel Link Road, Wireless, Mogbazar',
+                      onPress: (){
+                         Navigator.pushNamed(context, '/donatorsProfile');
+                      }),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Rafiq Islam', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Rafiq Islam', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
-                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){}),
+                  DonatorsList(title: 'Mujibur Rahman', subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/donatorsProfile');}),
                   SizedBox(height: 20,),
                 ],
               ),

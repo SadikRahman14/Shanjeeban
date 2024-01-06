@@ -7,17 +7,17 @@ import 'package:login/mainPage.dart';
 import 'package:login/pages/base.dart';
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
-import 'package:login/pages/DonateNow/profileNeedsBlood.dart';
+import 'package:login/pages/DonateNow/profilePageReciever.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
 import 'Smj/Physical_Informtion.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
 import 'pages/fromNavigationBar/home_page.dart';
 import 'pages/profilePage.dart';
-import 'package:login/pages/DonateNow/donateNow.dart';
+import 'package:login/pages/DonateNow/recieversList.dart';
 import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
-import 'package:login/pages/DonateNow/climaxPage.dart';
+import 'package:login/pages/DonateNow/climaxPageReciever.dart';
 
 
 void main() async{
@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -68,9 +68,10 @@ class _MyAppState extends State<MyApp> {
         '/userProfile':(context) => Profile(),
         '/donatorsProfile':(context) => DonatorsProfile(),
         '/requestedProfile':(context) => RequestedProfile(),
-        '/requestedProfile':(context) => RequestedProfile(),
+
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
+        '/requestForm' : (context) => BloodRequestForm(),
 
       },
     );
