@@ -49,11 +49,11 @@ class _MainPageState extends State<MainPage> {
             color: Colors.white,
           ),
           FaIcon(
-            Icons.search,
+            Icons.notifications_active,
             color: Colors.white,
           ),
           Icon(
-            LineAwesomeIcons.medal,
+            LineAwesomeIcons.history,
             color: Colors.white,
           ),
           Icon(

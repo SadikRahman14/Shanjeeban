@@ -34,6 +34,18 @@ class _ClimaxState extends State<Climax> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: (){
+
+          },
+          icon: Icon(LineAwesomeIcons.angle_left),
+        ),
+        title: Text(
+              'Reward the Donor'
+          ),
+      ),
       backgroundColor: Color(0xFFD4E3E1),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -59,6 +71,7 @@ class _ClimaxState extends State<Climax> {
                       fontFamily: 'Classy',
                       fontSize: 20,
                       color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
@@ -67,6 +80,7 @@ class _ClimaxState extends State<Climax> {
                       fontFamily: 'Classy',
                       fontSize: 20,
                       color: Colors.black,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 50,),
@@ -155,7 +169,9 @@ class _ClimaxState extends State<Climax> {
                                         if (_formKey.currentState!.validate()) {
                                           _formKey.currentState!.save();
                                           print('Reason of Failure: $_selectedReason');
+                                          print('LessGo Home Page');
                                         }
+                                        Navigator.pushNamed(context, '/homePage');
                                       },
                                       title: 'SUBMIT',
                                       textColor: Colors.white,

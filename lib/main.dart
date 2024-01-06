@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
+import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
 import 'package:login/pages/DonateNow/profileNeedsBlood.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
@@ -55,9 +56,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: Climax(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: SplashScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
+        '/mainPage':(context) => MainPage(),
         '/loginPage':(context) => loginPage(),
         '/signUpPage':(context) => signUpInfo(),
         '/homePage':(context) => Home(),
