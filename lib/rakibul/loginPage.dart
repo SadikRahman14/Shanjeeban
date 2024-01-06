@@ -1,9 +1,7 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-
-
 
 class loginPage extends StatefulWidget {
   @override
@@ -12,8 +10,26 @@ class loginPage extends StatefulWidget {
 
 class _loginPageState extends State<loginPage> {
   var fullNameInput = TextEditingController();
-
   var passwordInput = TextEditingController();
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        int age = userSnapshot['age'];
+        String district = userSnapshot['district'];
+        String thana = userSnapshot['thana'];
+        int phone = userSnapshot['number'];
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+  String docID = "gg";
 
   void snackBarMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -23,22 +39,27 @@ class _loginPageState extends State<loginPage> {
     );
   }
   void login({required String docID}) async {
-    String userFullName = fullNameInput.text.toString().trim();
+    String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
 
-    print("email: $userFullName");
+    docID = userEmail;
+
+    print (" ");print("3) clicked on login button: $docID");print (" ");
+
+    print("email: $userEmail");
     print("pass: $userPassword");
 
-    if (userFullName == "" || userPassword == "") {
+    if (userEmail == "" || userPassword == "") {
       snackBarMessage(context, 'Please input email and password.');
       return;
     }
     else{
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: userFullName, password: userPassword);
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
         if(userCredential.user != null){
           print(" ");print(" ");print(" ");
           print("going to sadik's page");
+          print (" ");print("3) clicked on login button: $docID");print (" ");
           print(" ");print(" ");print(" ");
           Navigator.pushNamed(
               context, '/homePage',
@@ -49,6 +70,9 @@ class _loginPageState extends State<loginPage> {
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
+        print(" ");print(" ");print(" ");
+        print (" ");print("3) clicked on login button: $docID");print (" ");
+        print(" ");print(" ");print(" ");
       }
     }
   }
@@ -73,15 +97,17 @@ class _loginPageState extends State<loginPage> {
     return 66;
   }
 
-  String docID = "gg";
-
   @override
   Widget build(BuildContext context) {
+
+    print (" ");print("1) docID before map: $docID");print (" ");
 
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null && args.containsKey('docID')) {
       docID = args['docID']!;
     }
+
+    print (" ");print("2) docID after map: $docID");print (" ");
 
     return Scaffold(
       body: Container(
@@ -92,7 +118,7 @@ class _loginPageState extends State<loginPage> {
                 colors: [
                   Colors.red.shade900,
                   Colors.red.shade800,
-                  Colors.red.shade400,
+                  Colors.red.shade400
                 ]
             )
         ),
