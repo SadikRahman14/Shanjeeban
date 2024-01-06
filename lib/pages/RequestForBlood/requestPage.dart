@@ -100,7 +100,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
-
+              Navigator.pop(context);
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
@@ -357,6 +357,8 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                             print('Reason for Transfusion: $_selectedReason');
                             print('Current Address: $_selectedHospital');
                             print('Quantity: $_quantity');
+
+                            Navigator.pushNamed(context, '/donatorsList');
                           }
                         },
                         child: Text(

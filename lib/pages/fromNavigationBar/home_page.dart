@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
           children: [
             // Red Container
             Container(
-              height: 450, width: 500,
+              height: 400, width: 500,
               decoration: BoxDecoration(
 
                 color: Color(0xFF900000),
@@ -388,7 +388,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/donatorsList');
+                      Navigator.pushNamed(context, '/requestForm');
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -588,43 +588,7 @@ class _HomeState extends State<Home> {
         ),
       ),
 
-      bottomNavigationBar: CurvedNavigationBar(
 
-
-        backgroundColor: Colors.white,
-        color: Color(0xFF900000),
-        animationDuration: const Duration(milliseconds: 800),
-        height: 50,
-        items: [
-          FaIcon(
-
-              Icons.house,
-              color: Colors.white,
-          ),
-          FaIcon(
-              Icons.search,
-              color: Colors.white,
-          ),
-          Icon(
-            LineAwesomeIcons.medal,
-            color: Colors.white,
-          ),
-        ],
-        onTap: (index) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => screens[_currentIndex]),
-          );
-
-          setState(() {
-            _currentIndex = index;
-          });
-
-          // Perform action based on the selected index
-
-        },
-
-      ),
 
       );
 

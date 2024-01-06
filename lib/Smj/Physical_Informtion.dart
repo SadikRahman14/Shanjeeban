@@ -284,7 +284,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       // ),
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.black,
+          color: Color(0xFFFF4E4E),
           padding: EdgeInsets.all(25.0),
           child : Form(
             key: formKey,
