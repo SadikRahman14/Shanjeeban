@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,16 +29,41 @@ class _HomeState extends State<Home> {
     HostoryPage()
   ];
 
+  Future<void> getDataDirectlyFromHome() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String? userID;
+
+      if (currentUser != null) {
+        userID = currentUser.uid;
+
+        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(userID).get();
+
+        setState(() {
+          docID = userSnapshot['email'];
+        });
+
+        DocumentSnapshot userSnapshot2 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+        if (userSnapshot2.exists) {
+          String userName = userSnapshot2['name'];
+
+          setState(() {
+            name = userName;
+          });
+        }
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
 
   Future<void> getUserData() async {
     try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
-      if (userSnapshot.exists) {
-        String userName = userSnapshot['name'];
-        int age = userSnapshot['age'];
-        String district = userSnapshot['district'];
-        String thana = userSnapshot['thana'];
-        int phone = userSnapshot['number'];
+      DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot3.exists) {
+        String userName = userSnapshot3['name'];
 
         setState(() {
           name = userName;
@@ -57,6 +82,8 @@ class _HomeState extends State<Home> {
     }
   }
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -66,7 +93,7 @@ class _HomeState extends State<Home> {
       getUserData();
     }
     else{
-      getUserData();
+      getDataDirectlyFromHome();
     }
 
     return Scaffold(

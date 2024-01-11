@@ -198,18 +198,36 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             print("Error adding document: $error");
           });
 
-          Map<String, dynamic> loginData = {
+          // Map<String, dynamic> loginData = {
+          //   "email": email,
+          // };
+          //
+          // DocumentReference documentReference2 = await FirebaseFirestore.instance.collection("loginData").doc(email);
+          // await documentReference2.set(loginData)
+          //     .then((value) {
+          //   print("Document added successfully! ");
+          // })
+          //     .catchError((error) {
+          //   print("Error adding document: $error");
+          // });
+
+          Map<String, dynamic> uData = {
             "email": email,
+            "docID": email,
           };
 
-          DocumentReference documentReference2 = await FirebaseFirestore.instance.collection("loginData").doc(email);
-          await documentReference2.set(loginData)
+          DocumentReference docRef = await FirebaseFirestore.instance.collection("userIdHolder").doc(ID);
+          await docRef.set(uData)
               .then((value) {
-            print("Document added successfully! ");
+            print("Document added successfully!");
+            docID = email;
+            print("Document ID: $docID");
           })
               .catchError((error) {
             print("Error adding document: $error");
           });
+
+
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
