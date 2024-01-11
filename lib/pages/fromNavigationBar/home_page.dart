@@ -60,12 +60,15 @@ class _HomeState extends State<Home> {
     if (args != null && args.containsKey('docID')) {
       docID = args['docID'];
 
+
       getUserData();
     }
     else{
 
+
       getUserData();
     }
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -583,8 +586,5 @@ class _HomeState extends State<Home> {
 
 
       );
-
-
-
   }
 }
