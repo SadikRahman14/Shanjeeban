@@ -61,7 +61,6 @@ class _MyAppState extends State<MyApp> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
-
       },
     );
   }

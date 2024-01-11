@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -16,10 +18,32 @@ class BloodRequestForm extends StatefulWidget {
 class _BloodRequestFormState extends State<BloodRequestForm> {
   final _formKey = GlobalKey<FormState>();
   String? _selectedBloodGroup;
-  String? _currentAddress;
   int? _quantity;
   String? _selectedReason;
   String? _selectedHospital;
+
+  void proceed ({required String rokto, required String karon, required String hashpatal, required int koyBag}) async {
+      try {
+        Map <String, dynamic> vampireDemands = {
+          "bloodGroup" : rokto,
+          "reason" : karon,
+          "hospital" : hashpatal,
+          "quantity" : koyBag,
+        };
+
+        FirebaseFirestore.instance.collection(rokto).add(vampireDemands);
+
+        print(" ");print(" ");
+        print("blood reciever added to waiting list");
+        print(" ");print(" ");
+
+      } on FirebaseAuthException catch (ex) {
+        print(ex.code.toString());
+      } finally {
+        Navigator.pushNamed(context, '/homePage');
+      }
+  }
+
 
   List<String> _bloodGroups = ['A+', 'A-', 'B+','B-', 'AB+','AB-', 'O+','O-'];
   List<String> _transfusionReasons = [
@@ -145,7 +169,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedBloodGroup = value as String?;
+                              _selectedBloodGroup = value as String;
                             });
                           },
                           icon: Container(
@@ -201,7 +225,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedReason = value as String?;
+                              _selectedReason = value as String;
                             });
                           },
                           icon: Container(
@@ -254,7 +278,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                           }).toList(),
                           onChanged: (value) {
                             setState(() {
-                              _selectedHospital = value as String?;
+                              _selectedHospital = value as String;
                             });
                           },
                           icon: Container(
@@ -358,7 +382,17 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
                             print('Current Address: $_selectedHospital');
                             print('Quantity: $_quantity');
 
-                            Navigator.pushNamed(context, '/donatorsList');
+                            String blood = _selectedBloodGroup!;
+                            String reason = _selectedReason!;
+                            String hospital = _selectedHospital!;
+                            int quantity = _quantity!;
+
+                            proceed(
+                              rokto: blood,
+                              karon: reason,
+                              hashpatal: hospital,
+                              koyBag: quantity,
+                            );
                           }
                         },
                         child: Text(
@@ -382,3 +416,55 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
     );
   }
 }
+
+
+// onPressed: () {
+// proceed(
+// cha: line,
+// name: name,
+// pass: pass,
+// number: number,
+// email: email,
+// handle: handle,
+// dateOfBirth: dateOfBirth,
+// district: district,
+// thana: thana,
+// );
+// },
+// onPressed: () {
+// if (_formKey.currentState!.validate()) {
+// _formKey.currentState!.save();
+//
+// // Process the form data
+// // For example, you can print the values:
+// print('Blood Group: $_selectedBloodGroup');
+// print('Reason for Transfusion: $_selectedReason');
+// print('Current Address: $_selectedHospital');
+// print('Quantity: $_quantity');
+//
+// String? blood = _selectedBloodGroup;
+// String? reason = _selectedReason;
+// String? hospital = _selectedHospital;
+// int? quantity = _quantity;
+//
+// Map <String, dynamic> vampireDemands = {
+// "blood" : blood,
+// "reason" : reason,
+// "hospital" : hospital,
+// "quantity" : quantity,
+// };
+//
+// DocumentReference docRef = await FirebaseFirestore.instance.collection(blood).doc(email);
+// await documentReference1.set(userData)
+//     .then((value) {
+// print("Document added successfully!");
+// docID = email;
+// print("Document ID: $docID");
+// })
+//     .catchError((error) {
+// print("Error adding document: $error");
+// });
+//
+// Navigator.pushNamed(context, '/donatorsList');
+// }
+// },

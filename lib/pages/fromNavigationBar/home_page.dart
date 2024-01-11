@@ -130,7 +130,7 @@ class _HomeState extends State<Home> {
                             height: 40,
                           ),
                           Text(
-                            '$name' ?? 'Loading...',
+                            name ?? 'loading....',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Profile',
