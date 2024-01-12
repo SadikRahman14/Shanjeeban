@@ -20,18 +20,43 @@ import '../Models/UserModel.dart';
 class ChatRoom extends StatefulWidget {
 
 
+
   final UserModel targetuser;
   final ChatRoomModel chatRoom;
   final UserModel userModel;
   final User firebaseuser;
 
-  const ChatRoom({super.key, required this.targetuser, required this.chatRoom, required this.userModel, required this.firebaseuser});
+
+
+  ChatRoom({super.key, required this.targetuser, required this.chatRoom, required this.userModel, required this.firebaseuser});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  String docID = "ggh";
+  String ?name;
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+
+
+
+        setState(() {
+          name = userName;
+        });
+
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -291,6 +291,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      Navigator.pushNamed(context, '/emergency');
 
                     },
                     child: Container(
