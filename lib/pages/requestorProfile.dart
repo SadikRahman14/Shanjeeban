@@ -21,7 +21,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Requestor Profile'),
+        title: Text('Requestor  Profile'),
       ),
       body: Center(
         child: Column(
