@@ -18,6 +18,7 @@ import 'package:login/pages/DonateNow/recieversList.dart';
 import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
 import 'package:login/pages/DonateNow/climaxPageReciever.dart';
+import 'package:login/pages/DonateNow/requestorList.dart';
 
 
 void main() async{
@@ -61,6 +62,7 @@ class _MyAppState extends State<MyApp> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
+        '/requestorList' : (context) => RequestorList(),
       },
     );
   }

@@ -37,6 +37,7 @@ class _HomeState extends State<Home> {
       if (currentUser != null) {
         userID = currentUser.uid;
 
+
         DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(userID).get();
 
         setState(() {
@@ -363,7 +364,12 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/recieversList');
+                      Navigator.pushNamed(
+                          context, '/requestorList',
+                          arguments: {
+                            'docID' : docID,
+                          }
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
