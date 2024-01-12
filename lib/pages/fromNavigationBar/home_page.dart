@@ -70,11 +70,6 @@ class _HomeState extends State<Home> {
           name = userName;
         });
 
-        // print('User Name: $userName');
-        // print('age: $age');
-        // print('User district: $district');
-        // print('User thana: $thana');
-        // print('User phone: $phone');
       } else {
         print('User does not exist');
       }
@@ -287,7 +282,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 16), // Optional: Add left padding for spacing
+                        padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'is  a  HERO',
                           style: TextStyle(
@@ -334,15 +329,15 @@ class _HomeState extends State<Home> {
                           bottomRight: Radius.circular(20),
                         ),
                       ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
+                      padding: EdgeInsets.all(8),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assetsSadik/ambulance.png', // Replace with your image asset path
+                            'assetsSadik/ambulance.png',
                             height: 30,
                           ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
+                          SizedBox(height: 8),
                           Text(
                             'Emergency',
                             style: TextStyle(
@@ -365,7 +360,7 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, '/listOfRequestors',
+                          context, '/allRequests',
                           arguments: {
                             'docID' : docID,
                           }

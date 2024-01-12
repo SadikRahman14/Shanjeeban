@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
 import 'package:login/pages/base.dart';
+import 'package:login/pages/requestorProfile.dart';
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
 import 'package:login/pages/DonateNow/profilePageReciever.dart';
@@ -62,7 +63,8 @@ class _MyAppState extends State<MyApp> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
-        '/listOfRequestors' : (context) => RequestorList(),
+        '/allRequests' : (context) => RequestorList(),
+        '/requestorProfile' : (context) => RequestorProfile(),
       },
     );
   }

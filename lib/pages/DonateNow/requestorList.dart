@@ -14,14 +14,19 @@ class _RequestorListState extends State<RequestorList> {
     bloodRequests = FirebaseFirestore.instance.collection(bloodGroup);
   }
 
-  // Function to handle the click event
-  void onPersonClicked(String name) {
-    // Add your navigation logic here
-    print('Clicked on $name');
+  void onPersonClicked(String requestorUid) {
+    print('Clicked on $requestorUid');
     print(bloodGroup);
     print(" ");
     print(" ");
-    // Navigate to the user's profile page or perform any other action
+
+    Navigator.pushNamed(
+      context, '/requestorProfile',
+      arguments: {
+        'requestorUid' : requestorUid,
+        'docId' : docID,
+      },
+    );
   }
 
   String docID = "gg";
@@ -87,12 +92,10 @@ class _RequestorListState extends State<RequestorList> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 10),
-                // Display each document's info in a clickable box
                 for (var document in documents)
                   InkWell(
                     onTap: () {
-                      // Call the callback function with the person's name
-                      onPersonClicked(document['reason']);
+                      onPersonClicked(document['uid']);
                     },
                     child: Container(
                       padding: EdgeInsets.all(10),
@@ -107,6 +110,7 @@ class _RequestorListState extends State<RequestorList> {
                           Text('Name: ${document['reason']}'),
                           Text('Bags Needed: ${document['quantity']}'),
                           Text('Hospital: ${document['hospital']}'),
+                          Text('UID: ${document['uid']}'),
                         ],
                       ),
                     ),
