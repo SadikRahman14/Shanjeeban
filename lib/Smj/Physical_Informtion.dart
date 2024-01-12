@@ -1,11 +1,17 @@
 import 'dart:typed_data';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:login/Smj/add_data.dart';
 import 'package:login/Smj/utils.dart';
+import 'package:login/main.dart';
+
+
+
 
 class PhysicalInformationPage extends StatefulWidget {
 
@@ -260,6 +266,11 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     setState(() {
       _image = img;
     });
+  }
+
+  void saveProfile() async{
+
+    String resp = await StoreData().saveData(file:  _image!);
   }
 
 
