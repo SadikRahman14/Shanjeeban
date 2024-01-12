@@ -44,7 +44,7 @@ class _RequestedProfileState extends State<RequestedProfile> {
                 padding: EdgeInsets.only(
                   left: 20, top: 20, right: 20, bottom: 20,
                 ),
-                  height: 530, width: 300,
+                  height: 550, width: 300,
                   decoration: BoxDecoration(
                     color: Color(0xFFADD1CD),
                     borderRadius: BorderRadius.circular(10),
@@ -225,57 +225,70 @@ class _RequestedProfileState extends State<RequestedProfile> {
                         ),
                       ),
 
-                      SizedBox(height: 10,),
-                      Container(
-                        //width: 400,
-                        decoration: BoxDecoration(
+                      SizedBox(height: 20,),
 
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      Center(
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
+
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 20, width: 20,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[500],
-                                     borderRadius: BorderRadius.circular(100),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade800, // Adjust the color as needed
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
                                   ),
-                                  child: Icon(
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
                                     Icons.phone,
-                                    size: 15,
-                                    color: Colors.red[900],
+                                    color: Colors.green.shade500,
                                   ),
                                 ),
-                                SizedBox(width: 4),
-                                Flexible(
-                                  child: Text(
-                                    '01862937424',
-                                    softWrap: true,
-                                    overflow: TextOverflow.clip,
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      fontFamily: 'Classy',
-                                      color: Colors.red[900],
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
                             ),
-                            SizedBox(height: 35,),
-                            Center(
-                              child: CustomElevated(),
+                            SizedBox(width: 20,),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade800, // Adjust the color as needed
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.message,
+                                    color: Colors.blue.shade500,
+                                  ),
+                                ),
+                              ),
                             )
+
                           ],
                         ),
-                      )
+                      ),
+                      SizedBox(height: 20,),
+                      CustomElevated(),
                     ],
                   ),
                 ),
+
 
             ],
           ),

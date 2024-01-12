@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:login/deGea/signUpInfo.dart';
+import 'package:login/pages/fromNavigationBar/notificationSystem.dart';
 import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
 import 'package:login/pages/fromNavigationBar/historyPage.dart';
@@ -23,6 +24,14 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  NotificationServices notificationServices = NotificationServices();
+
+  @override
+  void iniState(){
+    super.initState();
+    notificationServices.requestNotificationPermission();
+  }
   @override
   int _currentIndex = 0;
   final List<Widget> screens = [
@@ -59,6 +68,7 @@ class _MainPageState extends State<MainPage> {
           Icon(
             LineAwesomeIcons.user_friends,
             color: Colors.white,
+
           ),
         ],
         onTap: (index) {
