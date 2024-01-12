@@ -23,12 +23,20 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   String? _selectedHospital;
 
   void proceed ({required String rokto, required String karon, required String hashpatal, required int koyBag}) async {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String? uid;
+
+      if (currentUser != null) {
+        uid = currentUser.uid;
+      }
+
       try {
         Map <String, dynamic> vampireDemands = {
           "bloodGroup" : rokto,
           "reason" : karon,
           "hospital" : hashpatal,
           "quantity" : koyBag,
+          "uid" : uid,
         };
 
         FirebaseFirestore.instance.collection(rokto).add(vampireDemands);

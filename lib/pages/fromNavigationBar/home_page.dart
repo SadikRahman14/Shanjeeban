@@ -365,7 +365,7 @@ class _HomeState extends State<Home> {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(
-                          context, '/requestorList',
+                          context, '/listOfRequestors',
                           arguments: {
                             'docID' : docID,
                           }
