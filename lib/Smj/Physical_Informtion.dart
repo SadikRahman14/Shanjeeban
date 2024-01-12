@@ -1,5 +1,11 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
-import 'package:login/rakibul/loginPage.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:login/Smj/utils.dart';
 
 class PhysicalInformationPage extends StatefulWidget {
 
@@ -8,21 +14,14 @@ class PhysicalInformationPage extends StatefulWidget {
 }
 
 class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
-
   final formKey = GlobalKey<FormState>();
-
-  var   BloodInput ;
   var   GenderInput;
   var   AgeInput = TextEditingController();
   var   HeightInput = TextEditingController();
   var   WeightInput = TextEditingController();
   var   BloodGroupInput ;
-  var   GenderSelectionInput ;
   var   LastDonationInput ;
-
-
   DateTime? selectedDate;
-
 
   String? _validateAge(value) {
     if (value!.isEmpty) return 'This field is mandatory';
@@ -59,21 +58,27 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         height: 60,
         decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(13.0),
             border: Border.all(
               color: Colors.amber ,
               width: 4,
             )
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
           children: [
+            Icon(
+              Icons.calendar_today,
+              size: 21,
+              color: Colors.black,
+            ),
+            SizedBox(width: 8),
             Text(
               selectedDate == null
-                  ? ' Last Donation Date'
+                  ? '   Last Donation Date'
                   : '${selectedDate!.day}-${selectedDate!.month}-${selectedDate!.year}',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 17,
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'Poppins-Medium',
@@ -82,16 +87,13 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
             SizedBox(width: 83),
 
-            Icon(
-              Icons.calendar_today,
-              size: 21,
-              color: Colors.black,
-            ),
+
           ],
         ),
       ),
     );
   }
+
   Future<void> _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
@@ -115,7 +117,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     return date;
   }
 
-
   void snackBarMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -123,76 +124,159 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       ),
     );
   }
-  int proceed() {
-
+  void proceed ({required String cha, required String name, required String pass, required String number, required String email, required String handle, required String dateOfBirth, required String district, required String thana}) async {
     if (formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
-        snackBarMessage('Last Donation Date, Blood Group and Gender fields are mandatory.');
-        return 11;
+        snackBarMessage('Date of Birth, Blood Group and Gender fields are mandatory.');
+        return;
       }
       if ((BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Blood Group and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
-        snackBarMessage('Please input Last Donation Date and Gender.');
-        return 11;
+        snackBarMessage('Please input Date of Birth and Gender.');
+        return ;
       }
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty)) {
-        snackBarMessage('Please input Last Donation Date and Blood Group.');
-        return 11;
+        snackBarMessage('Please input Date of Birth and Blood Group.');
+        return ;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Blood Group field is empty');
-        return 11;
+        return ;
       }
       if (GenderInput == null || GenderInput.isEmpty) {
         snackBarMessage('Gender field is empty');
-        return 11;
+        return ;
       }
       if (dateDise().isEmpty) {
-        snackBarMessage('Please input your Last Donation Date');
-        return 11;
+        snackBarMessage('Please input your date of birth');
+        return ;
       }
+
+      String age = AgeInput.text.toString().trim();
+      String height = HeightInput.text.toString().trim();
+      String weight = WeightInput.text.toString().trim();
+      String gender = GenderInput.toString().trim();
+      String lastDonation = dateDise();
+      String bloodGroup = BloodGroupInput.toString().trim();
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
+        if(userCredential.user != null){
+          print("user created successfully.");
+
+          int etaki244 = int.parse(number);
+          int boyosh = int.parse(age);
+          int ucchota = int.parse(height);
+          int vor = int.parse(weight);
+
+          Map <String, dynamic> userData = {
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "name" : name,
+            "email" : email,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
+          };
+
+          FirebaseFirestore.instance.collection("userCredentials").add(userData);
+          Navigator.pushNamed(context, '/physical');
+        }
+      } on FirebaseAuthException catch (ex) {
+        print(ex.code.toString());
+        snackBarMessage('error occured.');
+        // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
+      }
+
+      print("form filled up");
+      print("to login");
+      print(cha);
+      print(name);
+      print(pass);
+      print(number);
+      print(handle);
+      print(dateOfBirth);
+      print(email);
+      print(age);
+      print(height);
+      print(weight);
+      print(gender);
+      print(lastDonation);
+      print(bloodGroup);
+      print(cha);
+      print("storing info in database");
+
+      Navigator.pushNamed(context, '/loginPage');
     }
 
     else if (!formKey.currentState!.validate()) {
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
-        snackBarMessage('Last Donation Date, Blood Group and Gender fields are mandatory.');
-        return 11;
+        snackBarMessage('Date of Birth, Blood Group and Gender fields are mandatory.');
+        return ;
       }
       if ((BloodGroupInput == null || BloodGroupInput.isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
         snackBarMessage('Please input Blood Group and Gender.');
-        return 11;
+        return ;
       }
       if ((dateDise().isEmpty) && (GenderInput == null || GenderInput.isEmpty)) {
-        snackBarMessage('Please input Last Donation Date and Gender.');
-        return 11;
+        snackBarMessage('Please input Date of Birth and Gender.');
+        return ;
       }
       if ((dateDise().isEmpty) && (BloodGroupInput == null || BloodGroupInput.isEmpty)) {
-        snackBarMessage('Please input Last Donation Date and Blood Group.');
-        return 11;
+        snackBarMessage('Please input Date of Birth and Blood Group.');
+        return ;
       }
       if (BloodGroupInput == null || BloodGroupInput.isEmpty) {
         snackBarMessage('Blood Group field is empty');
-        return 11;
+        return ;
       }
       if (GenderInput == null || GenderInput.isEmpty) {
         snackBarMessage('Gender field is empty');
-        return 11;
+        return ;
       }
       if (dateDise().isEmpty) {
-        snackBarMessage('Please input your Last Donation Date');
-        return 11;
+        snackBarMessage('Please input your date of birth');
+        return ;
       }
     }
+  }
 
-    return 69;
+  Uint8List? _image;
+
+
+  void selectImage() async{
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
   }
 
 
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    String line = formData['cha'];
+    String name = formData['name'];
+    String pass = formData['pass'];
+    String number = formData['number'];
+    String email = formData['email'];
+    String handle = formData['handle'];
+    String dateOfBirth = formData['dateOfBirth'];
+    String district = formData['district'];
+    String thana = formData['thana'];
 
     return Scaffold(
       appBar: AppBar(
@@ -206,10 +290,10 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         title: Text(
           "Physical Information",
           style: TextStyle(
-              fontSize: 23,
-              color: Colors.white,
+            fontSize: 23,
+            color: Colors.white,
             //fontWeight: FontWeight.bold,
-              //fontFamily: 'Poppins-Medium'
+            //fontFamily: 'Poppins-Medium'
           ),
         ),
       ),
@@ -224,49 +308,77 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                SizedBox(height: 40,),
+                SizedBox(height: 10,),
 
-               /* Text(
-                  "Physical Information",
-                  style: TextStyle(
-                      fontSize: 27,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
 
-                SizedBox(height: 43,),*/
+                    Stack(
+                      children: [
+                        _image != null ?
+                        CircleAvatar(
+                          radius: 70,
+                          backgroundImage: MemoryImage(_image!),
+                        ):
 
-                TextFormField(
-                  controller: AgeInput,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Poppins-Medium'),
-                  decoration: InputDecoration(filled: true, fillColor: Colors.white,
-                    contentPadding: EdgeInsets.all(17),
-                    labelText: "Age",
-                    labelStyle: TextStyle(
-                        fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins-Medium'),
-                    border:
-                    OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber),
-                      borderRadius: BorderRadius.circular(20.0),
+                        const CircleAvatar(
+                          radius: 70,
+                          backgroundImage: AssetImage('assetsSadik/Profile.jpg'),
+                        ),
+                        Positioned(
+                          child: IconButton(
+                            onPressed: selectImage,
+                            icon: const Icon(Icons.add_a_photo),
+                            color: Colors.amber,
+                          ),
+                          bottom: -10,
+                          left: 80,
+                        )
+                      ],
                     ),
-                    enabledBorder:  OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.amber, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
+
+                    SizedBox(height: 20,),
+
+                    TextFormField(
+                      controller: AgeInput,
+                      keyboardType: TextInputType.number,
+
+                      style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Poppins-Medium'),
+                      decoration: InputDecoration(filled: true, fillColor: Colors.white,
+                        contentPadding: EdgeInsets.all(17),
+                        prefixIcon: Icon(
+                          Icons.person_add,
+                          color: Colors.black,
+                        ),
+                        labelText: " Age",
+                        labelStyle: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins-Medium'),
+                        border:
+                        OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.amber),
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                        enabledBorder:  OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.amber, width: 4.0),
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                        focusedBorder:  OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.green, width: 4.0),
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                      ),
+                      validator: _validateAge,
                     ),
-                    focusedBorder:  OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.green, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                  ),
-                  validator: _validateAge,
+
+                  ],
                 ),
 
                 SizedBox(height: 19.0),
@@ -276,15 +388,19 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   controller: HeightInput,
                   keyboardType: TextInputType.number,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
                   decoration: InputDecoration(filled: true, fillColor: Colors.white,
                     contentPadding: EdgeInsets.all(17),
-                    labelText: "Height (in cm)",
+                    prefixIcon: Icon(
+                      Icons.height,
+                      color: Colors.black,
+                    ),
+                    labelText: " Height (in cm)",
                     labelStyle: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium',
@@ -292,15 +408,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     border:
                     OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.amber),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                     enabledBorder:  OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.amber, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                     focusedBorder:  OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                   ),
                   validator: _validateHeight,
@@ -313,15 +429,19 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   controller: WeightInput,
                   keyboardType: TextInputType.number,
                   style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 17,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins-Medium'),
                   decoration: InputDecoration(filled: true, fillColor: Colors.white,
                     contentPadding: EdgeInsets.all(17),
-                    labelText: "Weight (in kg)",
+                    prefixIcon: Icon(
+                      Icons.line_weight,
+                      color: Colors.black,
+                    ),
+                    labelText: " Weight (in kg)",
                     labelStyle: TextStyle(
-                        fontSize: 18,
+                        fontSize: 17,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
@@ -329,21 +449,22 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     border:
                     OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.amber),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                     enabledBorder:  OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.amber, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                     focusedBorder:  OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.green, width: 4.0),
-                      borderRadius: BorderRadius.circular(20.0),
+                      borderRadius: BorderRadius.circular(13.0),
                     ),
                   ),
                   validator: _validateWeight,
                 ),
 
                 SizedBox(height: 19.0),
+
 
 
 
@@ -355,16 +476,26 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.amber,width: 4),
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(13.0),
                   ),
                   child: DropdownButton<String>(
-                    hint: Text(" Blood Group",
-                      style: TextStyle(
-                          fontSize:18 ,
+                    hint: Row(
+                      children: [
+                        Icon(
+                          Icons.bloodtype,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins-Medium'),
+                        ),
+                        Text("   Blood Group",
+                          style: TextStyle(
+                              fontSize:17 ,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+                        ),
+                      ],
                     ),
+
+
                     value:  BloodGroupInput,
                     dropdownColor: Colors.white,
                     icon: Icon(Icons.add),
@@ -373,7 +504,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     isExpanded: true,
                     underline: SizedBox(),
                     style: TextStyle(
-                        fontSize: 19,
+                        fontSize: 18,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Poppins-Medium'),
@@ -410,15 +541,24 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.amber,width: 4),
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(13.0),
                   ),
                   child: DropdownButton<String>(
-                    hint: Text(" Gender",
-                      style: TextStyle(
-                          fontSize: 18,
+                    hint: Row(
+                      children: [
+                        Icon(
+                          Icons.perm_identity_sharp,
                           color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Poppins-Medium'),
+                        ),
+
+                        Text("    Gender",
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+                        ),
+                      ],
                     ),
                     value:GenderInput ,
                     dropdownColor: Colors.white,
@@ -460,16 +600,21 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   children: [
                     LastDonationDate (),
 
-                    SizedBox(height: 100.0),
+                    SizedBox(height: 35.0),
 
                     ElevatedButton(
                       onPressed: () {
-                        if (proceed() == 69) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => LoginPage()),
-                          );
-                        }
+                        proceed(
+                          cha: line,
+                          name: name,
+                          pass: pass,
+                          number: number,
+                          email: email,
+                          handle: handle,
+                          dateOfBirth: dateOfBirth,
+                          district: district,
+                          thana: thana,
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
@@ -492,4 +637,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       ),
     );
   }
+
+
 }

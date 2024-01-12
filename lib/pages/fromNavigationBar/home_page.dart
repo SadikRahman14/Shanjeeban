@@ -1,5 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:login/deGea/signUpInfo.dart';
+import 'package:login/rakibul/loginPage.dart';
+import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
+import 'package:login/pages/fromNavigationBar/historyPage.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,17 +18,57 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  void logout() async{
-    await FirebaseAuth.instance.signOut();
-    print(" ");print(" ");print(" ");
-    print("going to sadik's page");
-    print(" ");print(" ");print(" ");
-    Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushNamed(context, '/loginPage');
+  String ?docID  = "gg";
+  String ?name;
+
+  @override
+  int _currentIndex = 0;
+  final List<Widget> screens = [
+    Home(),
+    NotificatoinPage(),
+    HostoryPage()
+  ];
+
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        int age = userSnapshot['age'];
+        String district = userSnapshot['district'];
+        String thana = userSnapshot['thana'];
+        int phone = userSnapshot['number'];
+
+        setState(() {
+          name = userName;
+        });
+
+        // print('User Name: $userName');
+        // print('age: $age');
+        // print('User district: $district');
+        // print('User thana: $thana');
+        // print('User phone: $phone');
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    if (args != null && args.containsKey('docID')) {
+      docID = args['docID'];
+      getUserData();
+    }
+    else{
+      getUserData();
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -28,19 +76,19 @@ class _HomeState extends State<Home> {
           children: [
             // Red Container
             Container(
-              height: 450, width: 500,
+              height: 400, width: 500,
               decoration: BoxDecoration(
-        
+
                 color: Color(0xFF900000),
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(26),
                   bottomRight: Radius.circular(26),
                 ),
-        
-        
+
+
               ),
               padding: EdgeInsets.only(top: 50),
-        
+
               child: Column(
                 children: [
                   Padding(
@@ -48,26 +96,31 @@ class _HomeState extends State<Home> {
                     child: Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        
+
                         children: [
                           Image.asset(
                             'assetsSadik/logo.png',
                             height: 40,
                           ),
                           Text(
-                            'SadikRahman14',
+                            '$name' ?? 'Loading...',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Profile',
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
-        
+
                             ),
                           ),
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
-        
+                              Navigator.pushNamed(
+                                  context, '/userProfile',
+                                  arguments: {
+                                    'docID' : docID,
+                                  }
+                              );
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -88,9 +141,9 @@ class _HomeState extends State<Home> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
-        
+
                     children: [
-        
+
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -118,7 +171,7 @@ class _HomeState extends State<Home> {
                       Container(
                         height: 60,
                         child: const VerticalDivider(
-        
+
                           color: Colors.yellow,
                           width: 10,
                         ),
@@ -147,12 +200,12 @@ class _HomeState extends State<Home> {
                           ),
                         ],
                       ),
-        
-        
+
+
                       Container(
                         height: 60,
                         child: const VerticalDivider(
-        
+
                           color: Colors.yellow,
                           width: 10,
                         ),
@@ -188,7 +241,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-        
+
                         padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'Every  Blood  Donor',
@@ -214,25 +267,20 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             fontFamily: 'Distorted',
-        
+
                           ),
                         ),
                       ),
                     ],
                   ),
                   SizedBox(height: 35,),
-                  IconButton(
-                    onPressed: (){
-                      logout();
-                    },
-                    icon: Icon(Icons.logout_outlined),
-                    iconSize: 60,
-                    color: Colors.white,
-                  ),
+
+
+
                 ],
-        
+
               ),
-        
+
             ),
             SizedBox(height: 30,),
             Padding(
@@ -242,7 +290,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -288,7 +336,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+                      Navigator.pushNamed(context, '/recieversList');
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -334,7 +382,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+                      Navigator.pushNamed(context, '/requestForm');
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -390,7 +438,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -436,7 +484,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -482,7 +530,7 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-        
+
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -530,44 +578,12 @@ class _HomeState extends State<Home> {
               ),
             ),
             SizedBox(height: 20,),
-            Container(
-              height: 40, width: 280,
-              decoration: BoxDecoration(
-                  color: Colors.grey[300],
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20),
-                  )
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: Icon(Icons.home)
-                  ),
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: Icon(Icons.history)
-                  ),
-                  IconButton(
-                      onPressed: (){
-                      },
-                      icon: Icon(Icons.notifications)
-                  ),
-                ],
-              ),
-            ),
-        
           ],
-        
         ),
       ),
 
-    );
+
+
+      );
   }
 }
