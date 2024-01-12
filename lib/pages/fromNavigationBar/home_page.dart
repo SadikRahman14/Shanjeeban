@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,26 +29,29 @@ class _HomeState extends State<Home> {
     HostoryPage()
   ];
 
-
-  Future<void> getUserData() async {
+  Future<void> getDataDirectlyFromHome() async {
     try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
-      if (userSnapshot.exists) {
-        String userName = userSnapshot['name'];
-        int age = userSnapshot['age'];
-        String district = userSnapshot['district'];
-        String thana = userSnapshot['thana'];
-        int phone = userSnapshot['number'];
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String? userID;
+
+      if (currentUser != null) {
+        userID = currentUser.uid;
+
+
+        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(userID).get();
 
         setState(() {
-          name = userName;
+          docID = userSnapshot['email'];
         });
 
-        // print('User Name: $userName');
-        // print('age: $age');
-        // print('User district: $district');
-        // print('User thana: $thana');
-        // print('User phone: $phone');
+        DocumentSnapshot userSnapshot2 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+        if (userSnapshot2.exists) {
+          String userName = userSnapshot2['name'];
+
+          setState(() {
+            name = userName;
+          });
+        }
       } else {
         print('User does not exist');
       }
@@ -56,6 +59,26 @@ class _HomeState extends State<Home> {
       print('Error fetching user data: $e');
     }
   }
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot3.exists) {
+        String userName = userSnapshot3['name'];
+
+        setState(() {
+          name = userName;
+        });
+
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +89,7 @@ class _HomeState extends State<Home> {
       getUserData();
     }
     else{
-      getUserData();
+      getDataDirectlyFromHome();
     }
 
     return Scaffold(
@@ -103,7 +126,7 @@ class _HomeState extends State<Home> {
                             height: 40,
                           ),
                           Text(
-                            '$name' ?? 'Loading...',
+                            name ?? 'loading....',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Profile',
@@ -259,7 +282,7 @@ class _HomeState extends State<Home> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Container(
-                        padding: EdgeInsets.only(left: 16), // Optional: Add left padding for spacing
+                        padding: EdgeInsets.only(left: 16),
                         child: Text(
                           'is  a  HERO',
                           style: TextStyle(
@@ -306,15 +329,15 @@ class _HomeState extends State<Home> {
                           bottomRight: Radius.circular(20),
                         ),
                       ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
+                      padding: EdgeInsets.all(8),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
-                            'assetsSadik/ambulance.png', // Replace with your image asset path
+                            'assetsSadik/ambulance.png',
                             height: 30,
                           ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
+                          SizedBox(height: 8),
                           Text(
                             'Emergency',
                             style: TextStyle(
@@ -336,7 +359,12 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/recieversList');
+                      Navigator.pushNamed(
+                          context, '/allRequests',
+                          arguments: {
+                            'docID' : docID,
+                          }
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
