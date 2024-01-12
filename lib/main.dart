@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
+import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/base.dart';
 import 'package:login/pages/requestorProfile.dart';
 import 'package:login/pages/splashScreen.dart';
@@ -49,7 +50,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: Home(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+
+      home: MainPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -98,6 +100,7 @@ class _toLoginState extends State<toLogin> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
+        '/emergency' : (context) => Emergency(),
 
       },
     );

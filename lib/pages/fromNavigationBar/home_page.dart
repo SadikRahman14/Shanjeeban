@@ -86,11 +86,14 @@ class _HomeState extends State<Home> {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null && args.containsKey('docID')) {
       docID = args['docID'];
+
+
       getUserData();
     }
     else{
       getDataDirectlyFromHome();
     }
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -313,6 +316,7 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
+                      Navigator.pushNamed(context, '/emergency');
 
                     },
                     child: Container(
@@ -609,8 +613,6 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-
-
 
       );
   }
