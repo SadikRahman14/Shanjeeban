@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
 
   Future<void> getUserData() async {
     try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot.exists) {
         String userName = userSnapshot['name'];
         String userhandle = userSnapshot['handle'];

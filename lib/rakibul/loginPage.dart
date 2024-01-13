@@ -14,7 +14,7 @@ class _loginPageState extends State<loginPage> {
 
   Future<void> getUserData() async {
     try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot.exists) {
         String userName = userSnapshot['name'];
         int age = userSnapshot['age'];
@@ -41,8 +41,6 @@ class _loginPageState extends State<loginPage> {
   void login({required String docID}) async {
     String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
-
-    docID = userEmail;
 
     print (" ");print("3) clicked on login button: $docID");print (" ");
 

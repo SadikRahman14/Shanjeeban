@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
+class noDonor extends StatefulWidget {
 
-class noDonor extends StatelessWidget {
+  const noDonor({super.key});
+
+
+
+  @override
+  State<noDonor> createState() => _noDonorState();
+}
+
+class _noDonorState extends State<noDonor> {
+
+  String? docID;
+
   @override
   Widget build(BuildContext context) {
+
+    final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    docID = formData['docID'];
+
     return Scaffold(
 
         body: Container(
@@ -123,7 +139,12 @@ class noDonor extends StatelessWidget {
                   width: 150,
                   child: MaterialButton(
                     onPressed: () {
-                      //Navigator.pushNamed(context, '/homePage');
+                      Navigator.pushNamed(
+                          context, '/mainPage',
+                          arguments: {
+                          'docID': docID,
+                        },
+                      );
 
 
                     },

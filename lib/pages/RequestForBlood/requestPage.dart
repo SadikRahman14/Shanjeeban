@@ -21,8 +21,83 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   int? _quantity;
   String? _selectedReason;
   String? _selectedHospital;
+  String name = "a";
+  int ph = 619;
+  String em = "c";
+  String newName = "new";
+  String updateName = "new";
+  String ?docID;
+
+
+  Future<void> checkIfDonorAvailable({required String bloodGroup}) async {
+
+  }
+
+  Future<void> getUserData() async {
+    try {
+
+      print(" ");print("get er vitore ");
+      print(docID);
+      print(" ");print(" ");
+
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        int phone = userSnapshot['number'];
+        String email = userSnapshot['email'];
+        String userhandle = userSnapshot['handle'];
+        String userbloodGroup = userSnapshot['bloodGroup'];
+        String userdistrict = userSnapshot['district'];
+        String userthana = userSnapshot['thana'];
+
+
+        setState(() {
+          name = userName;
+          ph = phone;
+          em = email;
+          updateName = name;
+        });
+
+
+
+        print(" ");print(" ");
+        print(name);print(ph);print(em); print("inside getUser");
+        print(" ");print(" ");
+
+      } else {
+        print(" ");print(" ");
+        print("snapshot khuje pay nai");
+        print(" ");print(" ");
+      }
+    } catch (e) {
+      print(e);
+      print(" ");print(" ");
+      print("problem");
+      print(" ");print(" ");
+    }
+  }
 
   void proceed ({required String rokto, required String karon, required String hashpatal, required int koyBag}) async {
+    String donorCheck = rokto + "donor";
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference collectionRef = firestore.collection(donorCheck);
+
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    print(" ");print(" blood donor");
+    print(donorCheck);
+    print(" ");print(" ");
+
+    if (querySnapshot.docs.isNotEmpty) {
+      Navigator.pushNamed(
+        context, '/allDonors',
+        arguments: {
+          'docID': docID,
+          'blood' : rokto,
+        },
+      );
+    } else {
+
       User? currentUser = FirebaseAuth.instance.currentUser;
       String? uid;
 
@@ -36,6 +111,9 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
           "reason" : karon,
           "hospital" : hashpatal,
           "quantity" : koyBag,
+          "name" : name,
+          "phone" : ph,
+          "email" : em,
           "uid" : uid,
         };
 
@@ -47,9 +125,16 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
 
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
-      } finally {
-        Navigator.pushNamed(context, '/homePage');
       }
+
+      Navigator.pushNamed(
+        context, '/noDonor',
+        arguments: {
+          'docID': docID,
+        },
+      );
+    }
+
   }
 
 
@@ -127,301 +212,318 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFD4E3E1),
-      appBar: AppBar(
-        leading: IconButton(
-          onPressed: (){
+
+    final Map<String, dynamic> args = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    docID = args['docID'];
+    
+    print(" ");print("docID printing  ");
+    print(docID);
+    print(" ");print(" ");
+
+    try {
+      if(updateName == newName)
+        getUserData();
+    } finally {
+      print(" ");print("name, phone email after function call ");
+      print(name);print(ph);print(em);
+      print(" ");print(" ");
+
+      return Scaffold(
+        backgroundColor: Color(0xFFD4E3E1),
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: (){
               Navigator.pop(context);
-          },
-          icon: Icon(LineAwesomeIcons.angle_left),
+            },
+            icon: Icon(LineAwesomeIcons.angle_left),
+          ),
+          centerTitle: true,
+          backgroundColor: Color(0xFFADC4C1),
+          title: Text('Blood Donation Form'),
         ),
-        centerTitle: true,
-        backgroundColor: Color(0xFFADC4C1),
-        title: Text('Blood Donation Form'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
 
-            child: Form(
-              key: _formKey,
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
+              child: Form(
+                key: _formKey,
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
 
-                    children: [
-                      Text(
-                        'REQUEST FOR BLOOD',
-                        style: TextStyle(
-                          fontFamily: 'Classy',
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF900000),
-                          fontSize: 25,
+                      children: [
+                        Text(
+                          'REQUEST FOR BLOOD',
+                          style: TextStyle(
+                            fontFamily: 'Classy',
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF900000),
+                            fontSize: 25,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 25,),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: DropdownButtonFormField(
-                          value: _selectedBloodGroup,
-                          items: _bloodGroups.map((group) {
-                            return DropdownMenuItem(
-                              value: group,
-                              child: Text(group),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedBloodGroup = value as String;
-                            });
-                          },
-                          icon: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(100),
+                        SizedBox(height: 25,),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: DropdownButtonFormField(
+                            value: _selectedBloodGroup,
+                            items: _bloodGroups.map((group) {
+                              return DropdownMenuItem(
+                                value: group,
+                                child: Text(group),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedBloodGroup = value as String;
+                              });
+                            },
+                            icon: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: Icon(Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                )
+                            ),
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFFADC4C1),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(
+                                    color: Colors.black,
+                                    width: 10.0,
+                                  )
                               ),
-                              child: Icon(Icons.arrow_drop_down,
-                                color: Colors.black,
-                              )
-                          ),
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFADC4C1),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 10.0,
-                              )
-                            ),
-                            labelText: 'Blood Group',
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Classy',
-                            ),
-                            prefixIcon: Icon(
-                              Icons.bloodtype,
-                              color: Colors.red[900],
-                            ),
-
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a blood group';
-                            }
-                            return null;
-                          },
-                        ),
-
-                      ),
-                      SizedBox(height: 20),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: DropdownButtonFormField(
-                          value: _selectedReason,
-                          items: _transfusionReasons.map((reason) {
-                            return DropdownMenuItem(
-
-                              value: reason,
-                              child: Text(reason),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedReason = value as String;
-                            });
-                          },
-                          icon: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(100),
-                            ),
-                              child: Icon(Icons.arrow_drop_down,
-                                color: Colors.black,
-                              )
-                          ),
-                          decoration: InputDecoration(
-
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            filled: true,
-                            fillColor: Color(0xFFADC4C1),
-                            labelText: 'Reason for Blood Transfusion',
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Classy',
-                            ),
-                            prefixIcon: Icon(
-                              Icons.error,
-                              color: Colors.red[900],
-                            ),
-
-                          ),
-                          isExpanded: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a reason for blood transfusion';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-
-                      SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: DropdownButtonFormField(
-                          value: _selectedHospital,
-                          items: _hospitalNames.map((hospital) {
-                            return DropdownMenuItem(
-                              value: hospital,
-                              child: Text(hospital),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedHospital = value as String;
-                            });
-                          },
-                          icon: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: Icon(Icons.arrow_drop_down,
-                                color: Colors.black,
-                              )
-                          ),
-                          decoration: InputDecoration(
-
-                            filled: true,
-                            fillColor: Color(0xFFADC4C1),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                              borderSide: BorderSide(
-                                color: Colors.black,
-                                width: 10.0,
-                              ),
-                            ),
-                            labelText: 'Hospital Name',
-                            labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontFamily: 'Classy',
-                            ),
-                            prefixIcon: Icon(Icons.local_hospital_sharp,
-                              color: Colors.red[900],
-                            ),
-
-
-                          ),
-
-                          isExpanded: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select a hospital';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-
-                      SizedBox(height: 16.0),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: TextFormField(
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFADC4C1),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            labelText: 'Quantity',
+                              labelText: 'Blood Group',
                               labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontFamily: 'Classy',
                               ),
-                            prefixIcon: Icon(
-                              Icons.numbers_sharp,
-                              color: Colors.red[900],
+                              prefixIcon: Icon(
+                                Icons.bloodtype,
+                                color: Colors.red[900],
+                              ),
+
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a blood group';
+                              }
+                              return null;
+                            },
+                          ),
+
+                        ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: DropdownButtonFormField(
+                            value: _selectedReason,
+                            items: _transfusionReasons.map((reason) {
+                              return DropdownMenuItem(
+
+                                value: reason,
+                                child: Text(reason),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedReason = value as String;
+                              });
+                            },
+                            icon: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: Icon(Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                )
+                            ),
+                            decoration: InputDecoration(
+
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFADC4C1),
+                              labelText: 'Reason for Blood Transfusion',
+                              labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Classy',
+                              ),
+                              prefixIcon: Icon(
+                                Icons.error,
+                                color: Colors.red[900],
+                              ),
+
+                            ),
+                            isExpanded: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a reason for blood transfusion';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+
+                        SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: DropdownButtonFormField(
+                            value: _selectedHospital,
+                            items: _hospitalNames.map((hospital) {
+                              return DropdownMenuItem(
+                                value: hospital,
+                                child: Text(hospital),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedHospital = value as String;
+                              });
+                            },
+                            icon: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                child: Icon(Icons.arrow_drop_down,
+                                  color: Colors.black,
+                                )
+                            ),
+                            decoration: InputDecoration(
+
+                              filled: true,
+                              fillColor: Color(0xFFADC4C1),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                  width: 10.0,
+                                ),
+                              ),
+                              labelText: 'Hospital Name',
+                              labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Classy',
+                              ),
+                              prefixIcon: Icon(Icons.local_hospital_sharp,
+                                color: Colors.red[900],
+                              ),
+
+
+                            ),
+
+                            isExpanded: true,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please select a hospital';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+
+                        SizedBox(height: 16.0),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xFFADC4C1),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              labelText: 'Quantity',
+                              labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Classy',
+                              ),
+                              prefixIcon: Icon(
+                                Icons.numbers_sharp,
+                                color: Colors.red[900],
+                              ),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter a quantity';
+                              }
+                              if (int.tryParse(value) == null) {
+                                return 'Please enter a valid number';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _quantity = int.tryParse(value ?? ''); // Provide a default value if value is null
+                            },
+
+
+                          ),
+                        ),
+                        SizedBox(height: 25.0),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF900000)),
+                            elevation: MaterialStateProperty.all<double>(10.0),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                              ),
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a quantity';
-                            }
-                            if (int.tryParse(value) == null) {
-                              return 'Please enter a valid number';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _quantity = int.tryParse(value ?? ''); // Provide a default value if value is null
-                          },
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
 
+                              print('Blood Group: $_selectedBloodGroup');
+                              print('Reason for Transfusion: $_selectedReason');
+                              print('Current Address: $_selectedHospital');
+                              print('Quantity: $_quantity');
 
-                        ),
-                      ),
-                      SizedBox(height: 25.0),
-                      ElevatedButton(
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF900000)),
-                          elevation: MaterialStateProperty.all<double>(10.0),
-                          shape: MaterialStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
+                              String blood = _selectedBloodGroup!;
+                              String reason = _selectedReason!;
+                              String hospital = _selectedHospital!;
+                              int quantity = _quantity!;
+
+                              proceed(
+                                rokto: blood,
+                                karon: reason,
+                                hashpatal: hospital,
+                                koyBag: quantity,
+                              );
+                            }
+                          },
+                          child: Text(
+                            'SUBMIT',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Classy',
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
 
-                            // Process the form data
-                            // For example, you can print the values:
-                            print('Blood Group: $_selectedBloodGroup');
-                            print('Reason for Transfusion: $_selectedReason');
-                            print('Current Address: $_selectedHospital');
-                            print('Quantity: $_quantity');
-
-                            String blood = _selectedBloodGroup!;
-                            String reason = _selectedReason!;
-                            String hospital = _selectedHospital!;
-                            int quantity = _quantity!;
-
-                            proceed(
-                              rokto: blood,
-                              karon: reason,
-                              hashpatal: hospital,
-                              koyBag: quantity,
-                            );
-                          }
-                        },
-                        child: Text(
-                          'SUBMIT',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Classy',
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           ),
         ),
-      ),
-    );
+      );
+    }
+
+
   }
 }
 
