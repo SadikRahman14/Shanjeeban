@@ -6,17 +6,17 @@ import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
 import 'package:login/pages/ChatRoom.dart';
 import 'package:login/pages/Emergency.dart';
+import 'package:login/pages/RequestForBlood/donorList.dart';
 import 'package:login/pages/base.dart';
-
 import 'package:login/pages/leaderboard/LeaderboardUI.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
-
+import 'package:login/pages/donorProfile.dart';
 import 'package:login/pages/requestorProfile.dart';
-
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
 import 'package:login/pages/DonateNow/profilePageReciever.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
+import 'package:login/rakibul/noReceiver.dart';
 import 'Smj/Physical_Informtion.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
@@ -75,7 +75,11 @@ class _MyAppState extends State<MyApp> {
         '/requestForm' : (context) => BloodRequestForm(),
         '/allRequests' : (context) => RequestorList(),
         '/requestorProfile' : (context) => RequestorProfile(),
-      },
+        '/noReciever' : (context) => noReciver(),
+        '/allDonors' : (context) => donorList(),
+        '/noDonor' : (context) => noDonor(),
+        '/donorProfile'  : (context) => donorProfile(),
+    },
     );
   }
 }

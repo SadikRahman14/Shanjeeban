@@ -71,7 +71,7 @@ class _DonateNowState extends State<DonateNow> {
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
           onPressed: (){
-              Navigator.pushNamed(context, '/mainPage');
+              Navigator.pushNamed(context,'/mainPage');
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
