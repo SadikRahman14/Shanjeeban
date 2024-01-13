@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 
@@ -12,6 +13,81 @@ class noReciver extends StatefulWidget {
 class _noReciverState extends State<noReciver> {
 
   String ?docID;
+  String name = "a";
+  int ph = 619;
+  String em = "c";
+  String blood = "rokto";
+  String newName = "new";
+  String updateName = "new";
+  String changeCatcher = "hoynai";
+  String thana = "random";
+  String district = "gg";
+
+  Future<void> getUserData() async {
+    try {
+      print(" ");print("get er vitore ");
+      print(docID);
+      print(" ");print(" ");
+
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
+      if (userSnapshot.exists) {
+        String userName = userSnapshot['name'];
+        int phone = userSnapshot['number'];
+        String email = userSnapshot['email'];
+        String bGroup = userSnapshot['bloodGroup'];
+        String districtt = userSnapshot['district'];
+        String thanaa = userSnapshot['thana'];
+
+        setState(() {
+          name = userName;
+          ph = phone;
+          em = email;
+          updateName = name;
+          changeCatcher = "hoise";
+          blood = bGroup + "donor";
+          district = districtt;
+          thana = thanaa;
+        });
+
+        print(" ");print(" ");
+        print(name);print(ph);print(em); print("inside getUser");
+        print(" ");print(" ");
+
+      } else {
+        print(" ");print(" ");
+        print("snapshot khuje pay nai");
+        print(" ");print(" ");
+      }
+    } catch (e) {
+      print(e);
+      print(" ");print(" ");
+      print("problem");
+      print(" ");print(" ");
+    }
+  }
+
+  Future<void> storeDonorData() async {
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      CollectionReference collectionRef = firestore.collection(blood);
+
+      await collectionRef.add({
+        'name': name,
+        'email': em,
+        'phone': ph,
+        'district': district,
+        'thana': thana,
+        'uid' : docID,
+      });
+
+      print(" ");print(" ");
+      print('donor info added to collection successfully!');
+      print(" ");print(" ");
+    } catch (error) {
+      print('Error adding data to collection: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +95,11 @@ class _noReciverState extends State<noReciver> {
     final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     docID = formData['docID'];
 
+    if(updateName == newName)
+      getUserData();
+
+    if(changeCatcher == "hoise")
+      storeDonorData();
 
     return Scaffold(
 
@@ -31,7 +112,6 @@ class _noReciverState extends State<noReciver> {
                   Colors.blueGrey.shade800,
                   Colors.blueGrey.shade600,
                   Colors.blueGrey.shade400,
-
                 ]
             ),
           ),
