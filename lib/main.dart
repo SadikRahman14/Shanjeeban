@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
+import 'package:login/pages/ChatRoom.dart';
 import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/base.dart';
 import 'package:login/pages/leaderboard/LeaderboardUI.dart';
@@ -60,7 +61,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: OnBoardingScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: ChatRoom(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),

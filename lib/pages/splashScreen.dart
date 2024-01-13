@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen>{
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      backgroundColor: Color(0xFF40274D),
+      backgroundColor: Color(0xFF553373),
       splash: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -35,34 +35,11 @@ class _SplashScreenState extends State<SplashScreen>{
             children: [
               Image.asset(
                 'assetsSadik/base002.png',
-                height: 300,
+                height: 700,
               ),
+
               SizedBox(height: 30,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomElevated(backgroundColor: Colors.black,
-                      borderRadius: 0,
-                      onPress: (){},
-                      title: 'SIGN UP',
-                      textColor: Colors.white,
-                      fontFamily: 'Classy',
-                      fontWeight: FontWeight.bold,
-                      elevation: 2
-                  ),
-                  SizedBox(width: 20,),
-                  CustomElevated(backgroundColor: Colors.amber.shade800,
-                      borderRadius: 0,
-                      onPress: (){},
-                      title: 'LOG IN',
-                      textColor: Colors.white,
-                      fontFamily: 'Classy',
-                      fontWeight: FontWeight.bold,
-                      elevation: 2
-                  ),
-                ],
-              ),
+
 
             ],
           ),
@@ -70,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>{
       ),
       nextScreen: BaseScreen(),
       splashIconSize: 700,
-      duration: 6000,
+      duration: 4000,
       splashTransition: SplashTransition.fadeTransition,
     );
   }

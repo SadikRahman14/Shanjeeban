@@ -27,7 +27,42 @@ class _BaseScreenState extends State<BaseScreen> {
            Image.asset(
                'assetsSadik/base002.png',
            ),
-          SizedBox(height: 30,),
+          Text(
+            'Shanjeeban',
+            style: TextStyle(
+              color: Colors.pink.shade100,
+              fontFamily: 'Classy',
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100,
+                child: Divider(
+                  color: Colors.grey,
+                ),
+              ),
+              Container(
+                width: 100,
+                child: Divider(
+                  color: Colors.grey,
+                ),
+              ),
+
+            ],
+          ),
+          Text(
+            'Give the Gift of Life',
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: 'Classy',
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 50,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
