@@ -11,6 +11,7 @@ import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
 import 'package:login/pages/DonateNow/profilePageReciever.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
+import 'package:login/rakibul/noReceiver.dart';
 import 'Smj/Physical_Informtion.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
@@ -67,7 +68,8 @@ class _MyAppState extends State<MyApp> {
         '/requestForm' : (context) => BloodRequestForm(),
         '/allRequests' : (context) => RequestorList(),
         '/requestorProfile' : (context) => RequestorProfile(),
-      },
+        '/noReciever' : (context) => noReciver(),
+    },
     );
   }
 }

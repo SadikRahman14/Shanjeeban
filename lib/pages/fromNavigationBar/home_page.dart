@@ -20,6 +20,7 @@ class _HomeState extends State<Home> {
 
   String ?docID  = "gg";
   String ?name;
+  String bloodGroup = "rokto";
 
   @override
   int _currentIndex = 0;
@@ -39,9 +40,11 @@ class _HomeState extends State<Home> {
         DocumentSnapshot userSnapshot2 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(userID).get();
         if (userSnapshot2.exists) {
           String userName = userSnapshot2['name'];
+          String blood = userSnapshot2['bloodGroup'];
 
           setState(() {
             name = userName;
+            bloodGroup = blood;
           });
         }
       } else {
@@ -57,9 +60,11 @@ class _HomeState extends State<Home> {
       DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot3.exists) {
         String userName = userSnapshot3['name'];
+        String blood = userSnapshot3['bloodGroup'];
 
         setState(() {
           name = userName;
+          bloodGroup = blood;
         });
 
       } else {
@@ -354,14 +359,42 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(
+                    // onTap: () {
+                    //   Navigator.pushNamed(
+                    //       context, '/allRequests',
+                    //       arguments: {
+                    //         'docID' : docID,
+                    //       }
+                    //   );
+                    // },
+
+                    onTap: () async {
+                      FirebaseFirestore firestore = FirebaseFirestore.instance;
+                      CollectionReference collectionRef = firestore.collection(bloodGroup);
+
+                      QuerySnapshot querySnapshot = await collectionRef.get();
+
+                      print(" ");print(" blood");
+                      print(bloodGroup);
+                      print(" ");print(" ");
+
+                      if (querySnapshot.docs.isNotEmpty) {
+                        Navigator.pushNamed(
                           context, '/allRequests',
                           arguments: {
-                            'docID' : docID,
-                          }
-                      );
+                            'docID': docID,
+                          },
+                        );
+                      } else {
+                        Navigator.pushNamed(
+                          context, '/noReciever',
+                          arguments: {
+                            'docID': docID,
+                          },
+                        );
+                      }
                     },
+
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
@@ -410,9 +443,11 @@ class _HomeState extends State<Home> {
                           context, '/requestForm',
                           arguments: {
                             'docID' : docID,
+
                           }
                       );
                     },
+
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey[100],
