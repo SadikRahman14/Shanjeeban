@@ -28,6 +28,11 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   String updateName = "new";
   String ?docID;
 
+
+  Future<void> checkIfDonorAvailable({required String bloodGroup}) async {
+
+  }
+
   Future<void> getUserData() async {
     try {
 
@@ -73,6 +78,26 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   }
 
   void proceed ({required String rokto, required String karon, required String hashpatal, required int koyBag}) async {
+    String donorCheck = rokto + "donor";
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    CollectionReference collectionRef = firestore.collection(donorCheck);
+
+    QuerySnapshot querySnapshot = await collectionRef.get();
+
+    print(" ");print(" blood donor");
+    print(donorCheck);
+    print(" ");print(" ");
+
+    if (querySnapshot.docs.isNotEmpty) {
+      Navigator.pushNamed(
+        context, '/allDonors',
+        arguments: {
+          'docID': docID,
+          'blood' : rokto,
+        },
+      );
+    } else {
+
       User? currentUser = FirebaseAuth.instance.currentUser;
       String? uid;
 
@@ -100,9 +125,16 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
 
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
-      } finally {
-        Navigator.pushNamed(context, '/mainPage');
       }
+
+      Navigator.pushNamed(
+        context, '/noDonor',
+        arguments: {
+          'docID': docID,
+        },
+      );
+    }
+
   }
 
 

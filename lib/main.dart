@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
 import 'package:login/pages/Emergency.dart';
+import 'package:login/pages/RequestForBlood/donorList.dart';
 import 'package:login/pages/base.dart';
+import 'package:login/pages/donorProfile.dart';
 import 'package:login/pages/requestorProfile.dart';
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
@@ -69,6 +71,9 @@ class _MyAppState extends State<MyApp> {
         '/allRequests' : (context) => RequestorList(),
         '/requestorProfile' : (context) => RequestorProfile(),
         '/noReciever' : (context) => noReciver(),
+        '/allDonors' : (context) => donorList(),
+        '/noDonor' : (context) => noDonor(),
+        '/donorProfile'  : (context) => donorProfile(),
     },
     );
   }

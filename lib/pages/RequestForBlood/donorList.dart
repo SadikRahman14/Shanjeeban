@@ -1,55 +1,62 @@
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
-class RequestorList extends StatefulWidget {
+class donorList extends StatefulWidget {
+  const donorList({super.key});
+
   @override
-  _RequestorListState createState() => _RequestorListState();
+  State<donorList> createState() => _donorListState();
 }
 
-class _RequestorListState extends State<RequestorList> {
+class _donorListState extends State<donorList> {
   CollectionReference bloodRequests =
   FirebaseFirestore.instance.collection('A-');
-  void getSpecificCollection() {
-    bloodRequests = FirebaseFirestore.instance.collection(bloodGroup);
-  }
 
-  void onPersonClicked(String requestorUid) {
-    print('Clicked on $requestorUid');
-    print(bloodGroup);
+  void onPersonClicked(String donorId) {
+    print(" ");
+    print("checking here: ");
+    print('Clicked on $donorId');
+    print(docID);
     print(" ");
     print(" ");
 
-    Navigator.pushNamed(
-      context, '/requestorProfile',
-      arguments: {
-        'requestorUid' : requestorUid,
-        'docId' : docID,
-      },
-    );
+    if (docID != null) {
+      Navigator.pushNamed(
+        context, '/requestorProfile',
+        arguments: {
+          'donorUid': donorId,
+          'docId': docID!,
+        },
+      );
+    } else {
+      print('docID is null');
+    }
   }
 
   String docID = "gg";
+  String requiredBlood = "gg";
   String bloodGroup = "nothing";
 
-  Future<void> getUserData() async {
-    try {
-      DocumentSnapshot userSnapshot3 =
-      await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
-      if (userSnapshot3.exists) {
-        final newBloodGroup = userSnapshot3['bloodGroup'];
-        if (newBloodGroup != bloodGroup) {
-          setState(() {
-            bloodGroup = newBloodGroup;
-          });
-        }
-      } else {
-        print('User does not exist');
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-  }
+  // Future<void> getUserData() async {
+  //   try {
+  //     DocumentSnapshot userSnapshot3 =
+  //     await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
+  //     if (userSnapshot3.exists) {
+  //       final newBloodGroup = userSnapshot3['bloodGroup'];
+  //       if (newBloodGroup != bloodGroup) {
+  //         setState(() {
+  //           bloodGroup = newBloodGroup;
+  //         });
+  //       }
+  //     } else {
+  //       print('User does not exist');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching user data: $e');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +65,20 @@ class _RequestorListState extends State<RequestorList> {
       ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
       if (args != null && args.containsKey('docID')) {
         docID = args['docID'];
+        requiredBlood = args['blood'];
 
-        getUserData();
+        // getUserData();
       }
     } finally {
       print(bloodGroup);
       print("aaa ");
       print("aaa ");
-      bloodRequests = FirebaseFirestore.instance.collection(bloodGroup);
+      String req = requiredBlood + "donor";
+      bloodRequests = FirebaseFirestore.instance.collection(req);
 
       return Scaffold(
         appBar: AppBar(
-          title: Text('Blood Donation Page'),
+          title: Text('DONORS LIST'),
         ),
         body: SingleChildScrollView(
           child: StreamBuilder<QuerySnapshot>(
@@ -89,7 +98,7 @@ class _RequestorListState extends State<RequestorList> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Available Requests:',
+                    'Available Donors:',
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 10),
@@ -108,9 +117,8 @@ class _RequestorListState extends State<RequestorList> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Name: ${document['reason']}'),
-                            Text('Bags Needed: ${document['quantity']}'),
-                            Text('Hospital: ${document['hospital']}'),
+                            Text('Name: ${document['thana']}'),
+                            Text('Bags Needed: ${document['district']}'),
                             Text('UID: ${document['uid']}'),
                             Text('name: ${document['name']}'),
                             Text('phone: ${document['phone']}'),
