@@ -17,7 +17,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
     final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     String docId = formData['docId'];
-    String requestorUid = formData['donorUid'];
+    String requestorUid = formData['requestorUid'];
 
     return Scaffold(
       appBar: AppBar(

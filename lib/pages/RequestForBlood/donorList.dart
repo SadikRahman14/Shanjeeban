@@ -23,7 +23,7 @@ class _donorListState extends State<donorList> {
     print(" ");
 
     Navigator.pushNamed(
-      context, '/requestorProfile',
+      context, '/donorProfile',
       arguments: {
         'donorUid': donorId,
         'docId': docID,
