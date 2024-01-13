@@ -7,8 +7,12 @@ import 'package:login/mainPage.dart';
 import 'package:login/pages/ChatRoom.dart';
 import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/base.dart';
+
 import 'package:login/pages/leaderboard/LeaderboardUI.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
+
+import 'package:login/pages/requestorProfile.dart';
+
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';
 import 'package:login/pages/DonateNow/profilePageReciever.dart';
@@ -22,6 +26,7 @@ import 'package:login/pages/DonateNow/recieversList.dart';
 import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
 import 'package:login/pages/DonateNow/climaxPageReciever.dart';
+import 'package:login/pages/DonateNow/requestorList.dart';
 
 
 void main() async{
@@ -30,25 +35,15 @@ void main() async{
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MyApp());
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  if(currentUser != null){
+    runApp(MyApp());
+  }
+  else{
+    runApp(toLogin());
+  }
 }
 
-// FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-// DocumentSnapshot snapshot = await FirebaseFirestore.instance.collection("users").doc("Z3kfNrbsVBlgqPnP94S2").get();
-// log(snapshot.data().toString());
-
-// Map<String, dynamic> newUserData = {
-//   "name": "SlantCode",
-//   "email": "slantcode@gmail.com"
-// };
-// await _firestore.collection("users").doc("your-id-here").update({              //update profile
-//   "email": "slantcode2@gmail.com"
-// });
-// log("User updated!");
-
-// await _firestore.collection("users").doc("Z3kfNrbsVBlgqPnP94S2").delete();    // delete profile
-// log("User deleted!");
 
 class MyApp extends StatefulWidget {
   @override
@@ -61,7 +56,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: ChatRoom(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+
+
+      home: RequestorList(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -72,7 +70,41 @@ class _MyAppState extends State<MyApp> {
         '/userProfile':(context) => Profile(),
         '/donatorsProfile':(context) => DonatorsProfile(),
         '/requestedProfile':(context) => RequestedProfile(),
+        '/donatorsList':(context) => DonatorsListPage(),
+        '/recieversList':(context) => DonateNow(),
+        '/requestForm' : (context) => BloodRequestForm(),
+        '/allRequests' : (context) => RequestorList(),
+        '/requestorProfile' : (context) => RequestorProfile(),
+      },
+    );
+  }
+}
 
+
+class toLogin extends StatefulWidget {
+  const toLogin({super.key});
+
+  @override
+  State<toLogin> createState() => _toLoginState();
+}
+
+class _toLoginState extends State<toLogin> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+
+      debugShowCheckedModeBanner: false,
+      home: loginPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+
+      routes: {
+        '/mainPage':(context) => MainPage(),
+        '/loginPage':(context) => loginPage(),
+        '/signUpPage':(context) => signUpInfo(),
+        '/homePage':(context) => Home(),
+        '/physical':(context) => PhysicalInformationPage(),
+        '/userProfile':(context) => Profile(),
+        '/donatorsProfile':(context) => DonatorsProfile(),
+        '/requestedProfile':(context) => RequestedProfile(),
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
@@ -82,7 +114,6 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-
 
 
 
