@@ -17,22 +17,19 @@ class _donorListState extends State<donorList> {
   void onPersonClicked(String donorId) {
     print(" ");
     print("checking here: ");
-    print('Clicked on $donorId');
+    print('Clicked on ' + donorId);
     print(docID);
     print(" ");
     print(" ");
 
-    if (docID != null) {
-      Navigator.pushNamed(
-        context, '/requestorProfile',
-        arguments: {
-          'donorUid': donorId,
-          'docId': docID!,
-        },
-      );
-    } else {
-      print('docID is null');
-    }
+    Navigator.pushNamed(
+      context, '/requestorProfile',
+      arguments: {
+        'donorUid': donorId,
+        'docId': docID,
+      },
+    );
+
   }
 
   String docID = "gg";
