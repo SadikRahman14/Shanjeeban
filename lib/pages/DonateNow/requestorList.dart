@@ -35,7 +35,7 @@ class _RequestorListState extends State<RequestorList> {
   Future<void> getUserData() async {
     try {
       DocumentSnapshot userSnapshot3 =
-      await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot3.exists) {
         final newBloodGroup = userSnapshot3['bloodGroup'];
         if (newBloodGroup != bloodGroup) {
@@ -111,6 +111,9 @@ class _RequestorListState extends State<RequestorList> {
                           Text('Bags Needed: ${document['quantity']}'),
                           Text('Hospital: ${document['hospital']}'),
                           Text('UID: ${document['uid']}'),
+                          Text('name: ${document['name']}'),
+                          Text('phone: ${document['phone']}'),
+                          Text('email: ${document['email']}'),
                         ],
                       ),
                     ),

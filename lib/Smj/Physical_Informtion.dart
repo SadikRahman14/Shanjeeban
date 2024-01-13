@@ -191,7 +191,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           await documentReference1.set(userData)
               .then((value) {
             print("Document added successfully!");
-            docID = email;
+            // docID = email;
             print("Document ID: $docID");
           })
               .catchError((error) {
@@ -202,14 +202,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           //   "email": email,
           // };
           //
-          // DocumentReference documentReference2 = await FirebaseFirestore.instance.collection("loginData").doc(email);
-          // await documentReference2.set(loginData)
-          //     .then((value) {
-          //   print("Document added successfully! ");
-          // })
-          //     .catchError((error) {
-          //   print("Error adding document: $error");
-          // });
+
 
           Map<String, dynamic> uData = {
             "email": email,
@@ -220,13 +213,42 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           await docRef.set(uData)
               .then((value) {
             print("Document added successfully!");
-            docID = email;
+            // docID = email;
             print("Document ID: $docID");
           })
               .catchError((error) {
             print("Error adding document: $error");
           });
 
+
+          Map <String, dynamic> newUserData = {
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "email" : email,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
+            "uid" : ID,
+          };
+
+          DocumentReference documentReference4 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(ID);
+          await documentReference4.set(userData)
+              .then((value) {
+            print("Document added successfully!");
+            docID = ID;
+            print("Document ID: $ID");
+          })
+              .catchError((error) {
+            print("Error adding document: $error");
+          });
 
         }
       } on FirebaseAuthException catch (ex) {
@@ -550,7 +572,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     onChanged: (String? value) {
                       setState(() {
                         GenderInput = value;
-                      }); // Handle the blood group sele // Handle the blood group selection
+                      });
                     },
                   ),
                 ),

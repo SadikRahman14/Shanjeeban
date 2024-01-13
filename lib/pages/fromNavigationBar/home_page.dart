@@ -32,19 +32,11 @@ class _HomeState extends State<Home> {
   Future<void> getDataDirectlyFromHome() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
-      String? userID;
+      String? userID  = currentUser?.uid;
+      docID = userID;
 
       if (currentUser != null) {
-        userID = currentUser.uid;
-
-
-        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(userID).get();
-
-        setState(() {
-          docID = userSnapshot['email'];
-        });
-
-        DocumentSnapshot userSnapshot2 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+        DocumentSnapshot userSnapshot2 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(userID).get();
         if (userSnapshot2.exists) {
           String userName = userSnapshot2['name'];
 
@@ -62,7 +54,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getUserData() async {
     try {
-      DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot3.exists) {
         String userName = userSnapshot3['name'];
 
@@ -414,7 +406,12 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/requestForm');
+                      Navigator.pushNamed(
+                          context, '/requestForm',
+                          arguments: {
+                            'docID' : docID,
+                          }
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
