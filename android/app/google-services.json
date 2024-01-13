@@ -12,7 +12,12 @@
           "package_name": "com.example.shanjeeban000"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "314165892127-7ltv22jefo0onboecsp7d1t5murg0f7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCqONPMnrQCcQ-9vKD_VJs4jtFryaFtis4"
@@ -20,7 +25,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314165892127-7ltv22jefo0onboecsp7d1t5murg0f7m.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "314165892127-757av754pi74cc9hphihs4on7jsrb58g.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shanjeeban000"
+              }
+            }
+          ]
         }
       }
     }

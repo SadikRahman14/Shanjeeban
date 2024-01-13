@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
+  google_sign_in: ^6.2.1
   cloud_firestore: ^4.13.6
   provider: ^6.1.1
 
@@ -78,6 +79,7 @@ flutter:
       - assetsSadik/support.png
       - assetsSadik/logo.png
       - assets/images/bg.png
+      - assets/icons/google.png
 
 
 

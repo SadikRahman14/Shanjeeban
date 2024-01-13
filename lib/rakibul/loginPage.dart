@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class loginPage extends StatefulWidget {
   @override
+
   State<loginPage> createState() => _loginPageState();
 }
 
@@ -193,23 +194,7 @@ class _loginPageState extends State<loginPage> {
                         ),
                       )),
                       SizedBox(height: 20,),
-                      FadeInUp(duration: Duration(milliseconds: 1500),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
-                          },
-                          child: Text(
-                            'New to Shanjeeban?    SIGN UP',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF900000),
-                              fontFamily: 'oldschool',
-                            ),
-                          ),
-                        ),
 
-                      ),
                       SizedBox(height: 20),
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
@@ -233,35 +218,29 @@ class _loginPageState extends State<loginPage> {
                       SizedBox(height: 30,),
                       Row(
                         children: <Widget>[
-                          Expanded(
-                            child: FadeInUp(duration: Duration(milliseconds: 1800), child: MaterialButton(
-                              onPressed: (){},
-                              height: 30,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Center(
-                                child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                              ),
-                            )),
-                          ),
+
                           SizedBox(width: 30,),
                           Expanded(
                             child: FadeInUp(duration: Duration(milliseconds: 1900), child: MaterialButton(
                               onPressed: () {},
                               height: 30,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(100),
 
                               ),
-                              color: Colors.black,
+
                               child: Center(
-                                child: Text("Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                              ),
-                            )),
+                                child: ElevatedButton(
+                                  onPressed: () {},
+                                  child: Image.asset('assets/icons/google.png',height:50 ,width:50 ,),
+                                  style: ElevatedButton.styleFrom(
+
+                                  ),
+                                ),
+
+                              )),
                           )
-                        ],
+                          ), ],
                       )
                     ],
                   ),
