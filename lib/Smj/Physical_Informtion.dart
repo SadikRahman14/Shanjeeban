@@ -10,9 +10,6 @@ import 'package:login/Smj/add_data.dart';
 import 'package:login/Smj/utils.dart';
 import 'package:login/main.dart';
 
-
-
-
 class PhysicalInformationPage extends StatefulWidget {
 
   @override
@@ -167,6 +164,9 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       String gender = GenderInput.toString().trim();
       String lastDonation = dateDise();
       String bloodGroup = BloodGroupInput.toString().trim();
+      String ID = "";
+      String docID = "";
+
 
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
@@ -215,6 +215,20 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           Map<String, dynamic> uData = {
             "email": email,
             "docID": email,
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "name" : name,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
           };
 
           DocumentReference docRef = await FirebaseFirestore.instance.collection("userIdHolder").doc(ID);

@@ -76,13 +76,71 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                         fontSize: 30,
                       ),
                     ),
+                    SizedBox(height: 10,),
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade800, // Adjust the color as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 3,
+                                  offset: Offset(0, 2), // Adjust the shadow offset as needed
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.phone,
+                                  color: Colors.green.shade500,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 20,),
+                          Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.shade800, // Adjust the color as needed
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.3),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(0, 2), // Adjust the shadow offset as needed
+                                ),
+                              ],
+                            ),
+                            child: ClipOval(
+                              child: IconButton(
+                                onPressed: () {},
+                                icon: Icon(
+                                  Icons.message,
+                                  color: Colors.blue.shade500,
+                                ),
+                              ),
+                            ),
+                          )
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 5,),
                     Container(
                       width: 200,
                       child: Divider(
                         color: Colors.grey,
                       ),
                     ),
-                    SizedBox(height: 10,),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -164,7 +222,7 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                         color: Colors.grey,
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 10,),
                     Container(
                       //width: 400,
                       decoration: BoxDecoration(
@@ -213,38 +271,8 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 20, width: 20,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey[500],
-                                  borderRadius: BorderRadius.circular(100),
-                                ),
-                                child: Icon(
-                                  Icons.phone,
-                                  size: 15,
-                                  color: Colors.red[900],
-                                ),
-                              ),
-                              SizedBox(width: 4),
-                              Flexible(
-                                child: Text(
-                                  '01862937424',
-                                  softWrap: true,
-                                  overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontFamily: 'Classy',
-                                    color: Colors.red[900],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 35,),
+
+                          SizedBox(height: 20,),
                           Center(
                             child: ElevatedButton(
                               style: ButtonStyle(
