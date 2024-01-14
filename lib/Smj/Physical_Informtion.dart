@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,8 +10,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:login/Smj/add_data.dart';
 import 'package:login/Smj/utils.dart';
 import 'package:login/main.dart';
-
-
 
 
 class PhysicalInformationPage extends StatefulWidget {
@@ -167,11 +166,17 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       String gender = GenderInput.toString().trim();
       String lastDonation = dateDise();
       String bloodGroup = BloodGroupInput.toString().trim();
+      String ID = "";
+      String docID = "";
+
 
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
         if(userCredential.user != null){
           print("user created successfully.");
+
+         ID = userCredential.user!.uid;
+         print(ID);
 
           int etaki244 = int.parse(number);
           int boyosh = int.parse(age);
@@ -292,7 +297,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
   Uint8List? _image;
 
-
   void selectImage() async{
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
@@ -300,14 +304,14 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     });
   }
 
-  void saveProfile() async{
+  void saveProfile({required String email}) async{
 
-    String resp = await StoreData().saveData(file:  _image!);
+    String resp = await StoreData().saveData(file:  _image!,email:email);
   }
-
+  bool isLoading = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
 
     final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
@@ -320,6 +324,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     String dateOfBirth = formData['dateOfBirth'];
     String district = formData['district'];
     String thana = formData['thana'];
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -350,9 +356,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                SizedBox(height: 10,),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -647,6 +650,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
                     ElevatedButton(
                       onPressed: () {
+                        setState(() {
+                          isLoading = true;
+                        });
+                        Future.delayed(Duration(seconds: 5),(){
+                          setState(() {
+                            isLoading = false;
+                          });
+                        });
+                        saveProfile(email:email);
                         proceed(
                           cha: line,
                           name: name,
@@ -659,11 +671,13 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                           thana: thana,
                         );
                       },
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         minimumSize: Size(45, 45),
                       ),
-                      child: Text('Submit',
+                      child: isLoading? CircularProgressIndicator(color: Colors.white,):
+                      Text('Submit',
                         style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,

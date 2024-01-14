@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class signUpInfo extends StatefulWidget {
   @override
@@ -336,6 +337,7 @@ class _signUpInfo extends State<signUpInfo> {
   }
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -805,7 +807,17 @@ class _signUpInfo extends State<signUpInfo> {
 
               SizedBox(height: 10,),
               ElevatedButton(
-                onPressed: (){
+                onPressed: () {
+                  setState(() {
+                    isLoading = true;
+                  });
+
+                  Future.delayed(Duration(seconds: 10),(){
+                    setState(() {
+                      isLoading = false;
+                    });
+                  });
+
                   _proceed();
 
                 },
@@ -816,8 +828,10 @@ class _signUpInfo extends State<signUpInfo> {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                   ),
+
                 ),
-                child: Text(
+                child: isLoading? CircularProgressIndicator(color: Colors.white,):
+                 Text(
                   'Proceed to Physical Info',
                   style: TextStyle(
                     fontSize: 17,

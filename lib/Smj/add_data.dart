@@ -16,14 +16,14 @@ class StoreData {
   }
 
   Future<String> saveData({
-
+    required String email,
     required Uint8List file,
   }) async {
     String resp = " Some Error Occurred";
     try{
 
         String imageUrl = await uploadImageToStorage('profileImage', file);
-        await _firestore.collection('userProfile').add({
+        await _firestore.collection('userCredentials').add({
           'imageLink': imageUrl,
         });
 

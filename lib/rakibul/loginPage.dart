@@ -39,6 +39,12 @@ class _loginPageState extends State<loginPage> {
     );
   }
   void login({required String docID}) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Center(child: CircularProgressIndicator());
+      },
+    );
     String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
 
@@ -77,6 +83,7 @@ class _loginPageState extends State<loginPage> {
         print(" ");print(" ");print(" ");
       }
     }
+
   }
 
 
