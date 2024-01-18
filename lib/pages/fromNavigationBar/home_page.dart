@@ -297,9 +297,6 @@ class _HomeState extends State<Home> {
                     ],
                   ),
                   SizedBox(height: 35,),
-
-
-
                 ],
 
               ),
@@ -380,7 +377,7 @@ class _HomeState extends State<Home> {
 
                       if (querySnapshot.docs.isNotEmpty) {
                         Navigator.pushNamed(
-                          context, '/allRequests',
+                          context, '/everyRequest',
                           arguments: {
                             'docID': docID,
                           },

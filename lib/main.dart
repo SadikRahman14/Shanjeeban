@@ -68,12 +68,13 @@ class _MyAppState extends State<MyApp> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
-        '/allRequests' : (context) => RequestorList(),
+        '/everyRequest' : (context) => RequestorList(),
         '/requestorProfile' : (context) => RequestorProfile(),
         '/noReciever' : (context) => noReciver(),
         '/allDonors' : (context) => donorList(),
         '/noDonor' : (context) => noDonor(),
         '/donorProfile'  : (context) => donorProfile(),
+        '/emergency'  : (context) => Emergency(),
     },
     );
   }
@@ -107,7 +108,13 @@ class _toLoginState extends State<toLogin> {
         '/donatorsList':(context) => DonatorsListPage(),
         '/recieversList':(context) => DonateNow(),
         '/requestForm' : (context) => BloodRequestForm(),
-        '/emergency' : (context) => Emergency(),
+        '/everyRequest' : (context) => RequestorList(),
+        '/requestorProfile' : (context) => RequestorProfile(),
+        '/noReciever' : (context) => noReciver(),
+        '/allDonors' : (context) => donorList(),
+        '/noDonor' : (context) => noDonor(),
+        '/donorProfile'  : (context) => donorProfile(),
+        '/emergency'  : (context) => Emergency(),
 
       },
     );

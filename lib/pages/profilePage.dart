@@ -74,7 +74,7 @@ class _ProfileState extends State<Profile> {
           leading: IconButton(
             onPressed: (){
               Navigator.pushNamed(
-                  context, '/homePage',
+                  context, '/mainPage',
                   arguments: {
                     'docID' : docID,
                   }
