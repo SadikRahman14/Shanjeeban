@@ -1,15 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:login/deGea/signUpInfo.dart';
-import 'package:login/rakibul/loginPage.dart';
-import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
-import 'package:login/pages/fromNavigationBar/historyPage.dart';
 
 class RequestorList extends StatefulWidget {
   @override
@@ -17,62 +8,6 @@ class RequestorList extends StatefulWidget {
 }
 
 class _RequestorListState extends State<RequestorList> {
-
-  String docId = "ff";
-  String name = "naam";
-  String uid = "uid";
-
-  Future<void> getUserData() async {
-    try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
-      if (userSnapshot.exists) {
-        String userName = userSnapshot['name'];
-
-
-
-        setState(() {
-          name = userName;
-
-        });
-
-        // print('User Name: $userName');
-        // print('age: $age');
-        // print('User district: $district');
-        // print('User thana: $thana');
-        // print('User phone: $phone');
-      } else {
-        print('User does not exist');
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-  }
-
-  Future<void> getDocId() async {
-    try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(uid).get();
-      if (userSnapshot.exists) {
-        String docID = userSnapshot['email'];
-
-
-
-        setState(() {
-          docId = docID;
-        });
-
-        // print('User Name: $userName');
-        // print('age: $age');
-        // print('User district: $district');
-        // print('User thana: $thana');
-        // print('User phone: $phone');
-      } else {
-        print('User does not exist');
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-  }
-
   CollectionReference bloodRequests =
   FirebaseFirestore.instance.collection('A-');
   void getSpecificCollection() {
@@ -86,7 +21,7 @@ class _RequestorListState extends State<RequestorList> {
     print(" ");
 
     Navigator.pushNamed(
-      context, '/requestedProfile',
+      context, '/requestorProfile',
       arguments: {
         'requestorUid' : requestorUid,
         'docId' : docID,
@@ -143,13 +78,13 @@ class _RequestorListState extends State<RequestorList> {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               }
-          
+
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               }
-          
+
               var documents = snapshot.data!.docs;
-          
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -191,102 +126,5 @@ class _RequestorListState extends State<RequestorList> {
         ),
       );
     }
-  }
-}
-
-class DonateNowList extends StatefulWidget {
-  const DonateNowList({
-    Key? key,
-    required this.title, required this.onPress, required this.subtitle, required this.sub_subtitle,
-  }) : super(key: key);
-
-  final String title;
-  final String subtitle;
-  final String sub_subtitle;
-  final VoidCallback onPress;
-
-  @override
-  State<DonateNowList> createState() => _DonateNowListState();
-}
-
-class _DonateNowListState extends State<DonateNowList> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 300,
-      decoration: BoxDecoration(
-        color: Color(0xFFADC4C1),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: Color(0xFF900000),
-          width: 2.0,
-        ),
-      ),
-      child: ListTile(
-
-        onTap: widget.onPress,
-        leading: Container(
-
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            color: Color(0xFFADC4C1),
-          ),
-          child: ClipOval(
-            child: Image(
-              height: 50, width: 50,
-              image: AssetImage(
-                'assetsSadik/Profile.jpg',
-              ),
-            ),
-          ),
-        ),
-        title: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Classy',
-                  fontWeight: FontWeight.bold,
-                  fontSize: 15,
-                ),
-              ),
-              Text(
-                widget.subtitle,
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.5),
-                  fontFamily: 'Classy',
-                  fontSize: 10,
-                ),
-              ),
-              Text(
-                widget.sub_subtitle,
-                style: TextStyle(
-                  color: Colors.black.withOpacity(0.5),
-                  fontFamily: 'Classy',
-                  fontSize: 10,
-                ),
-              ),
-            ]
-        ),
-
-
-        trailing: Container(
-          width: 30,
-          height: 30,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100),
-            color: Colors.white.withOpacity(0.3),
-          ),
-          child: Icon(
-            LineAwesomeIcons.angle_right,
-            color: Colors.black,
-          ),
-        ),
-      ),
-    );
   }
 }
