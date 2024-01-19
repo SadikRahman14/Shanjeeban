@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,7 +15,54 @@ class DonateNow extends StatefulWidget {
   State<DonateNow> createState() => _DonateNowState();
 }
 
+
+
+
 class _DonateNowState extends State<DonateNow> {
+
+  CollectionReference bloodRequests =
+  FirebaseFirestore.instance.collection('A-');
+  void getSpecificCollection() {
+    bloodRequests = FirebaseFirestore.instance.collection(bloodGroup);
+  }
+
+  void onPersonClicked(String requestorUid) {
+    print('Clicked on $requestorUid');
+    print(bloodGroup);
+    print(" ");
+    print(" ");
+
+    Navigator.pushNamed(
+      context, '/requestedProfile',
+      arguments: {
+        'requestorUid' : requestorUid,
+        'docId' : docID,
+      },
+    );
+  }
+
+  String docID = "gg";
+  String bloodGroup = "nothing";
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot3 =
+      await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
+      if (userSnapshot3.exists) {
+        final newBloodGroup = userSnapshot3['bloodGroup'];
+        if (newBloodGroup != bloodGroup) {
+          setState(() {
+            bloodGroup = newBloodGroup;
+          });
+        }
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +71,7 @@ class _DonateNowState extends State<DonateNow> {
         backgroundColor: Color(0xFFADD1CD),
         leading: IconButton(
           onPressed: (){
-              Navigator.pushNamed(context, '/mainPage');
+              Navigator.pushNamed(context,'/mainPage');
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
@@ -60,26 +108,8 @@ class _DonateNowState extends State<DonateNow> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  DonateNowList(title: 'Abdul Jabbar', subtitle: '2 Bags Needed',
-                      sub_subtitle: 'Address',
-                      onPress: (){
-                          Navigator.pushNamed(context, '/requestedProfile');
-                      }),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Rafiq Islam', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
-                  DonateNowList(title: 'Mujibur Rahman', subtitle: '2 Bags Needed', sub_subtitle: 'Address', onPress: (){Navigator.pushNamed(context, '/requestedProfile');}),
-                  SizedBox(height: 20,),
+
+
                 ],
               ),
             ],

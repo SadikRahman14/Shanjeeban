@@ -12,6 +12,8 @@ import 'package:login/Smj/utils.dart';
 import 'package:login/main.dart';
 
 
+
+
 class PhysicalInformationPage extends StatefulWidget {
 
   @override
@@ -158,6 +160,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       if (dateDise().isEmpty) {
         snackBarMessage('Please input your date of birth');
         return ;
+
       }
 
       String age = AgeInput.text.toString().trim();
@@ -208,25 +211,39 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           await documentReference1.set(userData)
               .then((value) {
             print("Document added successfully!");
-            docID = email;
+            // docID = email;
             print("Document ID: $docID");
           })
               .catchError((error) {
             print("Error adding document: $error");
           });
 
-          
+
 
           Map<String, dynamic> uData = {
             "email": email,
             "docID": email,
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "name" : name,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
           };
 
           DocumentReference docRef = await FirebaseFirestore.instance.collection("userIdHolder").doc(ID);
           await docRef.set(uData)
               .then((value) {
             print("Document added successfully!");
-            docID = email;
+            // docID = email;
             print("Document ID: $docID");
           })
               .catchError((error) {
@@ -234,6 +251,35 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           });
 
 
+
+          Map <String, dynamic> newUserData = {
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "email" : email,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
+            "uid" : ID,
+          };
+
+          DocumentReference documentReference4 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(ID);
+          await documentReference4.set(userData)
+              .then((value) {
+            print("Document added successfully!");
+            docID = ID;
+            print("Document ID: $ID");
+          })
+              .catchError((error) {
+            print("Error adding document: $error");
+          });
 
         }
       } on FirebaseAuthException catch (ex) {
@@ -260,7 +306,19 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       print(cha);
       print("storing info in database");
 
-      Navigator.pushNamed(context, '/loginPage');
+      showDialog(
+          context: context,
+          builder: (context){
+            return Center(child: CircularProgressIndicator());
+          }
+      );
+
+      Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushNamed(context, '/loginPage'
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     }
 
     else if (!formKey.currentState!.validate()) {
@@ -293,6 +351,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         return ;
       }
     }
+
   }
 
   Uint8List? _image;
@@ -632,7 +691,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     onChanged: (String? value) {
                       setState(() {
                         GenderInput = value;
-                      }); // Handle the blood group sele // Handle the blood group selection
+                      });
                     },
                   ),
                 ),
@@ -650,14 +709,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          isLoading = true;
-                        });
-                        Future.delayed(Duration(seconds: 5),(){
-                          setState(() {
-                            isLoading = false;
-                          });
-                        });
+
                         saveProfile(email:email);
                         proceed(
                           cha: line,
@@ -670,14 +722,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                           district: district,
                           thana: thana,
                         );
+
                       },
 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         minimumSize: Size(45, 45),
                       ),
-                      child: isLoading? CircularProgressIndicator(color: Colors.white,):
-                      Text('Submit',
+
+                      child:Text('Submit',
                         style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,

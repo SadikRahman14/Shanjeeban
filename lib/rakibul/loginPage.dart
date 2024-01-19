@@ -12,24 +12,24 @@ class _loginPageState extends State<loginPage> {
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
 
-  Future<void> getUserData() async {
-    try {
-      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
-      if (userSnapshot.exists) {
-        String userName = userSnapshot['name'];
-        int age = userSnapshot['age'];
-        String district = userSnapshot['district'];
-        String thana = userSnapshot['thana'];
-        int phone = userSnapshot['number'];
-      } else {
-        print('User does not exist');
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-  }
+  // Future<void> getUserData() async {
+  //   try {
+  //     DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
+  //     if (userSnapshot.exists) {
+  //       String userName = userSnapshot['name'];
+  //       int age = userSnapshot['age'];
+  //       String district = userSnapshot['district'];
+  //       String thana = userSnapshot['thana'];
+  //       int phone = userSnapshot['number'];
+  //     } else {
+  //       print('User does not exist');
+  //     }
+  //   } catch (e) {
+  //     print('Error fetching user data: $e');
+  //   }
+  // }
 
-  String docID = "gg";
+  String? docID;
 
   void snackBarMessage(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -38,17 +38,11 @@ class _loginPageState extends State<loginPage> {
       ),
     );
   }
-  void login({required String docID}) async {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return Center(child: CircularProgressIndicator());
-      },
-    );
+
+  void login() async {
+
     String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
-
-    docID = userEmail;
 
     print (" ");print("3) clicked on login button: $docID");print (" ");
 
@@ -59,52 +53,56 @@ class _loginPageState extends State<loginPage> {
       snackBarMessage(context, 'Please input email and password.');
       return;
     }
+    else if (userEmail == "") {
+      snackBarMessage(context, 'Please input email');
+      return;
+    }
+    else if (userPassword == "") {
+      snackBarMessage(context, 'Please input password');
+      return;
+    }
     else{
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        },
+      );
       try {
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
         if(userCredential.user != null){
+
+          User? currentUser = FirebaseAuth.instance.currentUser;
+          String? userID  = currentUser?.uid;
+          docID = userID;
+
           print(" ");print(" ");print(" ");
           print("going to sadik's page");
           print (" ");print("3) clicked on login button: $docID");print (" ");
           print(" ");print(" ");print(" ");
-          Navigator.pushNamedAndRemoveUntil(
+          Future.delayed(Duration(seconds: 2), () {
+          Navigator.pushNamed(
               context,
               '/mainPage',
-                  (route) => false,
+
               arguments: {
                 'docID' : docID,
-              }
+              },
           );
+          });
         }
       } on FirebaseAuthException catch (ex) {
+        snackBarMessage(context, 'Invalid user credentials.');
+        Navigator.of(context).pop();
         print(ex.code.toString());
         print(" ");print(" ");print(" ");
         print (" ");print("3) clicked on login button: $docID");print (" ");
         print(" ");print(" ");print(" ");
       }
     }
-
   }
 
 
-  int _proceed(BuildContext context) {
-    if (fullNameInput.text.isEmpty) {
-      snackBarMessage(context, 'Enter your Email or handle');
-      return 21;
-    }
-    if (passwordInput.text.isEmpty) {
-      snackBarMessage(context, 'Input Password');
-      return 12;
-    }
-
-    String userFullName = fullNameInput.text;
-    String userPassword = passwordInput.text;
-
-    print("userName: $userFullName");
-    print("pass: $userPassword");
-
-    return 66;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +220,7 @@ class _loginPageState extends State<loginPage> {
                         width: 120,
                         child: MaterialButton(
                           onPressed: () {
-                            login(docID: docID);
+                            login();
                           },
 
                           height: 50,

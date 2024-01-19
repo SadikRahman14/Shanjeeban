@@ -21,14 +21,14 @@ class ChatRoom extends StatefulWidget {
 
 
 
-  final UserModel targetuser;
+  /*final UserModel targetuser;
   final ChatRoomModel chatRoom;
   final UserModel userModel;
-  final User firebaseuser;
+  final User firebaseuser;*/
 
 
 
-  ChatRoom({super.key, required this.targetuser, required this.chatRoom, required this.userModel, required this.firebaseuser});
+ // ChatRoom({super.key, required this.targetuser, required this.chatRoom, required this.userModel, required this.firebaseuser});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
@@ -60,7 +60,16 @@ class _ChatRoomState extends State<ChatRoom> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(
+            'Sadik Rahman',
+          style: TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
+      ),
       body: SafeArea(
         child: Container(
           child: Column(

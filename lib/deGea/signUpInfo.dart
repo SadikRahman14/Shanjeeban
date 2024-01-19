@@ -218,6 +218,7 @@ class _signUpInfo extends State<signUpInfo> {
   //   }
   // }
   void _proceed() async {
+
     if (_formKey.currentState!.validate()) { // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
@@ -289,6 +290,13 @@ class _signUpInfo extends State<signUpInfo> {
       String thana = thanaInput;
 
 
+      showDialog(
+          context: context,
+          builder: (context){
+            return Center(child: CircularProgressIndicator());
+          }
+      );
+      Future.delayed(Duration(seconds: 1), () {
       Navigator.pushNamed(
         context, '/physical',
         arguments: {
@@ -302,8 +310,13 @@ class _signUpInfo extends State<signUpInfo> {
           'district' : district,
           'thana' : thana,
         },
-      );
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     }
+
+
     else if (!_formKey.currentState!.validate()) { //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
@@ -335,6 +348,7 @@ class _signUpInfo extends State<signUpInfo> {
       }
     }
   }
+
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
   bool isLoading = false;
@@ -808,19 +822,18 @@ class _signUpInfo extends State<signUpInfo> {
               SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    isLoading = true;
-                  });
 
-                  Future.delayed(Duration(seconds: 10),(){
-                    setState(() {
-                      isLoading = false;
-                    });
-                  });
+                  /*showDialog(
+                    context: context,
+                    builder: (context){
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  );*/
 
                   _proceed();
-
+                 // Navigator.of(context).pop();
                 },
+
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
@@ -830,8 +843,8 @@ class _signUpInfo extends State<signUpInfo> {
                   ),
 
                 ),
-                child: isLoading? CircularProgressIndicator(color: Colors.white,):
-                 Text(
+
+                child: Text(
                   'Proceed to Physical Info',
                   style: TextStyle(
                     fontSize: 17,

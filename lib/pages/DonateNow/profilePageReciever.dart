@@ -15,6 +15,10 @@ class RequestedProfile extends StatefulWidget {
 }
 
 class _RequestedProfileState extends State<RequestedProfile> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,12 +81,73 @@ class _RequestedProfileState extends State<RequestedProfile> {
                           fontSize: 30,
                         ),
                       ),
+                      SizedBox(height: 20,),
+
+                      Center(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade800, // Adjust the color as needed
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 2,
+                                    blurRadius: 3,
+                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.phone,
+                                    color: Colors.green.shade500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey.shade800, // Adjust the color as needed
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black.withOpacity(0.3),
+                                    spreadRadius: 1,
+                                    blurRadius: 1,
+                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Icon(
+                                    Icons.message,
+                                    color: Colors.blue.shade500,
+                                  ),
+                                ),
+                              ),
+                            )
+
+                          ],
+                        ),
+                      ),
+                      SizedBox(height:10),
                       Container(
                         width: 200,
                         child: Divider(
                           color: Colors.grey,
                         ),
                       ),
+
+
                       SizedBox(height: 10,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -186,7 +251,7 @@ class _RequestedProfileState extends State<RequestedProfile> {
                           color: Colors.grey,
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 10,),
                       Container(
                         //width: 400,
                         decoration: BoxDecoration(
@@ -225,64 +290,6 @@ class _RequestedProfileState extends State<RequestedProfile> {
                         ),
                       ),
 
-                      SizedBox(height: 20,),
-
-                      Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey.shade800, // Adjust the color as needed
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 2,
-                                    blurRadius: 3,
-                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
-                                  ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.phone,
-                                    color: Colors.green.shade500,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 20,),
-                            Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey.shade800, // Adjust the color as needed
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.black.withOpacity(0.3),
-                                    spreadRadius: 1,
-                                    blurRadius: 1,
-                                    offset: Offset(0, 2), // Adjust the shadow offset as needed
-                                  ),
-                                ],
-                              ),
-                              child: ClipOval(
-                                child: IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(
-                                    Icons.message,
-                                    color: Colors.blue.shade500,
-                                  ),
-                                ),
-                              ),
-                            )
-
-                          ],
-                        ),
-                      ),
                       SizedBox(height: 20,),
                       CustomElevated(),
                     ],
