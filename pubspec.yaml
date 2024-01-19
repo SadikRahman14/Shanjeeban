@@ -56,6 +56,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   lottie: ^3.0.0
   fluttertoast: ^8.2.4
+  external_app_launcher: ^3.1.0
 
 
 dev_dependencies:
@@ -96,6 +97,9 @@ flutter:
       - assetsSadik/base.png
       - assetsSadik/base002.png
       - assetsSadik/Divider.png
+      - assetsSadik/foodpanda.png
+      - assetsSadik/arogga.jpg
+
 
 
 

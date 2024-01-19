@@ -93,24 +93,6 @@ class _loginPageState extends State<loginPage> {
   }
 
 
-  // int _proceed(BuildContext context) {
-  //   if (fullNameInput.text.isEmpty) {
-  //     snackBarMessage(context, 'Enter your Email or handle');
-  //     return 21;
-  //   }
-  //   if (passwordInput.text.isEmpty) {
-  //     snackBarMessage(context, 'Input Password');
-  //     return 12;
-  //   }
-  //
-  //   String userFullName = fullNameInput.text;
-  //   String userPassword = passwordInput.text;
-  //
-  //   print("userName: $userFullName");
-  //   print("pass: $userPassword");
-  //
-  //   return 66;
-  // }
 
   @override
   Widget build(BuildContext context) {
