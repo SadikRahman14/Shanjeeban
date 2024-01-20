@@ -88,14 +88,25 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
     print(donorCheck);
     print(" ");print(" ");
 
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(child: CircularProgressIndicator());
+        }
+    );
+
     if (querySnapshot.docs.isNotEmpty) {
+      Future.delayed(Duration(seconds: 2), () {
       Navigator.pushNamed(
         context, '/allDonors',
         arguments: {
           'docID': docID,
           'blood' : rokto,
         },
-      );
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     } else {
 
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -126,13 +137,16 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
       }
-
+      Future.delayed(Duration(seconds: 2), () {
       Navigator.pushNamed(
         context, '/noDonor',
         arguments: {
           'docID': docID,
         },
-      );
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     }
 
   }

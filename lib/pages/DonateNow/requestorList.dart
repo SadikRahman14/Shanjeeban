@@ -20,13 +20,23 @@ class _RequestorListState extends State<RequestorList> {
     print(" ");
     print(" ");
 
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(child: CircularProgressIndicator());
+        }
+    );
+    Future.delayed(Duration(seconds: 1), () {
     Navigator.pushNamed(
       context, '/requestorProfile',
       arguments: {
         'requestorUid' : requestorUid,
         'docId' : docID,
       },
-    );
+    ).then((_) {
+      Navigator.of(context).pop();
+    });
+    });
   }
 
   String docID = "gg";

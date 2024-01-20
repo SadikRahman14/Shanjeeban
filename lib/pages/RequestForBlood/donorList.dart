@@ -22,14 +22,23 @@ class _donorListState extends State<donorList> {
     print(" ");
     print(" ");
 
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(child: CircularProgressIndicator());
+        }
+    );
+    Future.delayed(Duration(seconds: 1), () {
     Navigator.pushNamed(
       context, '/donorProfile',
       arguments: {
         'donorUid': donorId,
         'docId': docID,
       },
-    );
-
+    ).then((_) {
+      Navigator.of(context).pop();
+    });
+    });
   }
 
   String docID = "gg";

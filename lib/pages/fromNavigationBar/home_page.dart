@@ -138,12 +138,22 @@ class _HomeState extends State<Home> {
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return Center(child: CircularProgressIndicator());
+                                  }
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
                               Navigator.pushNamed(
                                   context, '/userProfile',
                                   arguments: {
                                     'docID' : docID,
                                   }
-                              );
+                              ).then((_) {
+                                Navigator.of(context).pop();
+                              });
+                              });
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -310,7 +320,17 @@ class _HomeState extends State<Home> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/emergency');
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return Center(child: CircularProgressIndicator());
+                          }
+                      );
+                      Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pushNamed(context, '/emergency').then((_) {
+                        Navigator.of(context).pop();
+                      });
+                      });
 
                     },
                     child: Container(
@@ -366,6 +386,13 @@ class _HomeState extends State<Home> {
                     // },
 
                     onTap: () async {
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return Center(child: CircularProgressIndicator());
+                          }
+                      );
+
                       FirebaseFirestore firestore = FirebaseFirestore.instance;
                       CollectionReference collectionRef = firestore.collection(bloodGroup);
 
@@ -376,19 +403,28 @@ class _HomeState extends State<Home> {
                       print(" ");print(" ");
 
                       if (querySnapshot.docs.isNotEmpty) {
+                      Future.delayed(Duration(seconds: 1), () {
                         Navigator.pushNamed(
                           context, '/everyRequest',
                           arguments: {
                             'docID': docID,
                           },
-                        );
+                        ).then((_) {
+                         Navigator.of(context).pop();
+                        });
+                     });
                       } else {
+
+                     Future.delayed(Duration(seconds: 1), () {
                         Navigator.pushNamed(
                           context, '/noReciever',
                           arguments: {
                             'docID': docID,
                           },
-                        );
+                        ).then((_) {
+                          Navigator.of(context).pop();
+                        });
+                     });
                       }
                     },
 
@@ -436,13 +472,23 @@ class _HomeState extends State<Home> {
                   ),
                   GestureDetector(
                     onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return Center(child: CircularProgressIndicator());
+                          }
+                      );
+                      Future.delayed(Duration(seconds: 2), () {
                       Navigator.pushNamed(
                           context, '/requestForm',
                           arguments: {
                             'docID' : docID,
 
                           }
-                      );
+                      ).then((_) {
+                        Navigator.of(context).pop();
+                      });
+                      });
                     },
 
                     child: Container(

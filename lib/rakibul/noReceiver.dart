@@ -187,12 +187,23 @@ class _noReciverState extends State<noReciver> {
                   width: 150,
                   child: MaterialButton(
                     onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context){
+                            return Center(child: CircularProgressIndicator());
+                          }
+                      );
+
+                      Future.delayed(Duration(seconds: 2), () {
                       Navigator.pushNamed(
                           context, '/mainPage',
                         arguments: {
                           'docID': docID,
                         },
-                      );
+                      ).then((_) {
+                        Navigator.of(context).pop();
+                      });
+                      });
 
                     },
 
