@@ -26,7 +26,8 @@ class _ProfileState extends State<Profile> {
     print("going to sadik's page");
     print(" ");print(" ");print(" ");
     Navigator.popUntil(context, (route) => route.isFirst);
-    Navigator.pushNamed(context, '/loginPage');
+    Navigator.pushNamed(context, '/loginPage'
+    );
   }
 
   Future<void> getUserData() async {

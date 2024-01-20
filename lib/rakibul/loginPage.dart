@@ -241,7 +241,18 @@ class _loginPageState extends State<loginPage> {
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                            );
+                            Future.delayed(Duration(seconds: 1), () {
+                            Navigator.pushNamed(context, '/signUpPage'
+                            ).then((_) {
+                              Navigator.of(context).pop();
+                            });
+                            });
                           },
                           child: Text(
                             'New to Shanjeeban?    SIGN UP',
@@ -259,7 +270,18 @@ class _loginPageState extends State<loginPage> {
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                            );
+                            Future.delayed(Duration(seconds: 1), () {
+                            Navigator.pushNamed(context, '/signUpPage'
+                            ).then((_) {
+                              Navigator.of(context).pop();
+                            });
+                            });
                           },
                           child: Text(
                             'Forgot Password?',
