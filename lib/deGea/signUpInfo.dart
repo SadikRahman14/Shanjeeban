@@ -436,59 +436,6 @@ class _signUpInfo extends State<signUpInfo> {
                       ),
                       SizedBox(height: 15,),
                       TextFormField(
-                        controller: passwordInput,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        cursorColor: Colors.black,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                        ),
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.key,
-                            color: Colors.black,
-                          ),
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 4,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Colors.amber,
-                              width: 4,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Color(0xffc22333),
-                              width: 4,
-                            ),
-                          ),
-                          errorStyle: TextStyle(color: Colors.red),
-                        ),
-                        validator: _validatePassword,
-                      ),
-                      SizedBox(height: 15,),
-                      TextFormField(
                         controller: handleInput,
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         cursorColor: Colors.black,
@@ -640,6 +587,59 @@ class _signUpInfo extends State<signUpInfo> {
                           errorStyle: TextStyle(color: Colors.red),
                         ),
                         validator: _validateEmail,
+                      ),
+                      SizedBox(height: 15,),
+                      TextFormField(
+                        controller: passwordInput,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        obscureText: true,
+                        obscuringCharacter: '*',
+                        cursorColor: Colors.black,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.key,
+                            color: Colors.black,
+                          ),
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Colors.green,
+                              width: 4,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Colors.amber,
+                              width: 4,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Color(0xffc22333),
+                              width: 4,
+                            ),
+                          ),
+                          errorStyle: TextStyle(color: Colors.red),
+                        ),
+                        validator: _validatePassword,
                       ),
                       SizedBox(height: 15,),
                       datePicker(),

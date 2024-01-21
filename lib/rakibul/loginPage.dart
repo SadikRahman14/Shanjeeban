@@ -184,7 +184,7 @@ class _loginPageState extends State<loginPage> {
                                 child: TextField(
                                   controller: fullNameInput,
                                   decoration: InputDecoration(
-                                    hintText: "Email or Phone number",
+                                    hintText: "ENTER WITH EMAIL",
                                     hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(Icons.email), // Use Icons.phone for a phone icon
@@ -300,24 +300,11 @@ class _loginPageState extends State<loginPage> {
                       SizedBox(height: 30,),
                       Row(
                         children: <Widget>[
-                          Expanded(
-                            child: FadeInUp(duration: Duration(milliseconds: 1800), child: MaterialButton(
-                              onPressed: (){},
-                              height: 30,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Center(
-                                child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                              ),
-                            )),
-                          ),
-                          SizedBox(width: 30,),
+
                           Expanded(
                             child: FadeInUp(duration: Duration(milliseconds: 1900), child: MaterialButton(
                               onPressed: () {},
-                              height: 30,
+                              height: 45,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
 
