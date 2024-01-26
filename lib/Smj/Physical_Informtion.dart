@@ -347,7 +347,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       );
 
       Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/loginPage'
+      Navigator.pushNamed(context, '/onBoarding'
       ).then((_) {
         Navigator.of(context).pop();
       });

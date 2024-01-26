@@ -230,43 +230,12 @@ class _loginPageState extends State<loginPage> {
                             borderRadius: BorderRadius.circular(50),
 
                           ),
-                          // decoration: BoxDecoration(
-                          // ),
                           child: Center(
                             child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'oldschool',),),
                           ),
                         ),
                       )),
                       SizedBox(height: 20,),
-                      FadeInUp(duration: Duration(milliseconds: 1500),
-                        child: TextButton(
-                          onPressed: () {
-                            showDialog(
-                                context: context,
-                                builder: (context){
-                                  return Center(child: CircularProgressIndicator());
-                                }
-                            );
-                            Future.delayed(Duration(seconds: 1), () {
-                            Navigator.pushNamed(context, '/signUpPage'
-                            ).then((_) {
-                              Navigator.of(context).pop();
-                            });
-                            });
-                          },
-                          child: Text(
-                            'New to Shanjeeban?    SIGN UP',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF900000),
-                              fontFamily: 'oldschool',
-                            ),
-                          ),
-                        ),
-
-                      ),
-                      SizedBox(height: 20),
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
                           onPressed: () {

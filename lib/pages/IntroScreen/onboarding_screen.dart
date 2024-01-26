@@ -49,7 +49,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 children: [
                   CustomElevated(
                       backgroundColor: Color(0xBEBED565),onPress: (){
-                    Navigator.pushNamed(context, '/mainPage');
+                    Navigator.pushNamed(
+                      context, '/loginPage',
+                    );
                   },
                       borderRadius: 25.0,
 
@@ -65,7 +67,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       backgroundColor: Colors.red.shade800,
                       borderRadius: 25.0,
                       onPress: (){
-                        Navigator.pushNamed(context, '/mainPage');
+                        Navigator.pushNamed(
+                          context, '/loginPage',
+                        );
                       },
                       title: 'DONE',
                       textColor: Colors.white,
@@ -91,7 +95,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               )
           ),
         ],
-
       ),
     );
   }
