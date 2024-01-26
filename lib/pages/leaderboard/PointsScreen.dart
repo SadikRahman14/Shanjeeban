@@ -23,7 +23,7 @@ class _PointsScreenState extends State<PointsScreen> {
     return Scaffold(
       backgroundColor: Color(0xFFD4E3E1),
         appBar: AppBar(
-          backgroundColor: Color(0xFFADD1CD),
+          backgroundColor: Color(0xFFADDCD),
           centerTitle: true,
           title: Text(
             'Claim Your Rewards',
@@ -41,7 +41,6 @@ class _PointsScreenState extends State<PointsScreen> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
-                print('Navigating to /distribution');
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -103,13 +102,14 @@ class _PointsScreenState extends State<PointsScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     gradient: LinearGradient(
-                      colors: [Color(0xFF00B4DB), Color(0xFF0083B0)],
+                      colors: [Color(0xFFE80C0C), Color(0xFF810707),],
+
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
                     border: Border.all(
-                      color: Colors.transparent,
-                      width: 8.0,
+                      color: Colors.grey.shade800,
+                      width: 5,
                     ),
                   ),
                   child: ClipOval(
@@ -140,56 +140,56 @@ class _PointsScreenState extends State<PointsScreen> {
                   ),
                 ),
                 SizedBox(height: 40,),
-                Container(
-                  height: 300,
-                  width: 350,
-                  child: ListView(
-                    scrollDirection: Axis.vertical,
-                    children: [
-                      SizedBox(height: 20,),
-                      OfferCoupons(
-                          onpress: () async {
-                            await LaunchApp.openApp(
-                              androidPackageName: 'com.android.chrome',
-                              openStore: true,
-                            );
-                          },
-                          image: 'assetsSadik/foodpanda.png',
-                          textOne: 'Get 50% Cashback\n',
-                          textTwo: 'using 600 Points\n',
-                          textThree: 'Serving Happiness, One bite at a time'
-                      ),
-
-                      SizedBox(height: 20,),
-                      OfferCoupons(
-                          onpress: () async {
-                            await LaunchApp.openApp(
-                              androidPackageName: 'com.pathao.user1',
-                              openStore: true,
-                            );
-                          },
-                          image: 'assetsSadik/pathao.png',
-                          textOne: 'Get 50% Cashback\n',
-                          textTwo: 'using 800 Points\n',
-                          textThree: 'Pathao: Effortless Travel Elegance.'
-                      ),
-                      SizedBox(height: 20,),
-                      OfferCoupons(
-                          image: 'assetsSadik/arogga.jpg',
-                          textOne: 'Get 50% Cashback\n',
-                          textTwo: 'using 600 Points\n',
-                          textThree: 'Arogga: Healing at Doorstep',
-                          onpress: () async {
-                            await LaunchApp.openApp(
-                              androidPackageName: 'com.global.foodpanda.android',
-                              openStore: true,
-                            );
-                          },
-                      ),
-                      SizedBox(width: 20,),
-
-                      // Add more containers here if needed
-                    ],
+                SingleChildScrollView(
+                  child: Container(
+                    child: Column(
+                    
+                      children: [
+                        SizedBox(height: 20,),
+                        OfferCoupons(
+                            onpress: () async {
+                              await LaunchApp.openApp(
+                                androidPackageName: 'com.global.foodpanda.android',
+                                openStore: true,
+                              );
+                            },
+                            image: 'assetsSadik/foodpanda.png',
+                            textOne: 'Get 50% Cashback\n',
+                            textTwo: 'using 600 Points\n',
+                            textThree: 'Serving Happiness, One bite at a time'
+                        ),
+                    
+                        SizedBox(height: 20,),
+                        OfferCoupons(
+                            onpress: () async {
+                              await LaunchApp.openApp(
+                                androidPackageName: 'com.pathao.user',
+                                openStore: true,
+                              );
+                            },
+                            image: 'assetsSadik/pathao.png',
+                            textOne: 'Get 50% Cashback\n',
+                            textTwo: 'using 800 Points\n',
+                            textThree: 'Pathao: Effortless Travel Elegance.'
+                        ),
+                        SizedBox(height: 20,),
+                        OfferCoupons(
+                            image: 'assetsSadik/arogga.jpg',
+                            textOne: 'Get 50% Cashback\n',
+                            textTwo: 'using 600 Points\n',
+                            textThree: 'Arogga: Healing at Doorstep',
+                            onpress: () async {
+                              await LaunchApp.openApp(
+                                androidPackageName: 'com.arogga.app',
+                                openStore: true,
+                              );
+                            },
+                        ),
+                        SizedBox(width: 20,),
+                    
+                        // Add more containers here if needed
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -203,7 +203,7 @@ class _PointsScreenState extends State<PointsScreen> {
 
 class OfferCoupons extends StatelessWidget {
   const OfferCoupons({
-    super.key, required this.image, required this.textOne, required this.textTwo, required this.textThree, required this.onpress,
+    super.key, required this.image, required this.textOne, required this.textTwo, required this.textThree, required this.onpress, this.textSize = 14.0,
   });
 
   @override
@@ -213,6 +213,7 @@ class OfferCoupons extends StatelessWidget {
   final String textTwo;
   final String textThree;
   final VoidCallback onpress;
+  final double textSize;
 
   Widget build(BuildContext context) {
     return Container(
@@ -255,7 +256,11 @@ class OfferCoupons extends StatelessWidget {
                 children: [
                   TextSpan(
                     text: textOne,
+                    style: TextStyle(
+                      fontSize: textSize,
+                    )
                   ),
+
 
                   TextSpan(
                     text: textTwo,

@@ -200,20 +200,13 @@ class _ProfileState extends State<Profile> {
 
             SizedBox(height: 20,),
 
-            ProfileTiles(
-                title: "Settings", icon: LineAwesomeIcons.cog, onPress: (){},
-                endIcon: true, containerColor: Colors.grey[100]
-            ),
-            SizedBox(height: 20,),
+
+
             ProfileTiles(
                 title: "Edit Profile", icon: LineAwesomeIcons.edit, onPress: (){},
                 endIcon: true, containerColor: Colors.grey[100]
             ),
-            SizedBox(height: 20,),
-            ProfileTiles(
-                title: "Settings", icon: LineAwesomeIcons.cog, onPress: (){},
-                endIcon: true, containerColor: Colors.grey[100]
-            ),
+
             SizedBox(height: 20,),
             ProfileTiles(
                 title: "Log Out", icon: LineAwesomeIcons.power_off, onPress: (){ logout();

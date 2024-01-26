@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'recieversList.dart';
 
 class RequestorList extends StatefulWidget {
   @override
@@ -69,7 +71,25 @@ class _RequestorListState extends State<RequestorList> {
 
       return Scaffold(
         appBar: AppBar(
-          title: Text('Blood Donation Page'),
+          backgroundColor: Color(0xFFADD1CD),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(LineAwesomeIcons.angle_left),
+          ),
+          centerTitle: true,
+          title: Text(
+            'Donate Now',
+            style: TextStyle(
+              fontFamily: 'Classy',
+            ),
+          ),
         ),
         body: SingleChildScrollView(
           child: StreamBuilder<QuerySnapshot>(
@@ -85,41 +105,52 @@ class _RequestorListState extends State<RequestorList> {
 
               var documents = snapshot.data!.docs;
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Available Requests:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  for (var document in documents)
-                    InkWell(
-                      onTap: () {
-                        onPersonClicked(document['uid']);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Name: ${document['reason']}'),
-                            Text('Bags Needed: ${document['quantity']}'),
-                            Text('Hospital: ${document['hospital']}'),
-                            Text('UID: ${document['uid']}'),
-                            Text('name: ${document['name']}'),
-                            Text('phone: ${document['phone']}'),
-                            Text('email: ${document['email']}'),
-                          ],
+              return SingleChildScrollView(
+                child: Center(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 40,),
+                      Center(
+                        child: Text(
+                          'DONATE NOW!',
+                          style: TextStyle(
+                            color: Color(0xFF900000),
+                            fontSize: 25,
+                            fontFamily: 'Classy',
+                            fontWeight: FontWeight.bold,
+                          ),
+
                         ),
                       ),
-                    ),
-                ],
+                      SizedBox(height: 20),
+                      for (var document in documents)
+                        Center(
+                          child: Column(
+                            children: [
+                              InkWell(
+                                onTap: () {
+
+                                },
+                                child: DonateNowList(
+                                    title: '${document['name']}',
+                                    onPress: () {
+                                      onPersonClicked(document['uid']);
+                                    },
+                                    subtitle: '${document['reason']}',
+                                    sub_subtitle: '${document['quantity']}  bags'
+                                )
+                              ),
+                              SizedBox(height: 20,),
+                            ],
+                          ),
+                        ),
+
+
+
+                    ],
+                  ),
+                ),
               );
             },
           ),
