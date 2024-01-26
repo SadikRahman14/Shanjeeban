@@ -49,9 +49,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 children: [
                   CustomElevated(
                       backgroundColor: Color(0xBEBED565),onPress: (){
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 2), () {
                     Navigator.pushNamed(
                       context, '/loginPage',
-                    );
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
                   },
                       borderRadius: 25.0,
 
@@ -67,9 +77,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       backgroundColor: Colors.red.shade800,
                       borderRadius: 25.0,
                       onPress: (){
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                              return Center(child: CircularProgressIndicator());
+                            }
+                        );
+                        Future.delayed(Duration(seconds: 2), () {
                         Navigator.pushNamed(
                           context, '/loginPage',
-                        );
+                        ).then((_) {
+                          Navigator.of(context).pop();
+                        });
+                        });
                       },
                       title: 'DONE',
                       textColor: Colors.white,

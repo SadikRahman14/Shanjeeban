@@ -70,7 +70,18 @@ class _BaseScreenState extends State<BaseScreen> {
               CustomElevated(backgroundColor: Colors.black,
                   borderRadius: 0,
                   onPress: (){
-                      Navigator.pushNamed(context, '/signUpPage');
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/signUpPage'
+                    ).then((_) {
+            Navigator.of(context).pop();
+               });
+               });
                   },
                   title: 'SIGN UP',
                   textColor: Colors.white,
@@ -82,7 +93,18 @@ class _BaseScreenState extends State<BaseScreen> {
               CustomElevated(backgroundColor: Colors.amber.shade800,
                   borderRadius: 0,
                   onPress: (){
-                    Navigator.pushNamed(context, '/loginPage');
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/loginPage'
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
                   },
                   title: 'LOG IN',
                   textColor: Colors.white,

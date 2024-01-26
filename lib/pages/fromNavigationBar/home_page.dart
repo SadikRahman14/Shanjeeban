@@ -350,6 +350,12 @@ class _HomeState extends State<Home> {
                   // },
 
                   onTap: () async {
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
                     FirebaseFirestore firestore = FirebaseFirestore.instance;
                     CollectionReference collectionRef = firestore.collection(bloodGroup);
 
@@ -360,19 +366,27 @@ class _HomeState extends State<Home> {
                     print(" ");print(" ");
 
                     if (querySnapshot.docs.isNotEmpty) {
+                  Future.delayed(Duration(seconds: 1), () {
                       Navigator.pushNamed(
                         context, '/everyRequest',
                         arguments: {
                           'docID': docID,
                         },
-                      );
+                      ).then((_) {
+                      Navigator.of(context).pop();
+                          });
+                       });
                     } else {
+                   Future.delayed(Duration(seconds: 1), () {
                       Navigator.pushNamed(
                         context, '/noReciever',
                         arguments: {
                           'docID': docID,
                         },
-                      );
+                      ).then((_) {
+                        Navigator.of(context).pop();
+                      });
+                   });
                     }
                   },
 
@@ -424,13 +438,23 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                  showDialog(
+                   context: context,
+                  builder: (context){
+                   return Center(child: CircularProgressIndicator());
+                     }
+                      );
+                  Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pushNamed(
                         context, '/requestForm',
                         arguments: {
                           'docID' : docID,
 
                         }
-                    );
+                    ).then((_) {
+                Navigator.of(context).pop();
+                 });
+                });
                   },
 
                   child: Container(
@@ -484,7 +508,18 @@ class _HomeState extends State<Home> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/pointScreen');
+                   showDialog(
+                    context: context,
+                     builder: (context){
+                     return Center(child: CircularProgressIndicator());
+                     }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/pointScreen'
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
 
                   },
                   child: Container(
@@ -531,12 +566,22 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FacebookGroups(), // Replace with your screen/widget
                       ),
-                    );
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -582,7 +627,18 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/emergency');
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/emergency'
+                    ).then((_) {
+                   Navigator.of(context).pop();
+                     });
+                   });
 
                   },
                   child: Container(
