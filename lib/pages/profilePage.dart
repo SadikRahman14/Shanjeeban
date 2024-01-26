@@ -19,6 +19,17 @@ class _ProfileState extends State<Profile> {
   String ?bloodGroup;
   String ?thana;
   String ?district;
+  String ?dateOfBirth;
+  String ?email;
+  int ?height;
+  int ?age;
+  int ?weight;
+  String ?gender;
+  String ?lastDonation;
+  int ?number;
+  String ?password;
+  String ?uid;
+  String ?imageURL;
 
   void logout() async{
     await FirebaseAuth.instance.signOut();
@@ -29,23 +40,82 @@ class _ProfileState extends State<Profile> {
     Navigator.pushNamed(context, '/loginPage');
   }
 
+  void toEditProfile(){
+
+    print(" ");print(" ");print(" ");
+    print("name : $name");
+    print("gender : $gender");
+    print("dateOfBirth : $dateOfBirth");
+    print(" ");print(" ");print(" ");
+
+    try {
+      Navigator.pushNamed(
+        context, '/editUserProfile',
+        arguments: {
+          'name': name,
+          'pass': password,
+          'number': number,
+          'email': email,
+          'handle': handle,
+          'dateOfBirth': dateOfBirth,
+          'district' : district,
+          'thana' : thana,
+          'age': age,
+          'height': height,
+          'weight': weight,
+          'lastDonation': lastDonation,
+          'gender': gender,
+          'bloodGroup': bloodGroup,
+          // 'birthDate' :
+          // 'imageURL' : imageURL,
+          // 'uid' : uid,
+        },
+      );
+    } on Exception catch (e) {
+      print(" ");print(" ");print(" ");
+      print("Navigation to edit profile page failed cause:  $e");
+      print(" ");print(" ");print(" ");
+    }
+  }
+
   Future<void> getUserData() async {
     try {
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot.exists) {
-        String userName = userSnapshot['name'];
-        String userhandle = userSnapshot['handle'];
-        String userbloodGroup = userSnapshot['bloodGroup'];
-        String userdistrict = userSnapshot['district'];
-        String userthana = userSnapshot['thana'];
-
+        String nm = userSnapshot['name'];
+        String hnd = userSnapshot['handle'];
+        String bg = userSnapshot['bloodGroup'];
+        String ds = userSnapshot['district'];
+        String th = userSnapshot['thana'];
+        int nmm = userSnapshot['number'];
+        String ps = userSnapshot['pass'];
+        String em = userSnapshot['email'];
+        String dob = userSnapshot['dateOfBirth'];
+        int a = userSnapshot['age'];
+        int hg = userSnapshot['height'];
+        int w = userSnapshot['weight'];
+        String ld = userSnapshot['lastDonation'];
+        // String id = userSnapshot['uid'];
+        String gn = userSnapshot['gender'];
+        // String img = userSnapshot['imageURL'];
 
         setState(() {
-          name = userName;
-          handle = userhandle;
-          bloodGroup = userbloodGroup;
-          district = userdistrict;
-          thana = userthana;
+          name = nm;
+          handle = hnd;
+          password = ps;
+          dateOfBirth = dob;
+          email = em;
+          number = nmm;
+          district = ds;
+          thana = th;
+          age = a;
+          height = hg;
+          weight = w;
+          lastDonation = ld;
+          gender = gn;
+          bloodGroup = bg;
+          // imageURL = img;
+          // uid = id;
         });
 
         // print('User Name: $userName');
@@ -203,7 +273,10 @@ class _ProfileState extends State<Profile> {
 
 
             ProfileTiles(
-                title: "Edit Profile", icon: LineAwesomeIcons.edit, onPress: (){},
+                title: "Edit Profile", icon: LineAwesomeIcons.edit,
+                onPress: (){
+                  toEditProfile();
+                },
                 endIcon: true, containerColor: Colors.grey[100]
             ),
 

@@ -161,7 +161,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       if (dateDise().isEmpty) {
         snackBarMessage('Please input your date of birth');
         return ;
-
       }
 
       String age = AgeInput.text.toString().trim();
@@ -422,6 +421,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     String dateOfBirth = formData['dateOfBirth'];
     String district = formData['district'];
     String thana = formData['thana'];
+
+
 
 
 
@@ -742,7 +743,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    LastDonationDate (),
+
 
                     SizedBox(height: 35.0),
 

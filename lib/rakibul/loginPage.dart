@@ -246,7 +246,7 @@ class _loginPageState extends State<loginPage> {
                                 }
                             );
                             Future.delayed(Duration(seconds: 1), () {
-                            Navigator.pushNamed(context, '/signUpPage'
+                            Navigator.pushNamed(context, '/signUpPage',
                             ).then((_) {
                               Navigator.of(context).pop();
                             });
