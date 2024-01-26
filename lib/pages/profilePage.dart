@@ -70,25 +70,25 @@ class _ProfileState extends State<Profile> {
 
     return Scaffold(
       backgroundColor: Colors.blueGrey,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: (){
-              Navigator.pushNamed(
-                  context, '/mainPage',
-                  arguments: {
-                    'docID' : docID,
-                  }
-              );
-            },
-            icon: Icon(LineAwesomeIcons.angle_left),
-          ),
-          centerTitle: true,
-          title: Text(
-              'Profile',
-          ),
-
-
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            Navigator.pushNamed(
+                context, '/mainPage',
+                arguments: {
+                  'docID' : docID,
+                }
+            );
+          },
+          icon: Icon(LineAwesomeIcons.angle_left),
         ),
+        centerTitle: true,
+        title: Text(
+          'Profile',
+        ),
+
+
+      ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,23 +200,16 @@ class _ProfileState extends State<Profile> {
 
             SizedBox(height: 20,),
 
-            ProfileTiles(
-                title: "Settings", icon: LineAwesomeIcons.cog, onPress: (){},
-                endIcon: true, containerColor: Colors.grey[100]
-            ),
-            SizedBox(height: 20,),
+
+
             ProfileTiles(
                 title: "Edit Profile", icon: LineAwesomeIcons.edit, onPress: (){},
                 endIcon: true, containerColor: Colors.grey[100]
             ),
+
             SizedBox(height: 20,),
             ProfileTiles(
-                title: "Settings", icon: LineAwesomeIcons.cog, onPress: (){},
-                endIcon: true, containerColor: Colors.grey[100]
-            ),
-            SizedBox(height: 20,),
-            ProfileTiles(
-                title: "Log Out", icon: LineAwesomeIcons.power_off, onPress: (){ logout();
+              title: "Log Out", icon: LineAwesomeIcons.power_off, onPress: (){ logout();
             },
               endIcon: true, textColor: Colors.white, containerColor: Colors.red, leadingIconColor: Colors.white,
             ),
@@ -259,8 +252,8 @@ class ProfileTiles extends StatelessWidget {
             color:  Colors.grey.withOpacity(0.1),
           ),
           child: Icon(
-              icon,
-              color: leadingIconColor ?? Colors.grey,
+            icon,
+            color: leadingIconColor ?? Colors.grey,
           ),
         ),
         title: Text(

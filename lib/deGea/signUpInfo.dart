@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 class signUpInfo extends StatefulWidget {
   @override
@@ -217,6 +218,7 @@ class _signUpInfo extends State<signUpInfo> {
   //   }
   // }
   void _proceed() async {
+
     if (_formKey.currentState!.validate()) { // form er 5ta thik ase
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
@@ -288,6 +290,13 @@ class _signUpInfo extends State<signUpInfo> {
       String thana = thanaInput;
 
 
+      showDialog(
+          context: context,
+          builder: (context){
+            return Center(child: CircularProgressIndicator());
+          }
+      );
+      Future.delayed(Duration(seconds: 1), () {
       Navigator.pushNamed(
         context, '/physical',
         arguments: {
@@ -301,8 +310,13 @@ class _signUpInfo extends State<signUpInfo> {
           'district' : district,
           'thana' : thana,
         },
-      );
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     }
+
+
     else if (!_formKey.currentState!.validate()) { //form validate hoy nai
       if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
         snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
@@ -334,8 +348,10 @@ class _signUpInfo extends State<signUpInfo> {
       }
     }
   }
+
   ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -417,59 +433,6 @@ class _signUpInfo extends State<signUpInfo> {
                           errorStyle: TextStyle(color: Colors.red),
                         ),
                         validator: _validateName,
-                      ),
-                      SizedBox(height: 15,),
-                      TextFormField(
-                        controller: passwordInput,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        obscureText: true,
-                        obscuringCharacter: '*',
-                        cursorColor: Colors.black,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                        ),
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.key,
-                            color: Colors.black,
-                          ),
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: Colors.black,
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Colors.green,
-                              width: 4,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Colors.amber,
-                              width: 4,
-                            ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(13),
-                            borderSide: BorderSide(
-                              color: Color(0xffc22333),
-                              width: 4,
-                            ),
-                          ),
-                          errorStyle: TextStyle(color: Colors.red),
-                        ),
-                        validator: _validatePassword,
                       ),
                       SizedBox(height: 15,),
                       TextFormField(
@@ -624,6 +587,59 @@ class _signUpInfo extends State<signUpInfo> {
                           errorStyle: TextStyle(color: Colors.red),
                         ),
                         validator: _validateEmail,
+                      ),
+                      SizedBox(height: 15,),
+                      TextFormField(
+                        controller: passwordInput,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        obscureText: true,
+                        obscuringCharacter: '*',
+                        cursorColor: Colors.black,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.key,
+                            color: Colors.black,
+                          ),
+                          labelText: 'Password',
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Colors.green,
+                              width: 4,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Colors.amber,
+                              width: 4,
+                            ),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(13),
+                            borderSide: BorderSide(
+                              color: Color(0xffc22333),
+                              width: 4,
+                            ),
+                          ),
+                          errorStyle: TextStyle(color: Colors.red),
+                        ),
+                        validator: _validatePassword,
                       ),
                       SizedBox(height: 15,),
                       datePicker(),
@@ -805,10 +821,19 @@ class _signUpInfo extends State<signUpInfo> {
 
               SizedBox(height: 10,),
               ElevatedButton(
-                onPressed: (){
-                  _proceed();
+                onPressed: () {
 
+                  /*showDialog(
+                    context: context,
+                    builder: (context){
+                      return Center(child: CircularProgressIndicator());
+                    }
+                  );*/
+
+                  _proceed();
+                 // Navigator.of(context).pop();
                 },
+
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
                   backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
@@ -816,7 +841,9 @@ class _signUpInfo extends State<signUpInfo> {
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(vertical: 12, horizontal: 30),
                   ),
+
                 ),
+
                 child: Text(
                   'Proceed to Physical Info',
                   style: TextStyle(

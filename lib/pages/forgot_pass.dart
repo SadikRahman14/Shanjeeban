@@ -7,7 +7,7 @@ import 'package:login/mainPage.dart';
 import 'package:login/pages/ChatRoom.dart';
 import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/base.dart';
-import 'package:login/pages/leaderboard/LeaderboardUI.dart';
+import 'package:login/pages/leaderboard/PointsScreen.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
 import 'package:login/pages/splashScreen.dart';
 import 'package:login/rakibul/noDonor.dart';

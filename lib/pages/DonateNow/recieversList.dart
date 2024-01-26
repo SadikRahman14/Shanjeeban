@@ -69,15 +69,23 @@ class _DonateNowState extends State<DonateNow> {
       backgroundColor: Color(0xFFD4E3E1),
       appBar: AppBar(
         backgroundColor: Color(0xFFADD1CD),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(30),
+          ),
+        ),
         leading: IconButton(
-          onPressed: (){
-              Navigator.pushNamed(context,'/mainPage');
+          onPressed: () {
+            Navigator.pop(context);
           },
           icon: Icon(LineAwesomeIcons.angle_left),
         ),
         centerTitle: true,
         title: Text(
           'Donate Now',
+          style: TextStyle(
+            fontFamily: 'Classy',
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -215,5 +223,6 @@ class _DonateNowListState extends State<DonateNowList> {
         ),
       ),
     );
+    SizedBox(height: 20,);
   }
 }

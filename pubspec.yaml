@@ -40,12 +40,10 @@ dependencies:
   image_picker: ^1.0.5
   firebase_core: ^2.24.2
   firebase_auth: ^4.15.3
-
+  flutter_spinkit: ^5.2.0
   firebase_storage: ^11.6.0
-
   app_settings: ^5.1.1
   firebase_messaging: ^14.7.10
-
   cloud_firestore: ^4.13.6
   provider: ^6.1.1
   font_awesome_flutter: ^10.6.0
@@ -56,6 +54,8 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   lottie: ^3.0.0
   fluttertoast: ^8.2.4
+  external_app_launcher: ^3.1.0
+  uni_links: ^0.5.1
 
 
 dev_dependencies:
@@ -96,6 +96,18 @@ flutter:
       - assetsSadik/base.png
       - assetsSadik/base002.png
       - assetsSadik/Divider.png
+      - assetsSadik/foodpanda.png
+      - assetsSadik/arogga.jpg
+      - assetsSadik/Qoutation.png
+      - assetsSadik/Quotation.png
+      - assetsSadik/Quote.png
+      - assetsSadik/Quota.png
+      - assetsSadik/pagePhotoOne.jpg
+      - assetsSadik/pagePhotoTwo.jpg
+      - assetsSadik/pagePhotoThree.jpg
+      - assetsSadik/pagePhotoFour.jpg
+      - assetsSadik/redFacebook.png
+
 
 
 

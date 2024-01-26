@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:login/FacebookGroups.dart';
 import 'package:login/deGea/signUpInfo.dart';
 import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
@@ -99,7 +100,7 @@ class _HomeState extends State<Home> {
           children: [
             // Red Container
             Container(
-              height: 400, width: 500,
+              height: 450, width: 500,
               decoration: BoxDecoration(
 
                 color: Color(0xFF900000),
@@ -129,21 +130,31 @@ class _HomeState extends State<Home> {
                             name ?? 'loading....',
                             style: TextStyle(
                               color: Colors.white,
-                              fontFamily: 'Profile',
+                              fontFamily: 'Classy',
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 15,
 
                             ),
                           ),
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return Center(child: CircularProgressIndicator());
+                                  }
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
                               Navigator.pushNamed(
                                   context, '/userProfile',
                                   arguments: {
                                     'docID' : docID,
                                   }
-                              );
+                              ).then((_) {
+                                Navigator.of(context).pop();
+                              });
+                              });
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -160,7 +171,7 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 25,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -237,7 +248,7 @@ class _HomeState extends State<Home> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'NEXT \nDONATION:',
+                            'LAST \nDONATION:',
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Elegant',
@@ -290,359 +301,339 @@ class _HomeState extends State<Home> {
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             fontFamily: 'Distorted',
-
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 35,),
+
+                  SizedBox(height: 30,),
+                  Container(
+                    height: 100, width: 700,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(0.0),
+                      child: Image.asset(
+                        'assetsSadik/Quota.png',
+
+
+
+
+
+                      ),
+                    ),
+                  ),
+
+
+
                 ],
 
               ),
 
             ),
             SizedBox(height: 30,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/emergency');
 
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                      ),
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/ambulance.png',
-                            height: 30,
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            'Emergency',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Your Nearby Service',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   Navigator.pushNamed(
-                    //       context, '/allRequests',
-                    //       arguments: {
-                    //         'docID' : docID,
-                    //       }
-                    //   );
-                    // },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
 
-                    onTap: () async {
-                      FirebaseFirestore firestore = FirebaseFirestore.instance;
-                      CollectionReference collectionRef = firestore.collection(bloodGroup);
+                GestureDetector(
+                  // onTap: () {
+                  //   Navigator.pushNamed(
+                  //       context, '/allRequests',
+                  //       arguments: {
+                  //         'docID' : docID,
+                  //       }
+                  //   );
+                  // },
 
-                      QuerySnapshot querySnapshot = await collectionRef.get();
+                  onTap: () async {
+                    FirebaseFirestore firestore = FirebaseFirestore.instance;
+                    CollectionReference collectionRef = firestore.collection(bloodGroup);
 
-                      print(" ");print(" blood");
-                      print(bloodGroup);
-                      print(" ");print(" ");
+                    QuerySnapshot querySnapshot = await collectionRef.get();
 
-                      if (querySnapshot.docs.isNotEmpty) {
-                        Navigator.pushNamed(
-                          context, '/everyRequest',
-                          arguments: {
-                            'docID': docID,
-                          },
-                        );
-                      } else {
-                        Navigator.pushNamed(
-                          context, '/noReciever',
-                          arguments: {
-                            'docID': docID,
-                          },
-                        );
-                      }
-                    },
+                    print(" ");print(" blood");
+                    print(bloodGroup);
+                    print(" ");print(" ");
 
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
-                      ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/donateNow.png', // Replace with your image asset path
-                            height: 30,
-                          ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
-                          Text(
-                            'DONATE NOW',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Your Help Matters',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
+                    if (querySnapshot.docs.isNotEmpty) {
                       Navigator.pushNamed(
-                          context, '/requestForm',
-                          arguments: {
-                            'docID' : docID,
-
-                          }
+                        context, '/everyRequest',
+                        arguments: {
+                          'docID': docID,
+                        },
                       );
-                    },
+                    } else {
+                      Navigator.pushNamed(
+                        context, '/noReciever',
+                        arguments: {
+                          'docID': docID,
+                        },
+                      );
+                    }
+                  },
 
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.black,
+
                       ),
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/request.png',
-                            height: 30,
-                            //width: 60,
-                          ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
-                          Text(
-                            'Request Blood',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Donors Waiting!',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       ),
                     ),
+
+                    padding: EdgeInsets.all(8), // Padding around the button content
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assetsSadik/donateNow.png', // Replace with your image asset path
+                          height: 30,
+
+                        ),
+                        SizedBox(height: 8), // Add some spacing between the image and text
+                        Text(
+                          'Donate Now',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Your Help Matters',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, '/requestForm',
+                        arguments: {
+                          'docID' : docID,
+
+                        }
+                    );
+                  },
+
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assetsSadik/request.png',
+                          height: 30,
+                          //width: 60,
+                        ),
+                        SizedBox(height: 8), // Add some spacing between the image and text
+                        Text(
+                          'Request Blood',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Donors Waiting!',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-            SizedBox(height: 10,),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/pointScreen');
 
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.black,
                       ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/PointsIcon.png', // Replace with your image asset path
-                            height: 30,
-                          ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
-                          Text(
-                            '253 Points',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Claim Your Rewards!',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       ),
                     ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
+                    padding: EdgeInsets.all(8), // Padding around the button content
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assetsSadik/PointsIcon.png', // Replace with your image asset path
+                          height: 30,
                         ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
+                        SizedBox(height: 8), // Add some spacing between the image and text
+                        Text(
+                          '253 Points',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/support.png', // Replace with your image asset path
-                            height: 30,
+                        Text(
+                          'Claim Your Rewards!',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black,
                           ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
-                          Text(
-                            'Invite Friends',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Get 100 Points',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        shape: BoxShape.rectangle,
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                        ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => FacebookGroups(), // Replace with your screen/widget
                       ),
-                      padding: EdgeInsets.all(8), // Padding around the button content
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assetsSadik/leaderboard.png', // Replace with your image asset path
-                            height: 30,
-                          ),
-                          SizedBox(height: 8), // Add some spacing between the image and text
-                          Text(
-                            'Leaderboard',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'See the Ranking',
-                            style: TextStyle(
-                              fontSize: 8,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
                       ),
                     ),
+                    padding: EdgeInsets.all(8), // Padding around the button content
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assetsSadik/redFacebook.png', // Replace with your image asset path
+                          height: 30,
+                        ),
+                        SizedBox(height: 8), // Add some spacing between the image and text
+                        Text(
+                          'Facebook',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Explore Communities!',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ],
-              ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/emergency');
+
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.black,
+                      ),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    ),
+                    padding: EdgeInsets.all(8),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assetsSadik/ambulance.png',
+                          height: 30,
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Emergency',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Your Nearby Service',
+                          style: TextStyle(
+                            fontSize: 8,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+
+              ],
             ),
             SizedBox(height: 20,),
           ],
         ),
       ),
-
-      );
+    );
   }
 }
