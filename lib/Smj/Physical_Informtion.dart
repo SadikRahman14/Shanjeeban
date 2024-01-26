@@ -186,7 +186,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           int ucchota = int.parse(height);
           int vor = int.parse(weight);
 
-          Map <String, dynamic> userData = {
+         /* Map <String, dynamic> userData = {
             "name" : name,
             "pass" : pass,
             "number" : etaki244,
@@ -248,7 +248,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           })
               .catchError((error) {
             print("Error adding document: $error");
-          });
+          });*/
 
 
 
@@ -271,7 +271,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           };
 
           DocumentReference documentReference4 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(ID);
-          await documentReference4.set(userData)
+          await documentReference4.set(newUserData)
               .then((value) {
             print("Document added successfully!");
             docID = ID;
@@ -313,7 +313,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           }
       );
 
-      Future.delayed(Duration(seconds: 3), () {
+      Future.delayed(Duration(seconds: 2), () {
       Navigator.pushNamed(context, '/loginPage'
       ).then((_) {
         Navigator.of(context).pop();
@@ -363,9 +363,9 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     });
   }
 
-  void saveProfile({required String email}) async{
+  void saveProfile() async{
 
-    String resp = await StoreData().saveData(file:  _image!,email:email);
+    String resp = await StoreData().saveData(file:  _image!);
   }
   bool isLoading = false;
 
@@ -710,7 +710,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                     ElevatedButton(
                       onPressed: () {
 
-                        saveProfile(email:email);
+                        saveProfile();
                         proceed(
                           cha: line,
                           name: name,

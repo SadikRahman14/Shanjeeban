@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
+import 'package:login/pages/DonateNow/recieversList.dart';
+
 class donorList extends StatefulWidget {
   const donorList({super.key});
 
@@ -22,23 +24,14 @@ class _donorListState extends State<donorList> {
     print(" ");
     print(" ");
 
-    showDialog(
-        context: context,
-        builder: (context){
-          return Center(child: CircularProgressIndicator());
-        }
-    );
-    Future.delayed(Duration(seconds: 1), () {
     Navigator.pushNamed(
       context, '/donorProfile',
       arguments: {
         'donorUid': donorId,
         'docId': docID,
       },
-    ).then((_) {
-      Navigator.of(context).pop();
-    });
-    });
+    );
+
   }
 
   String docID = "gg";
@@ -84,7 +77,17 @@ class _donorListState extends State<donorList> {
 
       return Scaffold(
         appBar: AppBar(
-          title: Text('DONORS LIST'),
+          backgroundColor: Color(0xFFADD1CD),
+          leading: IconButton(
+            onPressed: (){
+              Navigator.pop(context);
+            },
+            icon: Icon(LineAwesomeIcons.angle_left),
+          ),
+          centerTitle: true,
+          title: Text(
+            'Donators List',
+          ),
         ),
         body: SingleChildScrollView(
           child: StreamBuilder<QuerySnapshot>(
@@ -93,45 +96,48 @@ class _donorListState extends State<donorList> {
               if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               }
-          
+
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return CircularProgressIndicator();
               }
-          
+
               var documents = snapshot.data!.docs;
-          
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Available Donors:',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(height: 10),
-                  for (var document in documents)
-                    InkWell(
-                      onTap: () {
-                        onPersonClicked(document['uid']);
-                      },
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        margin: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Name: ${document['thana']}'),
-                            Text('Bags Needed: ${document['district']}'),
-                            Text('UID: ${document['uid']}'),
-                            Text('name: ${document['name']}'),
-                            Text('phone: ${document['phone']}'),
-                            Text('email: ${document['email']}'),
-                          ],
-                        ),
+                  SizedBox(height: 40,),
+                  Center(
+                    child: Text(
+                      'DONATORS AVAILABLE!',
+                      style: TextStyle(
+                        color: Color(0xFF900000),
+                        fontSize: 25,
+                        fontFamily: 'Classy',
+                        fontWeight: FontWeight.bold,
                       ),
+
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  for (var document in documents)
+                    Column(
+                      children: [
+                        Center(
+                          child: InkWell(
+                              onTap: () {},
+                              child: DonateNowList(
+                                  title: '${document['name']}',
+                                  onPress: () {
+                                    onPersonClicked(document['uid']);
+                                  },
+                                  subtitle: '${document['thana']}, ${document['district']}',
+                                  sub_subtitle: ''
+                              )
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                      ],
                     ),
                 ],
               );
