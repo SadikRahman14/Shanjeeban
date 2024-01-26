@@ -15,11 +15,7 @@ class DonateNow extends StatefulWidget {
   State<DonateNow> createState() => _DonateNowState();
 }
 
-
-
-
 class _DonateNowState extends State<DonateNow> {
-
   CollectionReference bloodRequests =
   FirebaseFirestore.instance.collection('A-');
   void getSpecificCollection() {

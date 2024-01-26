@@ -105,7 +105,7 @@ class _toLoginState extends State<toLogin> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: loginPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: SplashScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -128,6 +128,7 @@ class _toLoginState extends State<toLogin> {
         '/emergency'  : (context) => Emergency(),
         '/pointScreen'  : (context) => PointsScreen(),
         '/distributiion'  : (context) => Distribution(),
+        '/onBoarding'  : (context) => OnBoardingScreen(),
 
       },
     );

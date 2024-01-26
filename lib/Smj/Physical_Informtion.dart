@@ -29,6 +29,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
   var   BloodGroupInput ;
   var   LastDonationInput ;
   DateTime? selectedDate;
+  String imageURL = "";
 
   String? _validateAge(value) {
     if (value!.isEmpty) return 'This field is mandatory';
@@ -281,6 +282,38 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             print("Error adding document: $error");
           });
 
+
+
+          Map <String, dynamic> newUserData6 = {
+            "name" : name,
+            "pass" : pass,
+            "number" : etaki244,
+            "email" : email,
+            "handle" : handle,
+            "dateOfBirth" : dateOfBirth,
+            "district" : district,
+            "thana" : thana,
+            "age" : boyosh,
+            "height" : ucchota,
+            "weight" : vor,
+            "bloodGroup" : bloodGroup,
+            "gender" : gender,
+            "lastDonation" : lastDonation,
+            "uid" : ID,
+            "imageURL" : imageURL,
+          };
+
+          DocumentReference documentReference6 = await FirebaseFirestore.instance.collection("newrrrrrUserCredentials").doc(ID);
+          await documentReference6.set(newUserData6)
+              .then((value) {
+            print("Document added successfully!");
+            docID = ID;
+            print("Document ID: $ID");
+          })
+              .catchError((error) {
+            print("Error adding document: $error");
+          });
+
         }
       } on FirebaseAuthException catch (ex) {
         print(ex.code.toString());
@@ -314,7 +347,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       );
 
       Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/loginPage'
+      Navigator.pushNamed(context, '/onBoarding'
       ).then((_) {
         Navigator.of(context).pop();
       });
@@ -366,8 +399,14 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
   void saveProfile() async{
 
     String resp = await StoreData().saveData(file:  _image!);
+
+    setState(() {
+      imageURL = resp;
+    });
+
   }
   bool isLoading = false;
+
 
   @override
   Widget build(BuildContext context)  {
