@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +10,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:login/Smj/add_data.dart';
 import 'package:login/Smj/utils.dart';
 import 'package:login/main.dart';
+
+
+
 
 class PhysicalInformationPage extends StatefulWidget {
 
@@ -156,6 +160,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       if (dateDise().isEmpty) {
         snackBarMessage('Please input your date of birth');
         return ;
+
       }
 
       String age = AgeInput.text.toString().trim();
@@ -173,12 +178,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         if(userCredential.user != null){
           print("user created successfully.");
 
+         ID = userCredential.user!.uid;
+         print(ID);
+
           int etaki244 = int.parse(number);
           int boyosh = int.parse(age);
           int ucchota = int.parse(height);
           int vor = int.parse(weight);
 
-          Map <String, dynamic> userData = {
+         /* Map <String, dynamic> userData = {
             "name" : name,
             "pass" : pass,
             "number" : etaki244,
@@ -240,7 +248,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           })
               .catchError((error) {
             print("Error adding document: $error");
-          });
+          });*/
 
 
 
@@ -263,7 +271,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           };
 
           DocumentReference documentReference4 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(ID);
-          await documentReference4.set(userData)
+          await documentReference4.set(newUserData)
               .then((value) {
             print("Document added successfully!");
             docID = ID;
@@ -298,7 +306,19 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       print(cha);
       print("storing info in database");
 
-      Navigator.pushNamed(context, '/loginPage');
+      showDialog(
+          context: context,
+          builder: (context){
+            return Center(child: CircularProgressIndicator());
+          }
+      );
+
+      Future.delayed(Duration(seconds: 2), () {
+      Navigator.pushNamed(context, '/loginPage'
+      ).then((_) {
+        Navigator.of(context).pop();
+      });
+      });
     }
 
     else if (!formKey.currentState!.validate()) {
@@ -331,10 +351,10 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
         return ;
       }
     }
+
   }
 
   Uint8List? _image;
-
 
   void selectImage() async{
     Uint8List img = await pickImage(ImageSource.gallery);
@@ -347,10 +367,10 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
     String resp = await StoreData().saveData(file:  _image!);
   }
-
+  bool isLoading = false;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context)  {
 
     final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
@@ -363,6 +383,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     String dateOfBirth = formData['dateOfBirth'];
     String district = formData['district'];
     String thana = formData['thana'];
+
+
 
     return Scaffold(
       appBar: AppBar(
@@ -393,9 +415,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
-                SizedBox(height: 10,),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -690,6 +709,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
                     ElevatedButton(
                       onPressed: () {
+
+                        saveProfile();
                         proceed(
                           cha: line,
                           name: name,
@@ -701,12 +722,15 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
                           district: district,
                           thana: thana,
                         );
+
                       },
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.red,
                         minimumSize: Size(45, 45),
                       ),
-                      child: Text('Submit',
+
+                      child:Text('Submit',
                         style: TextStyle(
                             fontSize: 14.0,
                             color: Colors.white,

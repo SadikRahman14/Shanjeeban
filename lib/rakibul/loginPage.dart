@@ -40,6 +40,7 @@ class _loginPageState extends State<loginPage> {
   }
 
   void login() async {
+
     String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
 
@@ -61,6 +62,12 @@ class _loginPageState extends State<loginPage> {
       return;
     }
     else{
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        },
+      );
       try {
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
         if(userCredential.user != null){
@@ -73,17 +80,20 @@ class _loginPageState extends State<loginPage> {
           print("going to sadik's page");
           print (" ");print("3) clicked on login button: $docID");print (" ");
           print(" ");print(" ");print(" ");
+          Future.delayed(Duration(seconds: 2), () {
           Navigator.pushNamed(
               context,
               '/mainPage',
 
               arguments: {
                 'docID' : docID,
-              }
+              },
           );
+          });
         }
       } on FirebaseAuthException catch (ex) {
         snackBarMessage(context, 'Invalid user credentials.');
+        Navigator.of(context).pop();
         print(ex.code.toString());
         print(" ");print(" ");print(" ");
         print (" ");print("3) clicked on login button: $docID");print (" ");
@@ -174,7 +184,7 @@ class _loginPageState extends State<loginPage> {
                                 child: TextField(
                                   controller: fullNameInput,
                                   decoration: InputDecoration(
-                                    hintText: "Email or Phone number",
+                                    hintText: "ENTER WITH EMAIL",
                                     hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
                                     border: InputBorder.none,
                                     prefixIcon: Icon(Icons.email), // Use Icons.phone for a phone icon
@@ -231,7 +241,18 @@ class _loginPageState extends State<loginPage> {
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                            );
+                            Future.delayed(Duration(seconds: 1), () {
+                            Navigator.pushNamed(context, '/signUpPage'
+                            ).then((_) {
+                              Navigator.of(context).pop();
+                            });
+                            });
                           },
                           child: Text(
                             'New to Shanjeeban?    SIGN UP',
@@ -249,7 +270,18 @@ class _loginPageState extends State<loginPage> {
                       FadeInUp(duration: Duration(milliseconds: 1500),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
+                            showDialog(
+                                context: context,
+                                builder: (context){
+                                  return Center(child: CircularProgressIndicator());
+                                }
+                            );
+                            Future.delayed(Duration(seconds: 1), () {
+                            Navigator.pushNamed(context, '/signUpPage'
+                            ).then((_) {
+                              Navigator.of(context).pop();
+                            });
+                            });
                           },
                           child: Text(
                             'Forgot Password?',
@@ -268,24 +300,11 @@ class _loginPageState extends State<loginPage> {
                       SizedBox(height: 30,),
                       Row(
                         children: <Widget>[
-                          Expanded(
-                            child: FadeInUp(duration: Duration(milliseconds: 1800), child: MaterialButton(
-                              onPressed: (){},
-                              height: 30,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Center(
-                                child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                              ),
-                            )),
-                          ),
-                          SizedBox(width: 30,),
+
                           Expanded(
                             child: FadeInUp(duration: Duration(milliseconds: 1900), child: MaterialButton(
                               onPressed: () {},
-                              height: 30,
+                              height: 45,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
 

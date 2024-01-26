@@ -139,12 +139,22 @@ class _HomeState extends State<Home> {
                           SizedBox(width: 135,),
                           GestureDetector(
                             onTap: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (context){
+                                    return Center(child: CircularProgressIndicator());
+                                  }
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
                               Navigator.pushNamed(
                                   context, '/userProfile',
                                   arguments: {
                                     'docID' : docID,
                                   }
-                              );
+                              ).then((_) {
+                                Navigator.of(context).pop();
+                              });
+                              });
                             },
                             child: CircleAvatar(
                               radius: 18,
@@ -324,6 +334,7 @@ class _HomeState extends State<Home> {
 
             ),
             SizedBox(height: 30,),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -371,6 +382,7 @@ class _HomeState extends State<Home> {
                       shape: BoxShape.rectangle,
                       border: Border.all(
                         color: Colors.black,
+
                       ),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(20),
@@ -379,6 +391,7 @@ class _HomeState extends State<Home> {
                         bottomRight: Radius.circular(20),
                       ),
                     ),
+
                     padding: EdgeInsets.all(8), // Padding around the button content
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -386,6 +399,7 @@ class _HomeState extends State<Home> {
                         Image.asset(
                           'assetsSadik/donateNow.png', // Replace with your image asset path
                           height: 30,
+
                         ),
                         SizedBox(height: 8), // Add some spacing between the image and text
                         Text(
@@ -406,6 +420,7 @@ class _HomeState extends State<Home> {
                       ],
                     ),
                   ),
+
                 ),
                 GestureDetector(
                   onTap: () {

@@ -64,6 +64,7 @@ class _MyAppState extends State<MyApp> {
       home: MainPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
 
+
       routes: {
         '/mainPage':(context) => MainPage(),
         '/loginPage':(context) => loginPage(),

@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'recieversList.dart';
 
+
 class RequestorList extends StatefulWidget {
   @override
   _RequestorListState createState() => _RequestorListState();
@@ -22,13 +23,23 @@ class _RequestorListState extends State<RequestorList> {
     print(" ");
     print(" ");
 
+    showDialog(
+        context: context,
+        builder: (context){
+          return Center(child: CircularProgressIndicator());
+        }
+    );
+    Future.delayed(Duration(seconds: 1), () {
     Navigator.pushNamed(
       context, '/requestorProfile',
       arguments: {
         'requestorUid' : requestorUid,
         'docId' : docID,
       },
-    );
+    ).then((_) {
+      Navigator.of(context).pop();
+    });
+    });
   }
 
   String docID = "gg";
