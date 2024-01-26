@@ -166,12 +166,23 @@ class _ClimaxState extends State<Climax> {
                                       backgroundColor: Colors.red.shade800,
                                       borderRadius: 25,
                                       onPress: (){
+                                        showDialog(
+                                            context: context,
+                                            builder: (context){
+                                              return Center(child: CircularProgressIndicator());
+                                            }
+                                        );
                                         if (_formKey.currentState!.validate()) {
                                           _formKey.currentState!.save();
                                           print('Reason of Failure: $_selectedReason');
                                           print('LessGo Home Page');
                                         }
-                                        Navigator.pushNamed(context, '/mainPage');
+                                        Future.delayed(Duration(seconds: 1), () {
+                                        Navigator.pushNamed(context, '/mainPage'
+                                        ).then((_) {
+                                          Navigator.of(context).pop();
+                                        });
+                                        });
                                       },
                                       title: 'SUBMIT',
                                       textColor: Colors.white,
