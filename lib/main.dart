@@ -2,13 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:login/FacebookGroups.dart';
 import 'package:login/firebase_options.dart';
 import 'package:login/mainPage.dart';
 import 'package:login/pages/ChatRoom.dart';
+import 'package:login/pages/EditProfile.dart';
 import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/RequestForBlood/donorList.dart';
 import 'package:login/pages/base.dart';
-import 'package:login/pages/leaderboard/LeaderboardUI.dart';
+import 'package:login/pages/leaderboard/Distribution.dart';
+import 'package:login/pages/leaderboard/PointsScreen.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
 import 'package:login/pages/donorProfile.dart';
 import 'package:login/pages/requestorProfile.dart';
@@ -58,7 +61,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
 
 
-      home:  MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: MainPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+
 
 
       routes: {
@@ -80,6 +84,8 @@ class _MyAppState extends State<MyApp> {
         '/noDonor' : (context) => noDonor(),
         '/donorProfile'  : (context) => donorProfile(),
         '/emergency'  : (context) => Emergency(),
+        '/pointScreen'  : (context) => PointsScreen(),
+        '/distributiion'  : (context) => Distribution(),
     },
     );
   }
@@ -99,7 +105,7 @@ class _toLoginState extends State<toLogin> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: loginPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: loginPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -120,6 +126,8 @@ class _toLoginState extends State<toLogin> {
         '/noDonor' : (context) => noDonor(),
         '/donorProfile'  : (context) => donorProfile(),
         '/emergency'  : (context) => Emergency(),
+        '/pointScreen'  : (context) => PointsScreen(),
+        '/distributiion'  : (context) => Distribution(),
 
       },
     );
