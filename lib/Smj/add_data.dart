@@ -22,12 +22,12 @@ class StoreData {
     String resp = " Some Error Occurred";
     try{
 
-        String imageUrl = await uploadImageToStorage('profileImage', file);
-        await _firestore.collection('userProfile').add({
-          'imageLink': imageUrl,
-        });
-
-        resp = 'success';
+        resp = await uploadImageToStorage('profileImage', file);
+        // await _firestore.collection('userProfile').add({
+        //   'imageLink': imageUrl,
+        // });
+        //
+        // resp = 'success';
 
     }
     catch(err){
