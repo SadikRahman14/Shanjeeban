@@ -41,6 +41,7 @@ class _editUserProfileState extends State<editUserProfile> {
   String imageURL = "";
 
   int flagCreateAcc = 1;
+  String docID = "ggh";
 
   /////////////////////////////////////////////  TEXT CONTROLLERS   ///////////////////////////////////////////////
 
@@ -175,7 +176,7 @@ class _editUserProfileState extends State<editUserProfile> {
   Widget  LastDonationDate() {
     return GestureDetector(
       onTap: () {
-        _selectDate(context);
+        _selectDonationDate(context);
       },
       child: Container(
         padding: EdgeInsets.all(15),
@@ -218,16 +219,16 @@ class _editUserProfileState extends State<editUserProfile> {
     );
   }
   Future<void> _selectDonationDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
+    DateTime? pickedDonation = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     );
 
-    if (picked != null && picked != selectedDonationDate) {
+    if (pickedDonation != null && pickedDonation != selectedDonationDate) {
       setState(() {
-        selectedDonationDate = picked;
+        selectedDonationDate = pickedDonation;
       });
     }
   }
@@ -265,6 +266,70 @@ class _editUserProfileState extends State<editUserProfile> {
   ////////////////////////////////////////////////  SELECT IMAGE  ///////////////////////////////////////////////////
 
 
+  void snackBarMessage(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+      ),
+    );
+  }
+  void updateInfo() async {
+
+    String userEmail = emailInput.text.toString().trim();
+    String userPassword = passwordInput.text.toString().trim();
+    String userFullName = fullNameInput.text.toString().trim();
+    String userPhoneNumber = phoneNumberInput.text.toString().trim();
+    String userHandle = handleInput.text.toString().trim();
+    String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+    String district = districtInput;
+    String thana = thanaInput;
+    String age = ageInput.text.toString().trim();
+    String height = heightInput.text.toString().trim();
+    String weight = weightInput.text.toString().trim();
+    String gender = genderInput.toString().trim();
+    String lastDonation = dateDonationDise();
+    String bloodGroup = bloodGroupInput.toString().trim();
+    String ID = "";
+
+    int etaki244 = int.parse(userPhoneNumber);
+    int boyosh = int.parse(age);
+    int ucchota = int.parse(height);
+    int vor = int.parse(weight);
+
+    Map <String, dynamic> updatedUserInfo = {
+      "name" : userFullName,
+      "pass" : userPassword,
+      "number" : etaki244,
+      "email" : userEmail,
+      "handle" : userHandle,
+      "dateOfBirth" : userDateOfBirth,
+      "district" : district,
+      "thana" : thana,
+      "age" : boyosh,
+      "height" : ucchota,
+      "weight" : vor,
+      "bloodGroup" : bloodGroup,
+      "gender" : gender,
+      "lastDonation" : lastDonation,
+      "uid" : docID,
+    };
+
+    CollectionReference collectionReference = FirebaseFirestore.instance.collection("newUserCredentials");
+
+    try {
+      await collectionReference.doc(docID).update(updatedUserInfo);
+      print(" ");
+      print('successfully updated');
+      print(" ");
+    } catch (e) {
+      print(" ");
+      print('update hoy nai bhai. $e');
+      print(" ");
+    }
+
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -284,6 +349,7 @@ class _editUserProfileState extends State<editUserProfile> {
     // selectedDonationDate = formData['lastDonation'];
     //bloodGroupInput.text = formData['bloodGroup'];
     //genderInput.text = formData['gender'];
+    docID = formData['docId'];
 
 
     return Scaffold(
@@ -1013,15 +1079,13 @@ class _editUserProfileState extends State<editUserProfile> {
               ElevatedButton(
                 onPressed: () {
 
-                  /*showDialog(
-                    context: context,
-                    builder: (context){
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  );*/
+                  print(" ");print(" ");
+                  print("clicked on SAVE CHANGES");
+                  print(" ");print(" ");
 
-                  //_proceed();
-                  // Navigator.of(context).pop();
+                  updateInfo();
+
+                  // database update hobe eikhane
                 },
 
                 style: ButtonStyle(
@@ -1041,7 +1105,33 @@ class _editUserProfileState extends State<editUserProfile> {
                   ),
                 ),
               ),
-              //SizedBox(height: 30,),
+              SizedBox(height: 30,),
+              ElevatedButton(
+
+                onPressed: () {
+                  print(" ");print(" ");
+                  print("clicked on back to home page");
+                  print(" ");print(" ");
+                  //back to homepage
+                },
+
+                style: ButtonStyle(
+                  elevation: MaterialStateProperty.all<double>(10.0),
+                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                    EdgeInsets.symmetric(vertical: 12, horizontal: 30),
+                  ),
+                ),
+
+                child: Text(
+                  'Back to Home Page',
+                  style: TextStyle(
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+              SizedBox(height: 30,),
             ],
           ),
         ),

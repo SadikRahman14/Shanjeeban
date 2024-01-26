@@ -66,6 +66,7 @@ class _ProfileState extends State<Profile> {
           'lastDonation': lastDonation,
           'gender': gender,
           'bloodGroup': bloodGroup,
+          'docId' : docID,
           // 'birthDate' :
           // 'imageURL' : imageURL,
           // 'uid' : uid,
