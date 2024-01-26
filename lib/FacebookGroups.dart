@@ -61,7 +61,18 @@ class FacebookGroups extends StatelessWidget {
                       textTwo: '340.6K Members\n',
                       textThree: 'Public Group\n',
                       onpress: (){
-                        launch('https://www.facebook.com/groups/BloodDonation24');
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                              return Center(child: CircularProgressIndicator());
+                            }
+                        );
+                        Future.delayed(Duration(seconds: 3), () {
+                        launch('https://www.facebook.com/groups/BloodDonation24'
+                        ).then((_) {
+                   Navigator.of(context).pop();
+                        });
+                     });
                       }
                   ),
                   SizedBox(height: 20,),
@@ -72,7 +83,18 @@ class FacebookGroups extends StatelessWidget {
                       textThree: 'Public Group\n',
 
                       onpress: (){
-                        launch('https://www.facebook.com/groups/BloodDonation24');
+                        showDialog(
+                         context: context,
+                          builder: (context){
+                        return Center(child: CircularProgressIndicator());
+                   }
+                    );
+                        Future.delayed(Duration(seconds: 3), () {
+                        launch('https://www.facebook.com/groups/BloodDonation24'
+                        ).then((_) {
+                     Navigator.of(context).pop();
+                    });
+                   });
                       }
                   ),
                   SizedBox(height: 20,),
@@ -82,7 +104,18 @@ class FacebookGroups extends StatelessWidget {
                       textTwo: '15.9K Members\n',
                       textThree: 'Public Group',
                       onpress: (){
-                        launch('https://www.facebook.com/groups/dhakablooddonation');
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                              return Center(child: CircularProgressIndicator());
+                            }
+                        );
+                        Future.delayed(Duration(seconds: 3), () {
+                        launch('https://www.facebook.com/groups/dhakablooddonation'
+                        ).then((_) {
+                        Navigator.of(context).pop();
+                         });
+                      });
                       }
                   ),
                   SizedBox(height: 20,),
@@ -92,7 +125,18 @@ class FacebookGroups extends StatelessWidget {
                       textTwo: '5.5K Members\n',
                       textThree: 'Public Group',
                       onpress: (){
-                        launch('https://www.facebook.com/groups/730642890759835');
+                        showDialog(
+                            context: context,
+                            builder: (context){
+                              return Center(child: CircularProgressIndicator());
+                            }
+                        );
+                        Future.delayed(Duration(seconds: 3), () {
+                        launch('https://www.facebook.com/groups/730642890759835'
+                        ).then((_) {
+                          Navigator.of(context).pop();
+                        });
+                        });
                       }
                   ),
                   SizedBox(height: 20,),
