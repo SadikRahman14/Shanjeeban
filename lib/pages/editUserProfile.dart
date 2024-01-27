@@ -245,14 +245,12 @@ class _editUserProfileState extends State<editUserProfile> {
 
   ////////////////////////////////////////////////  SELECT IMAGE   ///////////////////////////////////////////////////
   Uint8List? _image;
-
   void selectImage() async{
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
       _image = img;
     });
   }
-
   void saveProfile() async{
 
     String resp = await StoreData().saveData(file:  _image!);
@@ -275,58 +273,89 @@ class _editUserProfileState extends State<editUserProfile> {
   }
   void updateInfo() async {
 
-    String userEmail = emailInput.text.toString().trim();
-    String userPassword = passwordInput.text.toString().trim();
-    String userFullName = fullNameInput.text.toString().trim();
-    String userPhoneNumber = phoneNumberInput.text.toString().trim();
-    String userHandle = handleInput.text.toString().trim();
-    String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
-    String district = districtInput;
-    String thana = thanaInput;
-    String age = ageInput.text.toString().trim();
-    String height = heightInput.text.toString().trim();
-    String weight = weightInput.text.toString().trim();
-    String gender = genderInput.toString().trim();
-    String lastDonation = dateDonationDise();
-    String bloodGroup = bloodGroupInput.toString().trim();
-    String ID = "";
+    if (_formKey.currentState!.validate()) { // form er 5ta thik ase
+      if ((dateDise().isEmpty) ||
+          (districtInput == null || districtInput.isEmpty) ||
+          (thanaInput == null || thanaInput.isEmpty) ||
+          (dateDonationDise().isEmpty) ||
+          (bloodGroupInput == null || bloodGroupInput.isEmpty) ||
+          (genderInput == null || genderInput.isEmpty)) {
+            snackBarMessage('Please fill up all the fields.');
+            return;
+      }
 
-    int etaki244 = int.parse(userPhoneNumber);
-    int boyosh = int.parse(age);
-    int ucchota = int.parse(height);
-    int vor = int.parse(weight);
+      String userEmail = emailInput.text.toString().trim();
+      String userPassword = passwordInput.text.toString().trim();
+      String userFullName = fullNameInput.text.toString().trim();
+      String userPhoneNumber = phoneNumberInput.text.toString().trim();
+      String userHandle = handleInput.text.toString().trim();
+      String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
+      String district = districtInput;
+      String thana = thanaInput;
+      String age = ageInput.text.toString().trim();
+      String height = heightInput.text.toString().trim();
+      String weight = weightInput.text.toString().trim();
+      String gender = genderInput.toString().trim();
+      String lastDonation = dateDonationDise();
+      String bloodGroup = bloodGroupInput.toString().trim();
+      String ID = "";
 
-    Map <String, dynamic> updatedUserInfo = {
-      "name" : userFullName,
-      "pass" : userPassword,
-      "number" : etaki244,
-      "email" : userEmail,
-      "handle" : userHandle,
-      "dateOfBirth" : userDateOfBirth,
-      "district" : district,
-      "thana" : thana,
-      "age" : boyosh,
-      "height" : ucchota,
-      "weight" : vor,
-      "bloodGroup" : bloodGroup,
-      "gender" : gender,
-      "lastDonation" : lastDonation,
-      "uid" : docID,
-    };
+      int etaki244 = int.parse(userPhoneNumber);
+      int boyosh = int.parse(age);
+      int ucchota = int.parse(height);
+      int vor = int.parse(weight);
 
-    CollectionReference collectionReference = FirebaseFirestore.instance.collection("newUserCredentials");
+      Map <String, dynamic> updatedUserInfo = {
+        "name" : userFullName,
+        "pass" : userPassword,
+        "number" : etaki244,
+        "email" : userEmail,
+        "handle" : userHandle,
+        "dateOfBirth" : userDateOfBirth,
+        "district" : district,
+        "thana" : thana,
+        "age" : boyosh,
+        "height" : ucchota,
+        "weight" : vor,
+        "bloodGroup" : bloodGroup,
+        "gender" : gender,
+        "lastDonation" : lastDonation,
+        "uid" : docID,
+      };
 
-    try {
-      await collectionReference.doc(docID).update(updatedUserInfo);
-      print(" ");
-      print('successfully updated');
-      print(" ");
-    } catch (e) {
-      print(" ");
-      print('update hoy nai bhai. $e');
-      print(" ");
+      CollectionReference collectionReference = FirebaseFirestore.instance.collection("newUserCredentials");
+
+      try {
+        await collectionReference.doc(docID).update(updatedUserInfo);
+        print(" ");
+        print('successfully updated');
+        snackBarMessage('Successfully updated user info.');
+        print(" ");
+      } catch (e) {
+        print(" ");
+        print('update hoy nai bhai. $e');
+        print(" ");
+      }
     }
-
+    else if (!_formKey.currentState!.validate()) { //form validate hoy nai
+      // if ((dateDise().isEmpty) ||
+      //     (districtInput == null || districtInput.isEmpty) ||
+      //     (thanaInput == null || thanaInput.isEmpty) ||
+      //     (dateDonationDise().isEmpty) ||
+      //     (bloodGroupInput == null || bloodGroupInput.isEmpty) ||
+      //     (genderInput == null || genderInput.isEmpty)) {
+        snackBarMessage('Please fill up all the fields.');
+        return;
+      // }
+    }
+  }
+  void backToHome (){
+    Navigator.pushNamed(
+        context, '/mainPage',
+        arguments: {
+          'docID' : docID,
+        }
+    );
   }
 
 
@@ -346,11 +375,14 @@ class _editUserProfileState extends State<editUserProfile> {
     ageInput.text = formData['age'].toString();
     heightInput.text = formData['height'].toString();
     weightInput.text = formData['weight'].toString();
+    genderInput = formData['gender'];
+    districtInput = formData['district'];
+    thanaInput = formData['thana'];
+    bloodGroupInput = formData['bloodGroup'];
     // selectedDonationDate = formData['lastDonation'];
     //bloodGroupInput.text = formData['bloodGroup'];
     //genderInput.text = formData['gender'];
     docID = formData['docId'];
-
 
     return Scaffold(
       appBar: AppBar(
@@ -1104,7 +1136,7 @@ class _editUserProfileState extends State<editUserProfile> {
                     fontSize: 17,
                   ),
                 ),
-              ),
+              ),            //save changes
               SizedBox(height: 30,),
               ElevatedButton(
 
@@ -1112,6 +1144,9 @@ class _editUserProfileState extends State<editUserProfile> {
                   print(" ");print(" ");
                   print("clicked on back to home page");
                   print(" ");print(" ");
+
+                  backToHome();
+
                   //back to homepage
                 },
 
@@ -1130,7 +1165,7 @@ class _editUserProfileState extends State<editUserProfile> {
                     fontSize: 17,
                   ),
                 ),
-              ),
+              ),           //back to homepage
               SizedBox(height: 30,),
             ],
           ),
