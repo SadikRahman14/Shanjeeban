@@ -97,6 +97,31 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
 
     if (querySnapshot.docs.isNotEmpty) {
       Future.delayed(Duration(seconds: 2), () {
+
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        String? uid;
+
+        if (currentUser != null) {
+          uid = currentUser.uid;
+        }
+
+        Map <String, dynamic> vampireDemands = {
+          "bloodGroup" : rokto,
+          "reason" : karon,
+          "hospital" : hashpatal,
+          "quantity" : koyBag,
+          "name" : name,
+          "phone" : ph,
+          "email" : em,
+          "uid" : uid,
+        };
+
+        FirebaseFirestore.instance.collection(rokto).add(vampireDemands);
+
+        print(" ");print(" ");
+        print("blood reciever added to waiting list");
+        print(" ");print(" ");
+
       Navigator.pushNamed(
         context, '/allDonors',
         arguments: {

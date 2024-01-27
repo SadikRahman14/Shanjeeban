@@ -31,14 +31,29 @@ class _signUpInfo extends State<signUpInfo> {
     }
     return null;
   }
+
+
+  // String? _validateEmail(value) {
+  //   if (value!.isEmpty) return 'Enter an proper email address';
+  //   RegExp emailReg = RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$');
+  //   if (!emailReg.hasMatch(value)) {
+  //     return 'Enter an proper email address';
+  //   }
+  //   return null;
+  // }
+
   String? _validateEmail(value) {
-    if (value!.isEmpty) return 'Enter an proper email address';
-    RegExp emailReg = RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (value!.isEmpty) return 'Enter a proper email address';
+
+    RegExp emailReg = RegExp(r'^[\w.+-]+@(([\w-]+\.)+[\w-]{2,4}|(google\.com|outlook\.com|yahoo\.com|aust\.edu|protonmail\.com))$');
+
     if (!emailReg.hasMatch(value)) {
-      return 'Enter an proper email address';
+      return 'Enter a proper email address';
     }
     return null;
   }
+
+
   String? _validatePhone(value) {
     if (value!.isEmpty) return 'Phone number must contain 11 digits';
     RegExp phoneReg = RegExp(r'^[0-9]');

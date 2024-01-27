@@ -39,10 +39,10 @@ class _editUserProfileState extends State<editUserProfile> {
   var   lastDonationInput ;
   DateTime? selectedDonationDate;
   String imageURL = "";
+  bool isDataLoaded = false;
 
   int flagCreateAcc = 1;
   String docID = "ggh";
-
   /////////////////////////////////////////////  TEXT CONTROLLERS   ///////////////////////////////////////////////
 
 
@@ -56,14 +56,29 @@ class _editUserProfileState extends State<editUserProfile> {
     }
     return null;
   }
+
+
+
+  // String? _validateEmail(value) {
+  //   if (value!.isEmpty) return 'Enter an proper email address';
+  //   RegExp emailReg = RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$');
+  //   if (!emailReg.hasMatch(value)) {
+  //     return 'Enter an proper email address';
+  //   }
+  //   return null;
+  // }
+
   String? _validateEmail(value) {
-    if (value!.isEmpty) return 'Enter an proper email address';
-    RegExp emailReg = RegExp(r'^[\w-]+@([\w-]+\.)+[\w-]{2,4}$');
+    if (value!.isEmpty) return 'Enter a proper email address';
+
+    RegExp emailReg = RegExp(r'^[\w.+-]+@(([\w-]+\.)+[\w-]{2,4}|(google\.com|outlook\.com|yahoo\.com|aust\.edu|protonmail\.com))$');
+
     if (!emailReg.hasMatch(value)) {
-      return 'Enter an proper email address';
+      return 'Enter a proper email address';
     }
     return null;
   }
+
   String? _validatePhone(value) {
     if (value!.isEmpty) return 'Phone number must contain 11 digits';
     RegExp phoneReg = RegExp(r'^[0-9]');
@@ -122,7 +137,7 @@ class _editUserProfileState extends State<editUserProfile> {
           borderRadius: BorderRadius.circular(13),
           color: Colors.white,
           border: Border.all(
-            color: Colors.amber,
+            color: Color(0xff2a2a2b),
             width: 4,
           ),
         ),
@@ -172,7 +187,6 @@ class _editUserProfileState extends State<editUserProfile> {
     return date;
   }
 
-
   Widget  LastDonationDate() {
     return GestureDetector(
       onTap: () {
@@ -185,7 +199,7 @@ class _editUserProfileState extends State<editUserProfile> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(13.0),
             border: Border.all(
-              color: Colors.amber ,
+              color: Color(0xff2a2a2b),
               width: 4,
             )
         ),
@@ -362,27 +376,31 @@ class _editUserProfileState extends State<editUserProfile> {
   @override
   Widget build(BuildContext context) {
 
-    final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+    if (!isDataLoaded) {
+      final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    fullNameInput.text = formData['name'];
-    passwordInput.text = formData['pass'];
-    phoneNumberInput.text = formData['number'].toString();
-    emailInput.text = formData['email'];
-    handleInput.text = formData['handle'];
-    // selectedDate = formData['dateOfBirth'];
-    //districtInput = formData['district'];
-    //thanaInput = formData['thana'];
-    ageInput.text = formData['age'].toString();
-    heightInput.text = formData['height'].toString();
-    weightInput.text = formData['weight'].toString();
-    genderInput = formData['gender'];
-    districtInput = formData['district'];
-    thanaInput = formData['thana'];
-    bloodGroupInput = formData['bloodGroup'];
-    // selectedDonationDate = formData['lastDonation'];
-    //bloodGroupInput.text = formData['bloodGroup'];
-    //genderInput.text = formData['gender'];
-    docID = formData['docId'];
+      fullNameInput.text = formData['name'];
+      passwordInput.text = formData['pass'];
+      phoneNumberInput.text = formData['number'].toString();
+      emailInput.text = formData['email'];
+      handleInput.text = formData['handle'];
+      // selectedDate = formData['dateOfBirth'];
+      //districtInput = formData['district'];
+      //thanaInput = formData['thana'];
+      ageInput.text = formData['age'].toString();
+      heightInput.text = formData['height'].toString();
+      weightInput.text = formData['weight'].toString();
+      genderInput = formData['gender'];
+      districtInput = formData['district'];
+      thanaInput = formData['thana'];
+      bloodGroupInput = formData['bloodGroup'];
+      // selectedDonationDate = formData['lastDonation'];
+      //bloodGroupInput.text = formData['bloodGroup'];
+      //genderInput.text = formData['gender'];
+      docID = formData['docId'];
+
+      isDataLoaded = true;
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -401,7 +419,7 @@ class _editUserProfileState extends State<editUserProfile> {
           ),
         ),
       ),
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xFFB1B3B1),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -429,7 +447,7 @@ class _editUserProfileState extends State<editUserProfile> {
                             child: IconButton(
                               onPressed: selectImage,
                               icon: const Icon(Icons.add_a_photo),
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                             ),
                             bottom: -10,
                             left: 80,
@@ -472,7 +490,7 @@ class _editUserProfileState extends State<editUserProfile> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -523,7 +541,7 @@ class _editUserProfileState extends State<editUserProfile> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -575,7 +593,7 @@ class _editUserProfileState extends State<editUserProfile> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -626,7 +644,7 @@ class _editUserProfileState extends State<editUserProfile> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -679,7 +697,7 @@ class _editUserProfileState extends State<editUserProfile> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -703,7 +721,7 @@ class _editUserProfileState extends State<editUserProfile> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                            color: Colors.amber,
+                            color: Color(0xff2a2a2b),
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -767,7 +785,7 @@ class _editUserProfileState extends State<editUserProfile> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                            color: Colors.amber,
+                            color: Color(0xff2a2a2b),
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -890,11 +908,11 @@ class _editUserProfileState extends State<editUserProfile> {
                               fontFamily: 'Poppins-Medium'),
                           border:
                           OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           enabledBorder:  OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber, width: 4.0),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           focusedBorder:  OutlineInputBorder(
@@ -928,11 +946,11 @@ class _editUserProfileState extends State<editUserProfile> {
                           ),
                           border:
                           OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           enabledBorder:  OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber, width: 4.0),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           focusedBorder:  OutlineInputBorder(
@@ -966,11 +984,11 @@ class _editUserProfileState extends State<editUserProfile> {
 
                           border:
                           OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           enabledBorder:  OutlineInputBorder(
-                            borderSide: BorderSide(color: Colors.amber, width: 4.0),
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
                             borderRadius: BorderRadius.circular(13.0),
                           ),
                           focusedBorder:  OutlineInputBorder(
@@ -987,7 +1005,7 @@ class _editUserProfileState extends State<editUserProfile> {
 
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: Colors.amber,width: 4),
+                          border: Border.all(color: Color(0xff2a2a2b),width: 4),
                           borderRadius: BorderRadius.circular(13.0),
                         ),
                         child: DropdownButton<String>(
@@ -1050,7 +1068,7 @@ class _editUserProfileState extends State<editUserProfile> {
                         height: 62,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(color: Colors.amber,width: 4),
+                          border: Border.all(color: Color(0xff2a2a2b),width: 4),
                           borderRadius: BorderRadius.circular(13.0),
                         ),
                         child: DropdownButton<String>(

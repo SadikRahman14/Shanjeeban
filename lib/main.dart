@@ -12,6 +12,7 @@ import 'package:login/pages/ProfileEdit.dart';
 import 'package:login/pages/RequestForBlood/donorList.dart';
 import 'package:login/pages/base.dart';
 import 'package:login/pages/editUserProfile.dart';
+import 'package:login/pages/forgot_pass.dart';
 import 'package:login/pages/leaderboard/Distribution.dart';
 import 'package:login/pages/leaderboard/PointsScreen.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
@@ -23,6 +24,7 @@ import 'package:login/pages/DonateNow/profilePageReciever.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
 import 'package:login/rakibul/noReceiver.dart';
 import 'Smj/Physical_Informtion.dart';
+import 'api/firebase_api.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
 import 'pages/fromNavigationBar/home_page.dart';
@@ -32,13 +34,14 @@ import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
 import 'package:login/pages/DonateNow/climaxPageReciever.dart';
 import 'package:login/pages/DonateNow/requestorList.dart';
-
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Firebase_api().initNotifications();
 
   User? currentUser = FirebaseAuth.instance.currentUser;
   if(currentUser != null){
@@ -63,8 +66,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
 
 
-      home: MainPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
-
+      home: SplashScreen(),
+      navigatorKey: navigatorKey,
 
 
       routes: {
@@ -90,6 +93,7 @@ class _MyAppState extends State<MyApp> {
         '/distributiion'  : (context) => Distribution(),
         '/editUserProfile'  : (context) => editUserProfile(),
         '/onBoarding'  : (context) => OnBoardingScreen(),
+        '/forgotPass'  : (context) => ForgotPassword(),
     },
     );
   }
@@ -109,7 +113,7 @@ class _toLoginState extends State<toLogin> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: BaseScreen(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -134,6 +138,7 @@ class _toLoginState extends State<toLogin> {
         '/distributiion'  : (context) => Distribution(),
         '/onBoarding'  : (context) => OnBoardingScreen(),
         '/editUserProfile'  : (context) => editUserProfile(),
+        '/forgotPass'  : (context) => ForgotPassword(),
       },
     );
   }
