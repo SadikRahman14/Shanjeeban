@@ -30,82 +30,98 @@ class _BaseScreenState extends State<BaseScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            'assetsSadik/logo.png',
-          ),
-          Text(
-            'Shanjeeban',
-            style: TextStyle(
-              color: Colors.pink.shade100,
-              fontFamily: 'Classy',
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
+        Image.asset(
+        'assetsSadik/logo.png',
+      ),
+      Text(
+        'Shanjeeban',
+        style: TextStyle(
+          color: Colors.pink.shade100,
+          fontFamily: 'Classy',
+          fontWeight: FontWeight.bold,
+          fontSize: 30,
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 100,
+            child: Divider(
+              color: Colors.grey,
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 100,
-                child: Divider(
-                  color: Colors.grey,
-                ),
-              ),
-              Container(
-                width: 100,
-                child: Divider(
-                  color: Colors.grey,
-                ),
-              ),
-            ],
-          ),
-          Text(
-            'Give the Gift of Life',
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'Classy',
-              fontWeight: FontWeight.bold,
+          Container(
+            width: 100,
+            child: Divider(
+              color: Colors.grey,
             ),
           ),
-          SizedBox(height: 50),
-          if (showDelayedPart) // Only show the delayed part if showDelayedPart is true
-            AnimatedOpacity(
-              opacity: showDelayedPart ? 1.0 : 0.0,
-              duration: Duration(seconds: 3),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomElevated(
-                    backgroundColor: Colors.black,
-                    borderRadius: 0,
-                    onPress: () {
-                      Navigator.pushNamed(context, '/signUpPage');
-                    },
-                    title: 'SIGN UP',
-                    textColor: Colors.white,
-                    fontFamily: 'Classy',
-                    fontWeight: FontWeight.bold,
-                    elevation: 2,
-                  ),
-                  SizedBox(width: 20),
-                  CustomElevated(
-                    backgroundColor: Colors.amber.shade800,
-                    borderRadius: 0,
-                    onPress: () {
-                      Navigator.pushNamed(context, '/loginPage');
-                    },
-                    title: 'LOG IN',
-                    textColor: Colors.white,
-                    fontFamily: 'Classy',
-                    fontWeight: FontWeight.bold,
-                    elevation: 2,
-                  ),
-                ],
-              ),
-            ),
         ],
       ),
+      Text(
+        'Give the Gift of Life',
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: 'Classy',
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(height: 50,),
+      Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+          CustomElevated(backgroundColor: Colors.black,
+          borderRadius: 0,
+          onPress: (){
+            showDialog(
+                context: context,
+                builder: (context){
+                  return Center(child: CircularProgressIndicator());
+                }
+            );
+            Future.delayed(Duration(seconds: 1), () {
+              Navigator.pushNamed(context, '/signUpPage'
+              ).then((_) {
+                Navigator.of(context).pop();
+              });
+            });
+          },
+          title: 'SIGN UP',
+          textColor: Colors.white,
+          fontFamily: 'Classy',
+          fontWeight: FontWeight.bold,
+          elevation: 2
+      ),
+      SizedBox(width: 20,),
+      CustomElevated(backgroundColor: Colors.amber.shade800,
+          borderRadius: 0,
+          onPress: (){
+            showDialog(
+                context: context,
+                builder: (context){
+                  return Center(child: CircularProgressIndicator());
+                }
+            );
+            Future.delayed(Duration(seconds: 1), () {
+              Navigator.pushNamed(context, '/loginPage'
+              ).then((_) {
+                Navigator.of(context).pop();
+              });
+            });
+          },
+          title: 'LOG IN',
+          textColor: Colors.white,
+          fontFamily: 'Classy',
+          fontWeight: FontWeight.bold,
+          elevation: 2
+      ),
+      ],
+    ),
+    ],
+
+    ),
     );
   }
 }

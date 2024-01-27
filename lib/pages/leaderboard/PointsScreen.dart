@@ -41,12 +41,22 @@ class _PointsScreenState extends State<PointsScreen> {
           actions: <Widget>[
             IconButton(
               onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (context){
+                      return Center(child: CircularProgressIndicator());
+                    }
+                );
+                Future.delayed(Duration(seconds: 1), () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => Distribution(), // Replace with your screen/widget
                   ),
-                );
+                ).then((_) {
+                  Navigator.of(context).pop();
+                });
+                });
               },
               icon: Icon(
                   LineAwesomeIcons.question_circle,

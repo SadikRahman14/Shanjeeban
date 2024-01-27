@@ -19,6 +19,25 @@ class _ProfileState extends State<Profile> {
   String ?bloodGroup;
   String ?thana;
   String ?district;
+  String? imageUrl;
+
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      final Map<String, dynamic> args =
+      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      docID = args['docID'] ?? "ggh"; // Set a default value if docID is null
+      await getUserData();
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
 
   void logout() async{
     await FirebaseAuth.instance.signOut();
@@ -38,7 +57,7 @@ class _ProfileState extends State<Profile> {
         String userbloodGroup = userSnapshot['bloodGroup'];
         String userdistrict = userSnapshot['district'];
         String userthana = userSnapshot['thana'];
-
+        String? userImageUrl = userSnapshot['imageURL'];
 
         setState(() {
           name = userName;
@@ -46,6 +65,7 @@ class _ProfileState extends State<Profile> {
           bloodGroup = userbloodGroup;
           district = userdistrict;
           thana = userthana;
+          imageUrl = userImageUrl;
         });
 
         // print('User Name: $userName');
@@ -126,8 +146,14 @@ class _ProfileState extends State<Profile> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image(
-                        image: AssetImage('assetsSadik/Profile.jpg'),
+                      child: imageUrl != null
+                          ? Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                      )
+                          : Image.asset(
+                        'assetsSadik/Profile.jpg',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
