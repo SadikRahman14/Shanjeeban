@@ -23,7 +23,8 @@ class _HomeState extends State<Home> {
 
   String ?docID  = "gg";
   String ?name;
-  String bloodGroup = "rokto";
+  String ?bloodGroup;
+  String ?lastDonationDate;
 
   @override
   int _currentIndex = 0;
@@ -44,10 +45,12 @@ class _HomeState extends State<Home> {
         if (userSnapshot2.exists) {
           String userName = userSnapshot2['name'];
           String blood = userSnapshot2['bloodGroup'];
+          String lastDonation = userSnapshot2['lastDonation'];
 
           setState(() {
             name = userName;
             bloodGroup = blood;
+            lastDonationDate = lastDonation;
           });
         }
       } else {
@@ -64,10 +67,12 @@ class _HomeState extends State<Home> {
       if (userSnapshot3.exists) {
         String userName = userSnapshot3['name'];
         String blood = userSnapshot3['bloodGroup'];
+        String lastDonation = userSnapshot3['lastDonation'];
 
         setState(() {
           name = userName;
           bloodGroup = blood;
+          lastDonationDate = lastDonation;
         });
 
       } else {
@@ -86,7 +91,6 @@ class _HomeState extends State<Home> {
     final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null && args.containsKey('docID')) {
       docID = args['docID'];
-
 
       getUserData();
     }
@@ -209,7 +213,7 @@ class _HomeState extends State<Home> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
-                              'A+',
+                              bloodGroup ?? 'loading....',
                               style: TextStyle(
                                 color: Colors.amber,
                                 fontFamily: 'Elegant',
@@ -275,7 +279,7 @@ class _HomeState extends State<Home> {
                           Padding(
                             padding: const EdgeInsets.only(left: 5),
                             child: Text(
-                              '26.01.2024',
+                              lastDonationDate ?? 'loading....',
                               style: TextStyle(
                                 color: Colors.amber,
                                 fontFamily: 'Elegant',
@@ -366,15 +370,20 @@ class _HomeState extends State<Home> {
                   //   );
                   // },
 
-                  onTap: () async {
+                 onTap: () async {
+
+
+                    String bloodCheck = bloodGroup!;
+
                     showDialog(
                         context: context,
                         builder: (context){
                           return Center(child: CircularProgressIndicator());
                         }
                     );
+
                     FirebaseFirestore firestore = FirebaseFirestore.instance;
-                    CollectionReference collectionRef = firestore.collection(bloodGroup);
+                    CollectionReference collectionRef = firestore.collection(bloodCheck);
 
                     QuerySnapshot querySnapshot = await collectionRef.get();
 

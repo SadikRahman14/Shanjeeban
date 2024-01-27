@@ -152,7 +152,6 @@ class _loginPageState extends State<loginPage> {
                     ),
                     Image.asset("assets/images/bg.png", height: 120 , width:120 ,),
                   ],
-
                 ),
               ),
               SizedBox(height: 10),
@@ -270,7 +269,9 @@ class _loginPageState extends State<loginPage> {
                             duration: Duration(milliseconds: 1500),
                             child: TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/signUpPage');
+                                Navigator.pushNamed(
+                                    context,
+                                    '/forgotPass');
                               },
                               child: Text(
                                 'Forgot Password?',

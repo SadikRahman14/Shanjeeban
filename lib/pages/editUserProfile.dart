@@ -1,13 +1,28 @@
+import 'dart:typed_data';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-class signUpInfo extends StatefulWidget {
+import 'package:image_picker/image_picker.dart';
+import 'package:login/Smj/add_data.dart';
+import 'package:login/Smj/utils.dart';
+import 'package:login/main.dart';
+
+class editUserProfile extends StatefulWidget {
+  const editUserProfile({super.key});
+
   @override
-  State<signUpInfo> createState() => _signUpInfo();
+  State<editUserProfile> createState() => _editUserProfileState();
 }
 
-class _signUpInfo extends State<signUpInfo> {
+class _editUserProfileState extends State<editUserProfile> {
+  // final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+
+  /////////////////////////////////////////////  TEXT CONTROLLERS   ///////////////////////////////////////////////
   var fullNameInput = TextEditingController();
   var passwordInput = TextEditingController();
   var phoneNumberInput = TextEditingController();
@@ -16,10 +31,20 @@ class _signUpInfo extends State<signUpInfo> {
   DateTime? selectedDate;
   var districtInput;
   var thanaInput;
+  var   genderInput;
+  var   ageInput = TextEditingController();
+  var   heightInput = TextEditingController();
+  var   weightInput = TextEditingController();
+  var   bloodGroupInput ;
+  var   lastDonationInput ;
+  DateTime? selectedDonationDate;
+  String imageURL = "";
+  bool isDataLoaded = false;
 
   int flagCreateAcc = 1;
+  String docID = "ggh";
+  /////////////////////////////////////////////  TEXT CONTROLLERS   ///////////////////////////////////////////////
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   /////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////
   String? _validateName(value) {
@@ -31,6 +56,7 @@ class _signUpInfo extends State<signUpInfo> {
     }
     return null;
   }
+
 
 
   // String? _validateEmail(value) {
@@ -53,7 +79,6 @@ class _signUpInfo extends State<signUpInfo> {
     return null;
   }
 
-
   String? _validatePhone(value) {
     if (value!.isEmpty) return 'Phone number must contain 11 digits';
     RegExp phoneReg = RegExp(r'^[0-9]');
@@ -72,10 +97,34 @@ class _signUpInfo extends State<signUpInfo> {
     if (value!.isEmpty) return 'Must provide handle';
     return null;
   }
+  String? _validateAge(value) {
+    if (value!.isEmpty) return 'This field is mandatory';
+    RegExp phoneReg = RegExp(r'^[0-9]');
+    if (!phoneReg.hasMatch(value)) {
+      return 'Enter proper age.';
+    }
+    return null;
+  }
+  String? _validateWeight(value) {
+    if (value!.isEmpty) return 'This field is mandatory';
+    RegExp phoneReg = RegExp(r'^[0-9]');
+    if (!phoneReg.hasMatch(value)) {
+      return 'Enter proper weight.';
+    }
+    return null;
+  }
+  String? _validateHeight(value) {
+    if (value!.isEmpty) return 'This field is mandatory';
+    RegExp phoneReg = RegExp(r'^[0-9]');
+    if (!phoneReg.hasMatch(value)) {
+      return 'Enter proper height.';
+    }
+    return null;
+  }
   ////////////////////////////////////////////////  VALIDATOR   ///////////////////////////////////////////////////
 
 
-  ////////////////////////////////////////////////  DATE OF BIRTH INPUT   ///////////////////////////////////////////////////
+  ////////////////////////////////////////////////  DATE INPUT   ///////////////////////////////////////////////////
   Widget datePicker() {
     return GestureDetector(
       onTap: () {
@@ -88,7 +137,7 @@ class _signUpInfo extends State<signUpInfo> {
           borderRadius: BorderRadius.circular(13),
           color: Colors.white,
           border: Border.all(
-            color: Colors.amber,
+            color: Color(0xff2a2a2b),
             width: 4,
           ),
         ),
@@ -137,27 +186,98 @@ class _signUpInfo extends State<signUpInfo> {
     date = selectedDate != null ? formatDate(selectedDate!) : '';
     return date;
   }
-  ////////////////////////////////////////////////  DATE OF BIRTH INPUT   ///////////////////////////////////////////////////
+
+  Widget  LastDonationDate() {
+    return GestureDetector(
+      onTap: () {
+        _selectDonationDate(context);
+      },
+      child: Container(
+        padding: EdgeInsets.all(15),
+        height: 60,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(13.0),
+            border: Border.all(
+              color: Color(0xff2a2a2b),
+              width: 4,
+            )
+        ),
+        child: Row(
+
+          children: [
+            Icon(
+              Icons.calendar_today,
+              size: 21,
+              color: Colors.black,
+            ),
+            SizedBox(width: 8),
+            Text(
+              selectedDonationDate == null
+                  ? '   Last Donation Date'
+                  : '${selectedDonationDate!.day}-${selectedDonationDate!.month}-${selectedDonationDate!.year}',
+              style: TextStyle(
+                fontSize: 17,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins-Medium',
+              ),
+            ),
+
+            SizedBox(width: 83),
 
 
-  ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
-  void saveUserInfo() {
-    String userFullName = fullNameInput.text.toString().trim();
-    String userPassword = passwordInput.text.toString().trim();
-    String userPhoneNumber = phoneNumberInput.text.toString().trim();
-    String userEmail = emailInput.text.toString().trim();
-    String userHandle = handleInput.text.toString().trim();
-    String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
-
-    int etaki244 = int.parse(userPhoneNumber);
-
-    Map <String, dynamic> userData = {
-      "number" : etaki244,
-      "email" : userEmail,
-    };
-
-    FirebaseFirestore.instance.collection("experiment").add(userData);
+          ],
+        ),
+      ),
+    );
   }
+  Future<void> _selectDonationDate(BuildContext context) async {
+    DateTime? pickedDonation = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now(),
+    );
+
+    if (pickedDonation != null && pickedDonation != selectedDonationDate) {
+      setState(() {
+        selectedDonationDate = pickedDonation;
+      });
+    }
+  }
+  String formatDonationDate(DateTime date) {
+    return '${date.day}-${date.month}-${date.year}';
+  }
+  String dateDonationDise(){
+    String date = "";
+    date = selectedDonationDate != null ? formatDate(selectedDonationDate!) : '';
+    return date;
+  }
+  ////////////////////////////////////////////////  DATE INPUT   ///////////////////////////////////////////////////
+
+
+  ////////////////////////////////////////////////  SELECT IMAGE   ///////////////////////////////////////////////////
+  Uint8List? _image;
+  void selectImage() async{
+    Uint8List img = await pickImage(ImageSource.gallery);
+    setState(() {
+      _image = img;
+    });
+  }
+  void saveProfile() async{
+
+    String resp = await StoreData().saveData(file:  _image!);
+
+    setState(() {
+      imageURL = resp;
+    });
+
+  }
+  bool isLoading = false;
+  ////////////////////////////////////////////////  SELECT IMAGE  ///////////////////////////////////////////////////
+
+
   void snackBarMessage(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -165,209 +285,123 @@ class _signUpInfo extends State<signUpInfo> {
       ),
     );
   }
-  // void choleJabo(){
-  //   String cha = "chaKhabo";
-  //   String userFullName = fullNameInput.text.toString().trim();
-  //   String userPassword = passwordInput.text.toString().trim();
-  //   String userPhoneNumber = phoneNumberInput.text.toString().trim();
-  //   String userEmail = emailInput.text.toString().trim();
-  //   String userHandle = handleInput.text.toString().trim();
-  //   String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
-  //   // String userFullName = "1chaKhabo";
-  //   // String userPassword = "2chaKhabo";
-  //   // String userPhoneNumber = "3chaKhabo";
-  //   // String userEmail = "4";
-  //   // String userHandle = "5chaKhabo";
-  //   // String userDateOfBirth = "6chaKhabo";
-  //   Navigator.pushNamed(
-  //     context, '/physical',
-  //     arguments: {
-  //       'cha': cha,
-  //       'name': userFullName,
-  //       'pass': userPassword,
-  //       'number': userPhoneNumber,
-  //       'email': userEmail,
-  //       'handle': userHandle,
-  //       'dateOfBirth': userDateOfBirth,
-  //     },
-  //   );
-  // }
-
-  // void createNewAccount () async {
-  //   String userFullName = fullNameInput.text.toString().trim();
-  //   String userPassword = passwordInput.text.toString().trim();
-  //   String userPhoneNumber = phoneNumberInput.text.toString().trim();
-  //   String userEmail = emailInput.text.toString().trim();
-  //   String userHandle = handleInput.text.toString().trim();
-  //   String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
-  //
-  //   print("userName: $userFullName");
-  //   print("pass: $userPassword");
-  //   print("phone: $userPhoneNumber");
-  //   print("email: $userEmail");
-  //   print("handle: $userHandle");
-  //   print("date of birth: $userDateOfBirth");
-  //   print("district: $districtInput");
-  //   print("thana: $thanaInput");
-  //
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: userEmail, password: userPassword);
-  //     if(userCredential.user != null){
-  //       print("user created successfully.");
-  //       setState(() {
-  //         flagCreateAcc = 1;
-  //       });
-  //       print("2nd call success: $flagCreateAcc");
-  //       saveUserInfo();                                 //database e deGea'r page shob data input jaitese
-  //       Navigator.pushNamed(context, '/physical');
-  //     }
-  //   } on FirebaseAuthException catch (ex) {
-  //     print(ex.code.toString());
-  //     print("2nd call failed: $flagCreateAcc");
-  //     snackBarMessage('This email is already in use.');
-  //     setState(() {
-  //       flagCreateAcc = 0;
-  //     });
-  //
-  //     // if(ex.code.toString() == "weak-password"){}  eivabe specific error dhora jabe
-  //   }
-  // }
-  void _proceed() async {
+  void updateInfo() async {
 
     if (_formKey.currentState!.validate()) { // form er 5ta thik ase
-      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
-        return;
+      if ((dateDise().isEmpty) ||
+          (districtInput == null || districtInput.isEmpty) ||
+          (thanaInput == null || thanaInput.isEmpty) ||
+          (dateDonationDise().isEmpty) ||
+          (bloodGroupInput == null || bloodGroupInput.isEmpty) ||
+          (genderInput == null || genderInput.isEmpty)) {
+            snackBarMessage('Please fill up all the fields.');
+            return;
       }
-      if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Please input District and Thana.');
-        return;
-      }
-      if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Please input Date of Birth and Thana.');
-        return;
-      }
-      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
-        snackBarMessage('Please input Date of Birth and District.');
-        return;
-      }
-      if (districtInput == null || districtInput.isEmpty) {
-        snackBarMessage('Provide your district info');
-        return;
-      }
-      if (thanaInput == null || thanaInput.isEmpty) {
-        snackBarMessage('Provide your thana info');
-        return;
-      }
-      if (dateDise().isEmpty) {
-        snackBarMessage('Provide Date of Birth');
-        return;
-      }
-
 
       String userEmail = emailInput.text.toString().trim();
       String userPassword = passwordInput.text.toString().trim();
-
-      // try {
-      //   await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      //     email: userEmail,
-      //     password: userPassword,
-      //   );
-      // } on FirebaseAuthException catch (signUpError) {
-      //   if (signUpError.code == 'email-already-in-use') {
-      //     // Email is already registered.
-      //     print('Email is already in use.');
-      //     snackBarMessage('Email is already in use.');
-      //     return;
-      //   } else if (signUpError.code == 'weak-password') {
-      //     // The password provided is too weak.
-      //     print('Weak password');
-      //   } else {
-      //     // Handle other errors.
-      //     print('Error: ${signUpError.message}');
-      //   }
-      // } catch (error) {
-      //   // Handle other errors.
-      //   print('Error: $error');
-      // }
-
-      setState(() {
-        flagCreateAcc = 0;
-      });
-      print("1st call: $flagCreateAcc");
-
-      String cha = "chaKhabo";
       String userFullName = fullNameInput.text.toString().trim();
       String userPhoneNumber = phoneNumberInput.text.toString().trim();
       String userHandle = handleInput.text.toString().trim();
       String userDateOfBirth = selectedDate != null ? formatDate(selectedDate!).trim() : '';
       String district = districtInput;
       String thana = thanaInput;
+      String age = ageInput.text.toString().trim();
+      String height = heightInput.text.toString().trim();
+      String weight = weightInput.text.toString().trim();
+      String gender = genderInput.toString().trim();
+      String lastDonation = dateDonationDise();
+      String bloodGroup = bloodGroupInput.toString().trim();
+      String ID = "";
 
+      int etaki244 = int.parse(userPhoneNumber);
+      int boyosh = int.parse(age);
+      int ucchota = int.parse(height);
+      int vor = int.parse(weight);
 
-      showDialog(
-          context: context,
-          builder: (context){
-            return Center(child: CircularProgressIndicator());
-          }
-      );
-      Future.delayed(Duration(seconds: 1), () {
-      Navigator.pushNamed(
-        context, '/physical',
-        arguments: {
-          'cha': cha,
-          'name': userFullName,
-          'pass': userPassword,
-          'number': userPhoneNumber,
-          'email': userEmail,
-          'handle': userHandle,
-          'dateOfBirth': userDateOfBirth,
-          'district' : district,
-          'thana' : thana,
-        },
-      ).then((_) {
-        Navigator.of(context).pop();
-      });
-      });
+      Map <String, dynamic> updatedUserInfo = {
+        "name" : userFullName,
+        "pass" : userPassword,
+        "number" : etaki244,
+        "email" : userEmail,
+        "handle" : userHandle,
+        "dateOfBirth" : userDateOfBirth,
+        "district" : district,
+        "thana" : thana,
+        "age" : boyosh,
+        "height" : ucchota,
+        "weight" : vor,
+        "bloodGroup" : bloodGroup,
+        "gender" : gender,
+        "lastDonation" : lastDonation,
+        "uid" : docID,
+      };
+
+      CollectionReference collectionReference = FirebaseFirestore.instance.collection("newUserCredentials");
+
+      try {
+        await collectionReference.doc(docID).update(updatedUserInfo);
+        print(" ");
+        print('successfully updated');
+        snackBarMessage('Successfully updated user info.');
+        print(" ");
+      } catch (e) {
+        print(" ");
+        print('update hoy nai bhai. $e');
+        print(" ");
+      }
     }
-
-
     else if (!_formKey.currentState!.validate()) { //form validate hoy nai
-      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Date of Birth, District and Thana fields are mandatory.');
+      // if ((dateDise().isEmpty) ||
+      //     (districtInput == null || districtInput.isEmpty) ||
+      //     (thanaInput == null || thanaInput.isEmpty) ||
+      //     (dateDonationDise().isEmpty) ||
+      //     (bloodGroupInput == null || bloodGroupInput.isEmpty) ||
+      //     (genderInput == null || genderInput.isEmpty)) {
+        snackBarMessage('Please fill up all the fields.');
         return;
-      }
-      if ((districtInput == null || districtInput.isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Please input District and Thana.');
-        return;
-      }
-      if ((dateDise().isEmpty) && (thanaInput == null || thanaInput.isEmpty)) {
-        snackBarMessage('Please input Date of Birth and Thana.');
-        return;
-      }
-      if ((dateDise().isEmpty) && (districtInput == null || districtInput.isEmpty)) {
-        snackBarMessage('Please input Date of Birth and District.');
-        return;
-      }
-      if (districtInput == null || districtInput.isEmpty) {
-        snackBarMessage('Provide your district info');
-        return;
-      }
-      if (thanaInput == null || thanaInput.isEmpty) {
-        snackBarMessage('Provide your thana info');
-        return;
-      }
-      if (dateDise().isEmpty) {
-        snackBarMessage('Provide Date of Birth');
-        return;
-      }
+      // }
     }
   }
+  void backToHome (){
+    Navigator.pushNamed(
+        context, '/mainPage',
+        arguments: {
+          'docID' : docID,
+        }
+    );
+  }
 
-  ////////////////////////////////////////////////  LESGO TO SUMIT's PAGE   ///////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
+
+    if (!isDataLoaded) {
+      final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+      fullNameInput.text = formData['name'];
+      passwordInput.text = formData['pass'];
+      phoneNumberInput.text = formData['number'].toString();
+      emailInput.text = formData['email'];
+      handleInput.text = formData['handle'];
+      // selectedDate = formData['dateOfBirth'];
+      //districtInput = formData['district'];
+      //thanaInput = formData['thana'];
+      ageInput.text = formData['age'].toString();
+      heightInput.text = formData['height'].toString();
+      weightInput.text = formData['weight'].toString();
+      genderInput = formData['gender'];
+      districtInput = formData['district'];
+      thanaInput = formData['thana'];
+      bloodGroupInput = formData['bloodGroup'];
+      // selectedDonationDate = formData['lastDonation'];
+      //bloodGroupInput.text = formData['bloodGroup'];
+      //genderInput.text = formData['gender'];
+      docID = formData['docId'];
+
+      isDataLoaded = true;
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xff2a2a2b),
@@ -378,14 +412,14 @@ class _signUpInfo extends State<signUpInfo> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         title: Text(
-          'Sign Up Info',
+          'Update Profile Info',
           style: TextStyle(
             fontSize: 22,
             color: Colors.white,
           ),
         ),
       ),
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xFFB1B3B1),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
@@ -396,6 +430,30 @@ class _signUpInfo extends State<signUpInfo> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      SizedBox(height: 15,),
+                      Stack(
+                        children: [
+                          _image != null ?
+                          CircleAvatar(
+                            radius: 70,
+                            backgroundImage: MemoryImage(_image!),
+                          ):
+
+                          const CircleAvatar(
+                            radius: 70,
+                            backgroundImage: AssetImage('assetsSadik/Profile.jpg'),
+                          ),
+                          Positioned(
+                            child: IconButton(
+                              onPressed: selectImage,
+                              icon: const Icon(Icons.add_a_photo),
+                              color: Color(0xff2a2a2b),
+                            ),
+                            bottom: -10,
+                            left: 80,
+                          )
+                        ],
+                      ),
                       SizedBox(height: 22,),
                       TextFormField(
                         controller: fullNameInput,
@@ -432,7 +490,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -483,7 +541,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -535,7 +593,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -586,7 +644,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -639,7 +697,7 @@ class _signUpInfo extends State<signUpInfo> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(13),
                             borderSide: BorderSide(
-                              color: Colors.amber,
+                              color: Color(0xff2a2a2b),
                               width: 4,
                             ),
                           ),
@@ -663,7 +721,7 @@ class _signUpInfo extends State<signUpInfo> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                            color: Colors.amber,
+                            color: Color(0xff2a2a2b),
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -727,7 +785,7 @@ class _signUpInfo extends State<signUpInfo> {
                         decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                            color: Colors.amber,
+                            color: Color(0xff2a2a2b),
                             width: 4,
                           ),
                           borderRadius: BorderRadius.circular(18.0),
@@ -826,6 +884,242 @@ class _signUpInfo extends State<signUpInfo> {
                           },
                         ),
                       ),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                        controller: ageInput,
+                        keyboardType: TextInputType.number,
+
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins-Medium'),
+                        decoration: InputDecoration(filled: true, fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(17),
+                          prefixIcon: Icon(
+                            Icons.person_add,
+                            color: Colors.black,
+                          ),
+                          labelText: " Age",
+                          labelStyle: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+                          border:
+                          OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          focusedBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green, width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                        ),
+                        validator: _validateAge,
+                      ),
+                      SizedBox(height: 19.0),
+                      TextFormField(
+                        controller: heightInput,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins-Medium'),
+                        decoration: InputDecoration(filled: true, fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(17),
+                          prefixIcon: Icon(
+                            Icons.height,
+                            color: Colors.black,
+                          ),
+                          labelText: " Height (in cm)",
+                          labelStyle: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins-Medium',
+                          ),
+                          border:
+                          OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          focusedBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green, width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                        ),
+                        validator: _validateHeight,
+                      ),
+                      SizedBox(height: 19.0),
+                      TextFormField(
+                        controller: weightInput,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Poppins-Medium'),
+                        decoration: InputDecoration(filled: true, fillColor: Colors.white,
+                          contentPadding: EdgeInsets.all(17),
+                          prefixIcon: Icon(
+                            Icons.line_weight,
+                            color: Colors.black,
+                          ),
+                          labelText: " Weight (in kg)",
+                          labelStyle: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+
+                          border:
+                          OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b),),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          enabledBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff2a2a2b), width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                          focusedBorder:  OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.green, width: 4.0),
+                            borderRadius: BorderRadius.circular(13.0),
+                          ),
+                        ),
+                        validator: _validateWeight,
+                      ),
+                      SizedBox(height: 19.0),
+                      Container(
+                        padding: EdgeInsets.all(15.0),
+                        height: 63,
+
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Color(0xff2a2a2b),width: 4),
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                        child: DropdownButton<String>(
+                          hint: Row(
+                            children: [
+                              Icon(
+                                Icons.bloodtype,
+                                color: Colors.black,
+                              ),
+                              Text("   Blood Group",
+                                style: TextStyle(
+                                    fontSize:17 ,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins-Medium'),
+                              ),
+                            ],
+                          ),
+
+
+                          value:  bloodGroupInput,
+                          dropdownColor: Colors.white,
+                          icon: Icon(Icons.add),
+                          iconSize: 26,
+                          iconEnabledColor: Colors.black,
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+
+                          items: [
+                            'A+',
+                            'A-',
+                            'B+',
+                            'B-',
+                            'AB+',
+                            'AB-',
+                            'O+',
+                            'O-',
+                            'None of These'
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              bloodGroupInput = value;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 19.0),
+                      Container(
+                        padding: EdgeInsets.all(15.0),
+                        height: 62,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Color(0xff2a2a2b),width: 4),
+                          borderRadius: BorderRadius.circular(13.0),
+                        ),
+                        child: DropdownButton<String>(
+                          hint: Row(
+                            children: [
+                              Icon(
+                                Icons.perm_identity_sharp,
+                                color: Colors.black,
+                              ),
+
+                              Text("    Gender",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins-Medium'),
+                              ),
+                            ],
+                          ),
+                          value:genderInput ,
+                          dropdownColor: Colors.white,
+                          icon: Icon(Icons.add),
+                          iconSize: 25,
+                          iconEnabledColor: Colors.black,
+                          isExpanded: true,
+                          underline: SizedBox(),
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins-Medium'),
+
+                          items: [
+                            'Male',
+                            'Female',
+                            'None of These'
+                          ].map((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                          onChanged: (String? value) {
+                            setState(() {
+                              genderInput = value;
+                            });
+                          },
+                        ),
+                      ),
+                      SizedBox(height: 19.0),
+                      LastDonationDate (),
                     ],
                   ),
                 ),
@@ -835,20 +1129,18 @@ class _signUpInfo extends State<signUpInfo> {
               ElevatedButton(
                 onPressed: () {
 
-                  /*showDialog(
-                    context: context,
-                    builder: (context){
-                      return Center(child: CircularProgressIndicator());
-                    }
-                  );*/
+                  print(" ");print(" ");
+                  print("clicked on SAVE CHANGES");
+                  print(" ");print(" ");
 
-                  _proceed();
-                 // Navigator.of(context).pop();
+                  updateInfo();
+
+                  // database update hobe eikhane
                 },
 
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF000D29)),
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(vertical: 12, horizontal: 30),
@@ -857,13 +1149,13 @@ class _signUpInfo extends State<signUpInfo> {
                 ),
 
                 child: Text(
-                  'Proceed to Physical Info',
+                  'Save changes',
                   style: TextStyle(
                     fontSize: 17,
                   ),
                 ),
-              ),
-              //SizedBox(height: 30,),
+              ),            //save changes
+              SizedBox(height: 30,),
             ],
           ),
         ),

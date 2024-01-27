@@ -15,17 +15,16 @@ class _NotificatoinPageState extends State<NotificatoinPage> {
   @override
   Widget build(BuildContext context) {
     //get the notification message and display on screen
-    final message= ModalRoute.of(context)!.settings.arguments as RemoteMessage;
+    // final message= ModalRoute.of(context)!.settings.arguments as RemoteMessage;
     return Scaffold(
       body: Center(
-        
-        child:Column(
-          children: [
-            Text(message.notification!.title.toString()),
-            Text(message.notification!.body.toString()),
-            Text(message.data.toString()),
-          ],
-        )
+        child: Text(
+          'Notification Page',
+          style: TextStyle(
+            fontFamily: 'Classy',
+            fontSize: 40,
+          ),
+        ),
       ),
     );
   }

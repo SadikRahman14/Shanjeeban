@@ -16,9 +16,6 @@ class RequestedProfile extends StatefulWidget {
 
 class _RequestedProfileState extends State<RequestedProfile> {
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -23,6 +23,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
   String? _selectedHospital;
   String name = "a";
   int ph = 619;
+  int age = 2441139;
   String em = "c";
   String newName = "new";
   String updateName = "new";
@@ -49,6 +50,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
         String userbloodGroup = userSnapshot['bloodGroup'];
         String userdistrict = userSnapshot['district'];
         String userthana = userSnapshot['thana'];
+        int userAge = userSnapshot['age'];
 
 
         setState(() {
@@ -56,6 +58,7 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
           ph = phone;
           em = email;
           updateName = name;
+          age = userAge;
         });
 
 
@@ -96,7 +99,44 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
     );
 
     if (querySnapshot.docs.isNotEmpty) {
-      Future.delayed(Duration(seconds: 2), () {
+      Future.delayed(Duration(seconds: 2), () async {
+
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        String? uid;
+
+        if (currentUser != null) {
+          uid = currentUser.uid;
+        }
+
+        Map <String, dynamic> vampireDemands = {
+          "bloodGroup" : rokto,
+          "reason" : karon,
+          "hospital" : hashpatal,
+          "quantity" : koyBag,
+          "name" : name,
+          "phone" : ph,
+          "email" : em,
+          "age" : age,
+          "uid" : uid,
+        };
+
+        // FirebaseFirestore.instance.collection(rokto).add(vampireDemands);
+
+        DocumentReference documentReference4 = await FirebaseFirestore.instance.collection(rokto).doc(uid);
+        await documentReference4.set(vampireDemands)
+            .then((value) {
+          print("Document added successfully!");
+          docID = uid;
+          print("Document ID: $uid");
+        })
+            .catchError((error) {
+          print("Error adding document: $error");
+        });
+
+        print(" ");print(" ");
+        print("blood reciever added to waiting list");
+        print(" ");print(" ");
+
       Navigator.pushNamed(
         context, '/allDonors',
         arguments: {
@@ -125,10 +165,22 @@ class _BloodRequestFormState extends State<BloodRequestForm> {
           "name" : name,
           "phone" : ph,
           "email" : em,
+          "age" : age,
           "uid" : uid,
         };
 
-        FirebaseFirestore.instance.collection(rokto).add(vampireDemands);
+        // FirebaseFirestore.instance.collection(rokto).add(vampireDemands);
+
+        DocumentReference documentReference4 = await FirebaseFirestore.instance.collection(rokto).doc(uid);
+        await documentReference4.set(vampireDemands)
+            .then((value) {
+          print("Document added successfully!");
+          docID = uid;
+          print("Document ID: $uid");
+        })
+            .catchError((error) {
+          print("Error adding document: $error");
+        });
 
         print(" ");print(" ");
         print("blood reciever added to waiting list");

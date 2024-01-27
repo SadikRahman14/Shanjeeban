@@ -11,135 +11,84 @@ class RequestorProfile extends StatefulWidget {
 }
 
 class _RequestorProfileState extends State<RequestorProfile> {
-  @override
-  void initState() {
-    super.initState();
+
+  String? name;
+  String bloodGroup = "";
+  int? age;
+  String? requestorUid;
+  String? docId;
+  int? phoneNumber;
+  String? lastDonation;
+  String? thana;
+  String? district;
+  String hospital  = "dgf";
+  String causeass = "dsg";
+  int? quan;
+  bool done = false;
+
+  Future<void> getUserData() async {
+    try {
+      DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection(bloodGroup).doc(requestorUid).get();
+      if (userSnapshot3.exists) {
+        String userName = userSnapshot3['name'];
+        String blood = userSnapshot3['bloodGroup'];
+        int number = userSnapshot3['phone'];
+        int boyosh = userSnapshot3['age'];
+        // String sheshDonation = userSnapshot3['lastDonation'];
+        // String thanaUse = userSnapshot3['thana'];
+        // String districtUse = userSnapshot3['district'];
+        String causes = userSnapshot3['reason'];
+        String hp = userSnapshot3['hospital'];
+        int quant = userSnapshot3['quantity'];
+
+        print('\n');
+        print(userName);
+        print(quant);
+
+
+        setState(() {
+          name = userName;
+          bloodGroup = blood;
+          phoneNumber = number;
+          age = boyosh;
+          // lastDonation = sheshDonation;
+          // thana = thanaUse;
+          // district = districtUse;
+          causeass = causes;
+          quan = quant;
+          hospital = hp;
+        });
+
+      } else {
+        print('User does not exist');
+      }
+    } catch (e) {
+      print('Error fetching user data: $e');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    /*Future<void> getUserData() async {
-      try {
-        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userCredentials").doc(docID).get();
-        if (userSnapshot.exists) {
-          String userName = userSnapshot['name'];
-          String userhandle = userSnapshot['handle'];
-          String userbloodGroup = userSnapshot['bloodGroup'];
-          String userdistrict = userSnapshot['district'];
-          String userthana = userSnapshot['thana'];
-
-
-          setState(() {
-            name = userName;
-            handle = userhandle;
-            bloodGroup = userbloodGroup;
-            district = userdistrict;
-            thana = userthana;
-          });
-
-          // print('User Name: $userName');
-          // print('age: $age');
-          // print('User district: $district');
-          // print('User thana: $thana');
-          // print('User phone: $phone');
-        } else {
-          print('User does not exist');
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-      }
-    }
-
-    Future<void> getUserData() async {
-      try {
-        DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("userIdHolder").doc(uid).get();
-        if (userSnapshot.exists) {
-          String docID = userSnapshot['email'];
-
-
-
-          setState(() {
-            docId = docID;
-          });
-
-          // print('User Name: $userName');
-          // print('age: $age');
-          // print('User district: $district');
-          // print('User thana: $thana');
-          // print('User phone: $phone');
-        } else {
-          print('User does not exist');
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-      }
-    }*/
-
-    String? name;
-    String bloodGroup = "";
-    int? age;
-    String? requestorUid;
-    String? docId;
-    int? phoneNumber;
-    String? lastDonation;
-    String? thana;
-    String? district;
-    String? causeass;
-    int? quan;
-
-
-
-    Future<void> getUserData() async {
-      try {
-        DocumentSnapshot userSnapshot3 = await FirebaseFirestore.instance.collection(bloodGroup).doc(requestorUid).get();
-        if (userSnapshot3.exists) {
-          String userName = userSnapshot3['name'];
-          String blood = userSnapshot3['bloodGroup'];
-          int number = userSnapshot3['number'];
-          int boyosh = userSnapshot3['age'];
-          String sheshDonation = userSnapshot3['lastDonation'];
-          String thanaUse = userSnapshot3['thana'];
-          String districtUse = userSnapshot3['district'];
-          String causes = userSnapshot3['reason'];
-          int quant = userSnapshot3['quantity'];
-
-          print('\n');
-          print(userName);
-          print(quant);
-
-
-          setState(() {
-            name = userName;
-            bloodGroup = blood;
-            phoneNumber = number;
-            age = boyosh;
-            lastDonation = sheshDonation;
-            thana = thanaUse;
-            district = districtUse;
-            causeass = causes;
-            quan = quant;
-
-          });
-
-        } else {
-          print('User does not exist');
-        }
-      } catch (e) {
-        print('Error fetching user data: $e');
-      }
-    }
 
     final Map<String, dynamic> formData = ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
     docId = formData['docId'];
     requestorUid = formData['requestorUid'];
+    bloodGroup = formData['bloodGroup'];
 
-    getUserData();
+    if(done == false) {
+      getUserData();
+      done = true;
+    }
 
     String strAge = age.toString();
     String strNumber = phoneNumber.toString();
 
-    print(age);
+    print("age : $age");
+    print(causeass);
+    print(hospital);
+    print(quan);
+    print(phoneNumber);
 
     return Scaffold(
       backgroundColor: Color(0xFFD4E3E1),
@@ -168,7 +117,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
                 padding: EdgeInsets.only(
                   left: 20, top: 20, right: 20, bottom: 20,
                 ),
-                height: 550, width: 300,
+                height: 590, width: 300,
                 decoration: BoxDecoration(
                   color: Color(0xFFADD1CD),
                   borderRadius: BorderRadius.circular(10),
@@ -344,7 +293,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
                           ),
                         ),
                         Text(
-                          'Road Accident',
+                          causeass,
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Classy',
@@ -366,7 +315,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
                           ),
                         ),
                         Text(
-                          '3 Bags',
+                          quan.toString(),
                           style: TextStyle(
                             color: Colors.black,
                             fontFamily: 'Classy',
@@ -404,7 +353,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
                               SizedBox(width: 4), // Add spacing between the icon and text
                               Flexible(
                                 child: Text(
-                                  'Better Life Hospital',
+                                  hospital,
                                   softWrap: true,
                                   overflow: TextOverflow.clip, // Change to ellipsis if you want an ellipsis (...) when text overflows
                                   style: TextStyle(
@@ -420,6 +369,7 @@ class _RequestorProfileState extends State<RequestorProfile> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20,),
                     CustomElevated(),
                     SizedBox(height: 20,),
 

@@ -185,17 +185,41 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
         if(userCredential.user != null){
-          print("user created successfully.");
 
-         ID = userCredential.user!.uid;
-         print(ID);
+          print(" ");print(" ");
+          print("user created successfully.");
+          print(" ");print(" ");
+
+          ID = userCredential.user!.uid;
+          print(ID);
 
           int etaki244 = int.parse(number);
           int boyosh = int.parse(age);
           int ucchota = int.parse(height);
           int vor = int.parse(weight);
+          // int point = 100;
+          // String pointBase = "point";
+          //
+          // Map <String, dynamic> p = {
+          //   "currentPoint" : point,
+          // };
+          //
+          // DocumentReference df = await FirebaseFirestore.instance.collection(pointBase).doc(ID);
+          // await df.set(p)
+          //     .then((value) {
+          //   print(" ");print(" ");
+          //   print("points added successfully!");
+          //   print(" ");print(" ");
+          //   docID = ID;
+          //   print("Document ID: $ID");
+          // })
+          //     .catchError((error) {
+          //   print(" ");print(" ");
+          //   print("points add hoy nai :((((((((((((");
+          //   print(" ");print(" ");
+          // });
 
-         /* Map <String, dynamic> userData = {
+          /* Map <String, dynamic> userData = {
             "name" : name,
             "pass" : pass,
             "number" : etaki244,
@@ -259,8 +283,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             print("Error adding document: $error");
           });*/
 
-
-
           Map <String, dynamic> newUserData = {
             "name" : name,
             "pass" : pass,
@@ -283,9 +305,12 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           DocumentReference documentReference4 = await FirebaseFirestore.instance.collection("newUserCredentials").doc(ID);
           await documentReference4.set(newUserData)
               .then((value) {
+
+            print(" ");print(" ");
             print("Document added successfully!");
             docID = ID;
             print("Document ID: $ID");
+            print(" ");print(" ");
           })
               .catchError((error) {
             print("Error adding document: $error");
@@ -326,10 +351,10 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       );
 
       Future.delayed(Duration(seconds: 2), () {
-      Navigator.pushNamed(context, '/onBoarding'
-      ).then((_) {
-        Navigator.of(context).pop();
-      });
+        Navigator.pushNamed(context, '/onBoarding'
+        ).then((_) {
+          Navigator.of(context).pop();
+        });
       });
     }
 
