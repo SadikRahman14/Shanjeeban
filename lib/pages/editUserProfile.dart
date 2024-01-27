@@ -1140,7 +1140,7 @@ class _editUserProfileState extends State<editUserProfile> {
 
                 style: ButtonStyle(
                   elevation: MaterialStateProperty.all<double>(10.0),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                  backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF000D29)),
                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
                   padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
                     EdgeInsets.symmetric(vertical: 12, horizontal: 30),
@@ -1155,35 +1155,6 @@ class _editUserProfileState extends State<editUserProfile> {
                   ),
                 ),
               ),            //save changes
-              SizedBox(height: 30,),
-              ElevatedButton(
-
-                onPressed: () {
-                  print(" ");print(" ");
-                  print("clicked on back to home page");
-                  print(" ");print(" ");
-
-                  backToHome();
-
-                  //back to homepage
-                },
-
-                style: ButtonStyle(
-                  elevation: MaterialStateProperty.all<double>(10.0),
-                  backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                  padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                    EdgeInsets.symmetric(vertical: 12, horizontal: 30),
-                  ),
-                ),
-
-                child: Text(
-                  'Back to Home Page',
-                  style: TextStyle(
-                    fontSize: 17,
-                  ),
-                ),
-              ),           //back to homepage
               SizedBox(height: 30,),
             ],
           ),
