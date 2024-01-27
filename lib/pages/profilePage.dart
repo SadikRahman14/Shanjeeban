@@ -19,6 +19,7 @@ class _ProfileState extends State<Profile> {
   String ?bloodGroup;
   String ?thana;
   String ?district;
+
   String ?dateOfBirth;
   String ?email;
   int ?height;
@@ -30,6 +31,27 @@ class _ProfileState extends State<Profile> {
   String ?password;
   String ?uid;
   String ?imageURL;
+
+  String? imageUrl;
+
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUserData();
+  }
+
+  Future<void> fetchUserData() async {
+    try {
+      final Map<String, dynamic> args =
+      ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+      docID = args['docID'] ?? "ggh"; // Set a default value if docID is null
+      await getUserData();
+    } catch (e) {
+      print("Error fetching user data: $e");
+    }
+  }
+
 
   void logout() async{
     await FirebaseAuth.instance.signOut();
@@ -83,6 +105,7 @@ class _ProfileState extends State<Profile> {
     try {
       DocumentSnapshot userSnapshot = await FirebaseFirestore.instance.collection("newUserCredentials").doc(docID).get();
       if (userSnapshot.exists) {
+
         String nm = userSnapshot['name'];
         String hnd = userSnapshot['handle'];
         String bg = userSnapshot['bloodGroup'];
@@ -117,6 +140,7 @@ class _ProfileState extends State<Profile> {
           bloodGroup = bg;
           // imageURL = img;
           // uid = id;
+
         });
 
         // print('User Name: $userName');
@@ -197,8 +221,14 @@ class _ProfileState extends State<Profile> {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(100),
-                      child: Image(
-                        image: AssetImage('assetsSadik/Profile.jpg'),
+                      child: imageUrl != null
+                          ? Image.network(
+                        imageUrl!,
+                        fit: BoxFit.cover,
+                      )
+                          : Image.asset(
+                        'assetsSadik/Profile.jpg',
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),

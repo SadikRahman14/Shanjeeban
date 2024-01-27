@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:login/deGea/signUpInfo.dart';
 import 'package:login/rakibul/loginPage.dart';
 import 'package:login/pages/fromNavigationBar/NotificationPage.dart';
 import 'package:login/pages/fromNavigationBar/historyPage.dart';
+
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -95,6 +97,8 @@ class _HomeState extends State<Home> {
     else{
       getDataDirectlyFromHome();
     }
+
+    // Example during user registration or login
 
 
     return Scaffold(
@@ -366,9 +370,18 @@ class _HomeState extends State<Home> {
                   //   );
                   // },
 
-                  onTap: () async {
+                 onTap: () async {
+
 
                     String bloodCheck = bloodGroup!;
+
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+
                     FirebaseFirestore firestore = FirebaseFirestore.instance;
                     CollectionReference collectionRef = firestore.collection(bloodCheck);
 
@@ -379,19 +392,27 @@ class _HomeState extends State<Home> {
                     print(" ");print(" ");
 
                     if (querySnapshot.docs.isNotEmpty) {
+                  Future.delayed(Duration(seconds: 1), () {
                       Navigator.pushNamed(
                         context, '/everyRequest',
                         arguments: {
                           'docID': docID,
                         },
-                      );
+                      ).then((_) {
+                      Navigator.of(context).pop();
+                          });
+                       });
                     } else {
+                   Future.delayed(Duration(seconds: 1), () {
                       Navigator.pushNamed(
                         context, '/noReciever',
                         arguments: {
                           'docID': docID,
                         },
-                      );
+                      ).then((_) {
+                        Navigator.of(context).pop();
+                      });
+                   });
                     }
                   },
 
@@ -443,13 +464,23 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(
+                  showDialog(
+                   context: context,
+                  builder: (context){
+                   return Center(child: CircularProgressIndicator());
+                     }
+                      );
+                  Future.delayed(Duration(seconds: 1), () {
+                      Navigator.pushNamed(
                         context, '/requestForm',
                         arguments: {
                           'docID' : docID,
 
                         }
-                    );
+                    ).then((_) {
+                Navigator.of(context).pop();
+                 });
+                });
                   },
 
                   child: Container(
@@ -503,7 +534,18 @@ class _HomeState extends State<Home> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/pointScreen');
+                   showDialog(
+                    context: context,
+                     builder: (context){
+                     return Center(child: CircularProgressIndicator());
+                     }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/pointScreen'
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
 
                   },
                   child: Container(
@@ -550,12 +592,22 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => FacebookGroups(), // Replace with your screen/widget
                       ),
-                    );
+                    ).then((_) {
+                      Navigator.of(context).pop();
+                    });
+                    });
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -601,7 +653,18 @@ class _HomeState extends State<Home> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, '/emergency');
+                    showDialog(
+                        context: context,
+                        builder: (context){
+                          return Center(child: CircularProgressIndicator());
+                        }
+                    );
+                    Future.delayed(Duration(seconds: 1), () {
+                    Navigator.pushNamed(context, '/emergency'
+                    ).then((_) {
+                   Navigator.of(context).pop();
+                     });
+                   });
 
                   },
                   child: Container(

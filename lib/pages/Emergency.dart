@@ -41,14 +41,23 @@ class _EmergencyState extends State<Emergency> {
             children: [
               DonateNowList(title: 'স্বাস্থ্য বাতায়ন', subtitle: '16325',
                 onPress: () async{
+                  showDialog(
+                      context: context,
+                      builder: (context){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                  );
 
                   final Uri url = Uri(
                     scheme: 'tel',
                     path: '16325'
                   );
-                  if(await canLaunchUrl(url)){
+                  await Future.delayed(Duration(seconds: 2));
+                  Navigator.of(context).pop();
+
+                  if (await canLaunch(url.toString())) {
                     print("Launched");
-                    await launchUrl(url);
+                    await launch(url.toString());
                   }else{
                     print('Cannot Launch');
                   }
@@ -57,14 +66,23 @@ class _EmergencyState extends State<Emergency> {
               SizedBox(height: 20,),
               DonateNowList(title: 'Ambulance', subtitle: '999',
                 onPress: () async{
+                  showDialog(
+                      context: context,
+                      builder: (context){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                  );
 
                   final Uri url = Uri(
                       scheme: 'tel',
                       path: '999'
                   );
-                  if(await canLaunchUrl(url)){
+                  await Future.delayed(Duration(seconds: 2));
+                  Navigator.of(context).pop();
+
+                  if (await canLaunch(url.toString())) {
                     print("Launched");
-                    await launchUrl(url);
+                    await launch(url.toString());
                   }else{
                     print('Cannot Launch');
                   }
@@ -73,14 +91,23 @@ class _EmergencyState extends State<Emergency> {
               SizedBox(height: 20,),
               DonateNowList(title: 'Information Help',subtitle: '333',
                 onPress: () async{
+                  showDialog(
+                      context: context,
+                      builder: (context){
+                        return Center(child: CircularProgressIndicator());
+                      }
+                  );
 
                   final Uri url = Uri(
                       scheme: 'tel',
                       path: '333'
                   );
-                  if(await canLaunchUrl(url)){
+
+                  await Future.delayed(Duration(seconds: 2));
+                  Navigator.of(context).pop();
+                  if (await canLaunch(url.toString())) {
                     print("Launched");
-                    await launchUrl(url);
+                    await launch(url.toString());
                   }else{
                     print('Cannot Launch');
                   }

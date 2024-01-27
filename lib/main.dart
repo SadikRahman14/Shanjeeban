@@ -43,6 +43,8 @@ void main() async{
   );
   await Firebase_api().initNotifications();
 
+
+
   User? currentUser = FirebaseAuth.instance.currentUser;
   if(currentUser != null){
     runApp(MyApp());

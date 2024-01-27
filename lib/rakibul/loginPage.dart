@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:login/api/firebase_api.dart';
 
 class loginPage extends StatefulWidget {
+  Firebase_api firebaseApi = Firebase_api();
   @override
   State<loginPage> createState() => _loginPageState();
 }
@@ -73,8 +75,8 @@ class _loginPageState extends State<loginPage> {
         if(userCredential.user != null){
 
           User? currentUser = FirebaseAuth.instance.currentUser;
-          String? userID  = currentUser?.uid;
-          docID = userID;
+          String? ID  = currentUser?.uid;
+          docID = ID;
 
           print(" ");print(" ");print(" ");
           print("going to sadik's page");
