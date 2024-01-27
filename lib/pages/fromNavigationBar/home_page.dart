@@ -1,4 +1,4 @@
- import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -146,6 +146,18 @@ class _HomeState extends State<Home> {
                                   }
                               );
                               Future.delayed(Duration(seconds: 1), () {
+                                Navigator.pushNamed(
+                                    context, '/userProfile',
+                                    arguments: {
+                                      'docID' : docID,
+                                    }
+                                ).then((_) {
+                                  Navigator.of(context).pop();
+                                });
+
+                                  }
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
                               Navigator.pushNamed(
                                   context, '/userProfile',
                                   arguments: {
@@ -154,6 +166,7 @@ class _HomeState extends State<Home> {
                               ).then((_) {
                                 Navigator.of(context).pop();
                               });
+
                               });
                             },
                             child: CircleAvatar(

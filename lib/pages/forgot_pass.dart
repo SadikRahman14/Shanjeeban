@@ -37,9 +37,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     final emailcontroller = TextEditingController();
     final auth = FirebaseAuth.instance;
     return Scaffold(
-      backgroundColor: Colors.deepPurple.shade400,
+      backgroundColor: Colors.red.shade200,
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple[200],
+        centerTitle: true,
+        title: Text('Forgot Password',
+          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Classy'),
+        ),
+        backgroundColor: Colors.red.shade800,
       ),
       body: Center(
         child: Container(
@@ -48,7 +52,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.deepPurple.shade500,
+            color: Colors.red.shade800,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -61,22 +65,49 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     hintText: 'Give E-mail to set new Password',
                     hintStyle: TextStyle(
                       color: Colors.white,
+                        fontFamily: 'Classy'
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue),
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                    filled: true,
+                    fillColor: Colors.red.shade600,
+                    contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 14.0),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.white,
+                      size: 15,
                     ),
 
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0), // Adjust the radius as needed
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        Icons.clear,
+                        color: Colors.white,
+                        size: 15,
+                      ),
+                      onPressed: () {
+                          emailcontroller.clear();
+                      },
                     ),
 
 
                   ),
+
+
                 ),
               ),
-              CustomElevated(backgroundColor: Colors.red.shade800,
+              CustomElevated(
+                  backgroundColor: Colors.red.shade800,
                   borderRadius: 25,
                   onPress: () {
                     auth.sendPasswordResetEmail(email: emailcontroller.text.toString())
                         .then((value) {
-                            Utils().toastMessage("Supp");
+                            Utils().toastMessage("Mail Sent");
                     }).onError((error, stackTrace){
                       Utils().toastMessage(error.toString());
                     });

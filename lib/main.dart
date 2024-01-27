@@ -10,6 +10,7 @@ import 'package:login/pages/EditProfile.dart';
 import 'package:login/pages/Emergency.dart';
 import 'package:login/pages/RequestForBlood/donorList.dart';
 import 'package:login/pages/base.dart';
+import 'package:login/pages/forgot_pass.dart';
 import 'package:login/pages/leaderboard/Distribution.dart';
 import 'package:login/pages/leaderboard/PointsScreen.dart';
 import 'package:login/pages/IntroScreen/onboarding_screen.dart';
@@ -107,7 +108,7 @@ class _toLoginState extends State<toLogin> {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      home: BaseScreen(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
 
       routes: {
         '/mainPage':(context) => MainPage(),
@@ -131,6 +132,7 @@ class _toLoginState extends State<toLogin> {
         '/pointScreen'  : (context) => PointsScreen(),
         '/distributiion'  : (context) => Distribution(),
         '/onBoarding'  : (context) => OnBoardingScreen(),
+        '/forgotPass'  : (context) => ForgotPassword(),
 
       },
     );

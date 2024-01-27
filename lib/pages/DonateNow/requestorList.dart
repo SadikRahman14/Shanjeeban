@@ -35,6 +35,7 @@ class _RequestorListState extends State<RequestorList> {
       arguments: {
         'requestorUid' : requestorUid,
         'docId' : docID,
+        'bloodGroup' : bloodGroup,
       },
     ).then((_) {
       Navigator.of(context).pop();
