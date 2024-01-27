@@ -283,7 +283,7 @@ class OfferCoupons extends StatelessWidget {
             IconButton(
               onPressed: onpress,
               icon: Icon(
-                LineAwesomeIcons.arrow_circle_right,
+                LineAwesomeIcons.angle_right,
                 size: 30,
               ),
             ),

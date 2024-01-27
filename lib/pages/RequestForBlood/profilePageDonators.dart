@@ -288,7 +288,7 @@ class _DonatorsProfileState extends State<DonatorsProfile> {
 
                               },
                               child: Text(
-                                'REQUEST DDONATOR',
+                                'REQUEST DONATOR',
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Classy',

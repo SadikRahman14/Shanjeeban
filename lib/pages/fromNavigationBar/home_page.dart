@@ -154,6 +154,19 @@ class _HomeState extends State<Home> {
                                 ).then((_) {
                                   Navigator.of(context).pop();
                                 });
+
+                                  }
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
+                              Navigator.pushNamed(
+                                  context, '/userProfile',
+                                  arguments: {
+                                    'docID' : docID,
+                                  }
+                              ).then((_) {
+                                Navigator.of(context).pop();
+                              });
+
                               });
                             },
                             child: CircleAvatar(

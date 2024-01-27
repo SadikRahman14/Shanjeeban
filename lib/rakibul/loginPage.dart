@@ -40,6 +40,7 @@ class _loginPageState extends State<loginPage> {
   }
 
   void login() async {
+
     String userEmail = fullNameInput.text.toString().trim();
     String userPassword = passwordInput.text.toString().trim();
 
@@ -61,6 +62,12 @@ class _loginPageState extends State<loginPage> {
       return;
     }
     else{
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(child: CircularProgressIndicator());
+        },
+      );
       try {
         UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: userEmail, password: userPassword);
         if(userCredential.user != null){
@@ -73,17 +80,20 @@ class _loginPageState extends State<loginPage> {
           print("going to sadik's page");
           print (" ");print("3) clicked on login button: $docID");print (" ");
           print(" ");print(" ");print(" ");
+          Future.delayed(Duration(seconds: 2), () {
           Navigator.pushNamed(
               context,
               '/mainPage',
 
               arguments: {
                 'docID' : docID,
-              }
+              },
           );
+          });
         }
       } on FirebaseAuthException catch (ex) {
         snackBarMessage(context, 'Invalid user credentials.');
+        Navigator.of(context).pop();
         print(ex.code.toString());
         print(" ");print(" ");print(" ");
         print (" ");print("3) clicked on login button: $docID");print (" ");
@@ -149,156 +159,117 @@ class _loginPageState extends State<loginPage> {
                     color: Colors.white,
                     borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
                 ),
-                child: Padding(
-                  padding: EdgeInsets.fromLTRB(20,5,20,5),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(height: 60,),
-                      FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [BoxShadow(
-                                color: Color.fromRGBO(225, 95, 27, .3),
-                                blurRadius: 20,
-                                offset: Offset(0, 10)
-                            )]
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(bottom: BorderSide(color: Colors.grey.shade200))
-                                ),
-                                child: TextField(
-                                  controller: fullNameInput,
-                                  decoration: InputDecoration(
-                                    hintText: "Email or Phone number",
-                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool'),
-                                    border: InputBorder.none,
-                                    prefixIcon: Icon(Icons.email), // Use Icons.phone for a phone icon
-                                  ),
-                                )
-                            ),
-                            Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border(bottom: BorderSide(color: Colors.grey.shade200))
-                              ),
-                              child: TextField(
-                                controller: passwordInput,
-                                obscureText: true,
-                                obscuringCharacter: '*',
-                                decoration: InputDecoration(
-                                    hintText: "Password",
-                                    hintStyle: TextStyle(color: Colors.grey,fontFamily: 'oldschool',),
-                                    border: InputBorder.none,
-                                    prefixIcon: Icon(Icons.lock)
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      )),
-
-
-
-
-                      SizedBox(height: 40,),
-                      FadeInUp(duration: Duration(milliseconds: 1600), child: Container(
-                        width: 120,
-                        child: MaterialButton(
-                          onPressed: () {
-                            login();
-                          },
-
-                          height: 50,
-                          // margin: EdgeInsets.symmetric(horizontal: 50),
-                          color: Colors.red[900],
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-
-                          ),
-                          // decoration: BoxDecoration(
-                          // ),
-                          child: Center(
-                            child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'oldschool',),),
-                          ),
-                        ),
-                      )),
-                      SizedBox(height: 20,),
-                      FadeInUp(duration: Duration(milliseconds: 1500),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
-                          },
-                          child: Text(
-                            'New to Shanjeeban?    SIGN UP',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF900000),
-                              fontFamily: 'oldschool',
-                            ),
-                          ),
-                        ),
-
-                      ),
-                      SizedBox(height: 20),
-                      FadeInUp(duration: Duration(milliseconds: 1500),
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/signUpPage');
-                          },
-                          child: Text(
-                            'Forgot Password?',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF900000),
-                              fontFamily: 'oldschool',
-                            ),
-                          ),
-                        ),
-
-                      ),
-                      SizedBox(height: 10,),
-                      FadeInUp(duration: Duration(milliseconds: 1700), child: Text("Continue with social media", style: TextStyle(color: Colors.grey,fontFamily: 'oldschool',),)),
-                      SizedBox(height: 30,),
-                      Row(
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(30,30,30,30),
+                    child: Center(
+                      child: Column(
                         children: <Widget>[
-                          Expanded(
-                            child: FadeInUp(duration: Duration(milliseconds: 1800), child: MaterialButton(
-                              onPressed: (){},
-                              height: 30,
-                              color: Colors.blue,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: Center(
-                                child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                              ),
-                            )),
-                          ),
-                          SizedBox(width: 30,),
-                          Expanded(
-                            child: FadeInUp(duration: Duration(milliseconds: 1900), child: MaterialButton(
-                              onPressed: () {},
-                              height: 30,
+                          SizedBox(height: 60,),
+                          FadeInUp(duration: Duration(milliseconds: 1400), child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [BoxShadow(
+                                    color: Color.fromRGBO(225, 95, 27, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10)
+                                )]
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border(bottom: BorderSide(color: Colors.grey.shade200))
+                                    ),
+                                    child: TextField(
+                                      controller: fullNameInput,
+                                      decoration: InputDecoration(
+                                        hintText: "Enter Email",
+                                        hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Classy'),
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Icons.email), // Use Icons.phone for a phone icon
+                                      ),
+                                    )
+                                ),
+                                Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border(bottom: BorderSide(color: Colors.grey.shade200))
+                                  ),
+                                  child: TextField(
+                                    controller: passwordInput,
+                                    obscureText: true,
+                                    obscuringCharacter: '*',
+                                    decoration: InputDecoration(
+                                        hintText: "Password",
+                                        hintStyle: TextStyle(color: Colors.grey,fontFamily: 'Classy',),
+                                        border: InputBorder.none,
+                                        prefixIcon: Icon(Icons.lock)
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+
+
+
+
+                          SizedBox(height: 40,),
+                          FadeInUp(duration: Duration(milliseconds: 1600), child: Container(
+                            width: 80,
+                            child: MaterialButton(
+                              onPressed: () {
+                                login();
+                              },
+
+                              height: 50,
+                              // margin: EdgeInsets.symmetric(horizontal: 50),
+                              color: Colors.red[900],
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
 
                               ),
-                              color: Colors.black,
                               child: Center(
-                                child: Text("Google", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                                child: Text("Login", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold,fontFamily: 'Classy',),),
                               ),
-                            )),
-                          )
+                            ),
+                          )),
+                          SizedBox(height: 20,),
+                          FadeInUp(duration: Duration(milliseconds: 1500),
+                            child: TextButton(
+                              onPressed: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context){
+                                      return Center(child: CircularProgressIndicator());
+                                    }
+                                );
+                                Future.delayed(Duration(seconds: 1), () {
+                                Navigator.pushNamed(context, '/forgotPass'
+                                ).then((_) {
+                                  Navigator.of(context).pop();
+                                });
+                                });
+                              },
+                              child: Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFF900000),
+                                  fontFamily: 'Classy',
+                                ),
+                              ),
+                            ),
+
+                          ),
+                          SizedBox(height: 10,),
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
                 ),
               ),
