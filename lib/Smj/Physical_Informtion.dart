@@ -29,7 +29,8 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
   var   BloodGroupInput ;
   var   LastDonationInput ;
   DateTime? selectedDate;
-  String imageURL = "";
+  var imageInput;
+  String docID = "";
 
   String? _validateAge(value) {
     if (value!.isEmpty) return 'This field is mandatory';
@@ -170,9 +171,16 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
       String gender = GenderInput.toString().trim();
       String lastDonation = dateDise();
       String bloodGroup = BloodGroupInput.toString().trim();
+      String  imageURL  = imageInput.toString().trim();
       String ID = "";
-      String docID = "";
 
+
+      User? currentUser = FirebaseAuth.instance.currentUser;
+
+
+      if (currentUser != null) {
+        docID = currentUser.uid;
+      }
 
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
@@ -268,6 +276,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
             "bloodGroup" : bloodGroup,
             "gender" : gender,
             "lastDonation" : lastDonation,
+            "imageURL" :  imageURL ,
             "uid" : ID,
           };
 
@@ -283,36 +292,6 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
           });
 
 
-
-          Map <String, dynamic> newUserData6 = {
-            "name" : name,
-            "pass" : pass,
-            "number" : etaki244,
-            "email" : email,
-            "handle" : handle,
-            "dateOfBirth" : dateOfBirth,
-            "district" : district,
-            "thana" : thana,
-            "age" : boyosh,
-            "height" : ucchota,
-            "weight" : vor,
-            "bloodGroup" : bloodGroup,
-            "gender" : gender,
-            "lastDonation" : lastDonation,
-            "uid" : ID,
-            "imageURL" : imageURL,
-          };
-
-          DocumentReference documentReference6 = await FirebaseFirestore.instance.collection("newrrrrrUserCredentials").doc(ID);
-          await documentReference6.set(newUserData6)
-              .then((value) {
-            print("Document added successfully!");
-            docID = ID;
-            print("Document ID: $ID");
-          })
-              .catchError((error) {
-            print("Error adding document: $error");
-          });
 
         }
       } on FirebaseAuthException catch (ex) {
@@ -389,6 +368,7 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
 
   Uint8List? _image;
 
+
   void selectImage() async{
     Uint8List img = await pickImage(ImageSource.gallery);
     setState(() {
@@ -396,15 +376,56 @@ class _PhysicalInformationPageState extends State<PhysicalInformationPage> {
     });
   }
 
-  void saveProfile() async{
+  void saveProfile() async {
+    if (_image != null) {
+      try {
+        // Ensure currentUser is not null and uid is not empty
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        if (currentUser == null || currentUser.uid.isEmpty) {
+          print("Error: Empty or null UID for currentUser");
+          return;
+        }
 
-    String resp = await StoreData().saveData(file:  _image!);
+        // Assign a non-empty value to docID
+        docID = currentUser.uid;
 
-    setState(() {
-      imageURL = resp;
-    });
+        String imageUrl = await StoreData().saveData(file: _image!, docId: docID);
 
+        if (imageUrl.isNotEmpty) {
+          setState(() {
+            imageInput = imageUrl;
+          });
+
+          print("Updating document with docID: $docID");
+
+          // Check if docID is not empty before updating Firestore
+          if (docID.isNotEmpty) {
+            DocumentReference documentReference = FirebaseFirestore.instance.collection("newUserCredentials").doc(docID);
+
+            try {
+              await documentReference.update({
+                "imageURL": imageUrl,
+              });
+
+              print("Document field 'imageURL' updated successfully!");
+            } catch (e) {
+              print("Error updating document field: $e");
+            }
+          } else {
+            print("Error: Empty docID");
+          }
+        } else {
+          print("Error: Empty imageUrl returned from saveData method");
+        }
+      } catch (error) {
+        print("Error saving data: $error");
+      }
+    } else {
+      print("No image selected");
+    }
   }
+
+
   bool isLoading = false;
 
 
