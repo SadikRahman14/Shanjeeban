@@ -22,6 +22,7 @@ import 'package:login/pages/DonateNow/profilePageReciever.dart';
 import 'package:login/pages/RequestForBlood/requestPage.dart';
 import 'package:login/rakibul/noReceiver.dart';
 import 'Smj/Physical_Informtion.dart';
+import 'api/firebase_api.dart';
 import 'deGea/signUpInfo.dart';
 import 'rakibul/loginPage.dart';
 import 'pages/fromNavigationBar/home_page.dart';
@@ -31,13 +32,14 @@ import 'package:login/pages/RequestForBlood/donatorsList.dart';
 import 'package:login/pages/RequestForBlood/profilePageDonators.dart';
 import 'package:login/pages/DonateNow/climaxPageReciever.dart';
 import 'package:login/pages/DonateNow/requestorList.dart';
-
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Firebase_api().initNotifications();
 
   User? currentUser = FirebaseAuth.instance.currentUser;
   if(currentUser != null){
@@ -62,8 +64,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
 
 
-      home: MainPage(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
-
+      home: SplashScreen(), //MainPage(),//(FirebaseAuth.instance.currentUser != null) ? Home() : loginPage(),
+      navigatorKey: navigatorKey,
 
 
       routes: {
